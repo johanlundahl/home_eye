@@ -1,0 +1,21 @@
+(% extends 'base.html' %)
+
+(% block title %) Welcome! (% endblock %)
+
+(% block content %)
+
+  <div class="bg-success">  
+    <h1>(( sensor['name'] ))</h1>
+
+  	<div class="container-fluid">
+		  (( sensor['temperature'] )) C
+	  </div>
+	  <div class="container-fluid">
+		  (( sensor['humidity'] )) %
+  	</div>
+  	<div class="container-fluid">
+  		(( sensor['timestamp'] ))
+  	</div>
+  </div>
+
+(% endblock %)
