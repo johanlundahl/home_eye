@@ -5,7 +5,7 @@ from home_eye import config
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from pytils import http
 
-app = Flask(__name__)
+app = FlaskApp(__name__)
 app.secret_key = config.app_secret_key
 login_manager = LoginManager(app)
 login_manager.init_app(app)
