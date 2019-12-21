@@ -3,7 +3,7 @@ from home_eye.flask_app import FlaskApp
 from home_eye.model.user import User
 from home_eye import config
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
-from pytils import http
+from pytils import http, logger
 
 app = FlaskApp(__name__)
 app.secret_key = config.app_secret_key
@@ -39,8 +39,12 @@ def logout():
 @login_required
 def home():
     code, json = http.get_json(config.latest_sensor_url)
-    print(json)
     return render_template('home.html', sensor = json)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5010)
+    try:
+        logger.init()
+        app.run(host='0.0.0.0', port=5010)
+    except Exception:
+        logger.exception('Application Exception')
+    
