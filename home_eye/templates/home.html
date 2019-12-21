@@ -7,15 +7,17 @@
   <div class="bg-success">  
     <h1>(( sensor['name'] ))</h1>
 
-  	<div class="container-fluid">
+    <div class="row">
+  	<div class="col-sm-6" style="font-size:10vw;">
 		  (( sensor['temperature'] )) C
 	  </div>
-	  <div class="container-fluid">
+	  <div class="col-sm-6" style="font-size:15vw;">
 		  (( sensor['humidity'] )) %
-  	</div>
-  	<div class="container-fluid">
-  		(( sensor['timestamp'] ))
-  	</div>
+    </div>
+    <div class="col-sm-12">
+      (( sensor['timestamp'] ))
+    </div>  
+  </div>
   </div>
 
 (% endblock %)
