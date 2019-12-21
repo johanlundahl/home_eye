@@ -4,20 +4,26 @@
 
 (% block content %)
 
-  <div class="bg-success">  
-    <h1>(( sensor['name'] ))</h1>
+<div class="bg-success">  
+    <div class="container">
+        <h1>(( sensor['name'] ))</h1>
 
-    <div class="row">
-  	<div class="col-sm-6" style="font-size:10vw; text-align: center;">
-		  (( sensor['temperature'] )) C
-	  </div>
-	  <div class="col-sm-6" style="font-size:10vw;">
-		  (( sensor['humidity'] )) %
+        <div class="row">
+            <div class="col-sm-6" style="font-size:10vw; text-align: center;">
+                (( sensor['temperature'] )) C
+            </div>
+            <div class="col-sm-6" style="font-size:10vw; text-align: center;">
+                (( sensor['humidity'] )) %
+            </div>
+             
+        </div>
+        <div class="row">
+
+            <div class="col-sm-12">
+                Mätvärde uppmättes (( sensor['timestamp'] ))
+            </div>
+        </div> 
     </div>
-    <div class="col-sm-12">
-      Mätvärde uppmättes (( sensor['timestamp'] ))
-    </div>  
-  </div>
-  </div>
+</div>
 
 (% endblock %)
