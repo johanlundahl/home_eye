@@ -44,7 +44,7 @@ def home():
 if __name__ == '__main__':
     try:
         logger.init()
-        app.run(host='0.0.0.0', port=5010)
+        app.run(host='0.0.0.0', port=config.app_port)
     except Exception:
         logger.exception('Application Exception')
     
