@@ -63,7 +63,7 @@ if __name__ == '__main__':
         crt = os.path.join(os.path.dirname(__file__), config.crt_file)
         key = os.path.join(os.path.dirname(__file__), config.key_file)
         context = (crt, key)
-        app.run(host='0.0.0.0', port=config.app_port, ssl_context=context)
+        app.run(host='0.0.0.0', port=config.app_port, ssl_context='adhoc')
     except Exception:
         logger.exception('Application Exception')
     
