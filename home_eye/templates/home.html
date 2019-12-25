@@ -10,47 +10,39 @@
 
         <div class="row">
             <div class="col dashboard_value">
-                <p><i class="fas fa-thermometer-half"></i> (( sensor['temperature'] )) &deg;C</p>
+                <p><i class="fas fa-thermometer-half"></i> (( basement_json['temperature'] )) &deg;C</p>
             </div>
             <div class="col dashboard_value">
-                <i class="fas fa-tint"></i> (( sensor['humidity'] )) %
+                <i class="fas fa-tint"></i> (( basement_json['humidity'] )) %
             </div>
              
         </div>
         <div class="row">
             <div class="col-sm-12">
-                Uppmättes (( sensor['timestamp'] ))
+                Uppmättes (( basement_json['timestamp'] ))
             </div>
         </div> 
     </div>
 </div>
 
-<canvas id="myChart"></canvas>
-<script>
-var ctx = document.getElementById('myChart').getContext('2d');
-var myLineChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: (( labels|safe )),
-    datasets: [{ 
-        data: (( humidity|safe )),
-        label: "Humidity",
-        borderColor: "#3e95cd",
-        fill: false
-      },{ 
-        data: (( temperature|safe )),
-        label: "Temperature",
-        borderColor: "#c45850",
-        fill: false
-      }
-    ]
-  },
-  options: {
-    title: {
-      display: true,
-    }
-  }
-});
-</script>
+<div class="">  
+    <div class="container">
+        <h1>Utomhus</h1>
 
+        <div class="row">
+            <div class="col dashboard_value">
+                <p><i class="fas fa-thermometer-half"></i> (( outdoor_json['temperature'] )) &deg;C</p>
+            </div>
+            <div class="col dashboard_value">
+                <i class="fas fa-tint"></i> (( outdoor_json['humidity'] )) %
+            </div>
+             
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                Uppmättes (( outdoor_json['timestamp'] ))
+            </div>
+        </div> 
+    </div>
+</div>
 (% endblock %)

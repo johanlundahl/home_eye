@@ -40,12 +40,21 @@ def logout():
 @app.route('/', methods=['GET'])
 @login_required
 def home():
-    code, json = http.get_json('{}/api/sensors/basement/latest'.format(config.sensors_url))
-    code, trend = http.get_json('{}/api/sensors/basement/trend'.format(config.sensors_url))
+    code_basement, basement_json = http.get_json('{}/api/sensors/basement/latest'.format(config.sensors_url))
+    code_outdoor, outdoor_json = http.get_json('{}/api/sensors/outdoor/latest'.format(config.sensors_url))
+
+    return render_template('home.html', basement = basement_json, outdoor = outdoor_json)
+
+@app.route('/<name>', methods=['GET'])
+@login_required
+def sensor():
+    code, json = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
+    code, trend = http.get_json('{}/api/sensors/{}/trend'.format(config.sensors_url, name))
     labels = [x['date'] for x in trend]
     humidity_data = [x['humidity'] for x in trend]
     temperature_data = [x['temperature'] for x in trend]
     return render_template('home.html', sensor = json, labels = labels, humidity = humidity_data, temperature = temperature_data)
+
 
 if __name__ == '__main__':
     try:
