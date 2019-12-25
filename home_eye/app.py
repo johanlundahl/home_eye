@@ -38,8 +38,12 @@ def logout():
 @app.route('/', methods=['GET'])
 @login_required
 def home():
-    code, json = http.get_json(config.latest_sensor_url)
-    return render_template('home.html', sensor = json)
+    code, json = http.get_json('{}/api/sensors/basement/latest'.format(config.sensors_url))
+    code, trend = http.get_json('{}/api/sensors/basement/trend'.format(config.sensors_url))
+    labels = [x['date'] for x in trend]
+    humidity_data = [x['humidity'] for x in trend]
+    temperature_data = [x['temperature'] for x in trend]
+    return render_template('home.html', sensor = json, labels = labels, humidity = humidity_data, temperature = temperature_data)
 
 if __name__ == '__main__':
     try:

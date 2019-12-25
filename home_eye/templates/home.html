@@ -4,7 +4,7 @@
 
 (% block content %)
 
-<div class="bg-success">  
+<div class="">  
     <div class="container">
         <h1>Krypgrund</h1>
 
@@ -24,5 +24,33 @@
         </div> 
     </div>
 </div>
+
+<canvas id="myChart" width="400" height="100"></canvas>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: (( labels|safe )),
+    datasets: [{ 
+        data: (( humidity|safe )),
+        label: "Humidity",
+        borderColor: "#3e95cd",
+        fill: false
+      },{ 
+        data: (( temperature|safe )),
+        label: "Temperature",
+        borderColor: "#c45850",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+    }
+  }
+});
+</script>
 
 (% endblock %)
