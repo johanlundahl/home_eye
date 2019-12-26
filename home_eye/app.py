@@ -47,7 +47,7 @@ def home():
 
 @app.route('/<name>', methods=['GET'])
 @login_required
-def sensor():
+def sensor(name):
     code1, json = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
     code2, trend = http.get_json('{}/api/sensors/{}/trend'.format(config.sensors_url, name))
 
