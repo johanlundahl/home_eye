@@ -52,7 +52,7 @@ def sensor(name):
     code1, json = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
     code2, trend = http.get_json('{}/api/sensors/{}/trend'.format(config.sensors_url, name))
 
-    labels = [x['date'] for x in trend]
+    labels = [x['timestamp'] for x in trend]
     humidity_data = [x['humidity'] for x in trend]
     temperature_data = [x['temperature'] for x in trend]
     return render_template('sensor.html', sensor = json, labels = labels, humidity = humidity_data, temperature = temperature_data)
