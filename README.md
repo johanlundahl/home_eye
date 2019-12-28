@@ -1,4 +1,5 @@
-# home_eye
+# Home Eye
+This project serves web pages that display sensor values. Sensor values are fetched from [Home Store](http://github.com/johanlundahl/home_store).
 
 ## Installation
 
@@ -21,6 +22,8 @@ $ nano home_eye/config.py
 
 Set username and password that users can use to access the pages served by this application. Also set the secret key for the web app and the url to the data sources used by this app.
 
+CERT FILE
+
 ## Running
 
 To start the application manually 
@@ -30,7 +33,7 @@ $ python3 -m home_eye.app
 
 Make the python script executable:
 ```
-$ chmod +x <python file>
+$ chmod +x home_eye/app.py
 ```
 
 To make the application start automatically define a crontab job. Edit crontab by
@@ -46,4 +49,12 @@ Define which time the different jobs should be run at, e.g.
 Reboot your Rasperry Pi and the application will start:
 ```
 sudo reboot
+```
+
+## How to use the application
+The web application is started on HTTPS on the port specified in the `home_eye/config.py` file. Required username and password is also defined in the config file.
+
+Example:
+```
+https://localhost:5050
 ```
