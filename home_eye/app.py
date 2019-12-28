@@ -6,6 +6,7 @@ from flask_login import LoginManager, current_user, login_user, logout_user, log
 from pytils import http, logger
 from OpenSSL import SSL
 import os
+import sys
 
 app = FlaskApp(__name__)
 app.secret_key = config.app_secret_key
@@ -58,13 +59,16 @@ def sensor(name):
 
 
 if __name__ == '__main__':
-    try:
-        logger.init()
-        context = SSL.Context(SSL.SSLv23_METHOD)
-        crt = os.path.join(os.path.dirname(__file__), config.crt_file)
-        key = os.path.join(os.path.dirname(__file__), config.key_file)
-        context = (crt, key)
-        app.run(host='0.0.0.0', port=config.app_port, ssl_context='adhoc')
-    except Exception:
-        logger.exception('Application Exception')
-    
+    if 'win32' in sys.platform:
+        app.run(host='0.0.0.0')
+    else:
+        try:
+            logger.init()
+            context = SSL.Context(SSL.SSLv23_METHOD)
+            crt = os.path.join(os.path.dirname(__file__), config.crt_file)
+            key = os.path.join(os.path.dirname(__file__), config.key_file)
+            context = (crt, key)
+            app.run(host='0.0.0.0', port=config.app_port, ssl_context='adhoc')
+        except Exception:
+            logger.exception('Application Exception')
+        
