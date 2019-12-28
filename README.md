@@ -22,7 +22,8 @@ $ nano home_eye/config.py
 
 Set username and password that users can use to access the pages served by this application. Also set the secret key for the web app and the url to the data sources used by this app.
 
-CERT FILE
+To enable HTTPS the application requires a cert and key file. See example on how to generate these files in [this blog post](https://blog.miguelgrinberg.com/post/running-your-flask-application-over-https).
+
 
 ## Running
 
