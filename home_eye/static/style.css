@@ -1,19 +1,23 @@
 
 .dashboard_value {
-	font-size:8vw; 
+	font-size: 8vw; 
 	text-align: center; 
 	font-weight: bold;
 }
 
 a:link {
-  color: black;
+  	color: black;
 }
 a:visited {
-  color: black;
+  	color: black;
 }
 a:hover {
-  color: black;
+  	color: black;
 }
 a:active {
-  color: black;
+  	color: black;
+}
+
+h1 {
+	text-transform: capitalize;
 }
