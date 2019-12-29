@@ -4,3 +4,7 @@
 	text-align: center; 
 	font-weight: bold;
 }
+
+a:link, a:visited, a:hover, a:active {
+  color: black;
+}
