@@ -50,7 +50,7 @@ def home():
 @login_required
 def sensor(name):
     code1, json = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
-    code2, trend = http.get_json('{}/api/sensors/{}/trend'.format(config.sensors_url, name))
+    code2, trend = http.get_json('{}/api/sensors/{}/hourly-trend'.format(config.sensors_url, name))
 
     labels = [x['timestamp'] for x in trend]
     humidity_data = [x['humidity'] for x in trend]
