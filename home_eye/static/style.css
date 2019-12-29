@@ -5,6 +5,15 @@
 	font-weight: bold;
 }
 
-a:link, a:visited, a:hover, a:active {
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+a:hover {
+  color: black;
+}
+a:active {
   color: black;
 }

@@ -23,50 +23,7 @@
         </div> 
     </div>
     </a>
+
+    <br/><br/>
 (% endfor %)
-
-
-<div class="">  
-    <div class="container">
-        <h1><a href="(( basement['name'] ))">Krypgrund</a></h1>
-
-        <div class="row">
-            <div class="col dashboard_value">
-                <p><i class="fas fa-thermometer-half"></i> (( basement['temperature'] )) &deg;C</p>
-            </div>
-            <div class="col dashboard_value">
-                <i class="fas fa-tint"></i> (( basement['humidity'] )) %
-            </div>
-             
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                Uppmättes (( basement['timestamp'] ))
-            </div>
-        </div> 
-    </div>
-</div>
-
-<br/><br/>
-
-<div class="">  
-    <div class="container">
-        <h1><a href="(( outdoor['name'] ))">Utomhus</a></h1>
-
-        <div class="row">
-            <div class="col dashboard_value">
-                <p><i class="fas fa-thermometer-half"></i> (( outdoor['temperature'] )) &deg;C</p>
-            </div>
-            <div class="col dashboard_value">
-                <i class="fas fa-tint"></i> (( outdoor['humidity'] )) %
-            </div>
-             
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                Uppmättes (( outdoor['timestamp'] ))
-            </div>
-        </div> 
-    </div>
-</div>
 (% endblock %)
