@@ -43,8 +43,8 @@ def logout():
 def home():
     code_basement, basement_json = http.get_json('{}/api/sensors/basement/latest'.format(config.sensors_url))
     code_outdoor, outdoor_json = http.get_json('{}/api/sensors/outdoor/latest'.format(config.sensors_url))
-
-    return render_template('home.html', basement = basement_json, outdoor = outdoor_json)
+    sensors = [basement_json, outdoor_json]
+    return render_template('home.html', sensors = sensors, basement = basement_json, outdoor = outdoor_json)
 
 @app.route('/<name>', methods=['GET'])
 @login_required
