@@ -46,17 +46,20 @@ var options = {
   };
 
 var ctx = document.getElementById('daysChart').getContext('2d');
-var labels = [ (( for sensor in daily_trend ))
-  "(( sensor['timestamp'] ))",
-  (( endfor ))
+var labels = [ 
+  (% for sensor in daily_trend %)
+    "(( sensor['timestamp'] ))",
+  (% endfor %)
 ];
-var humidity = [ (( for sensor in daily_trend ))
-  (( sensor['humidity'] )),
-  (( endfor ))
+var humidity = [ 
+  (% for sensor in daily_trend %)
+    (( sensor['humidity'] )),
+  (% endfor %)
 ];
-var temperature = [ (( for sensor in daily_trend ))
-  (( sensor['temperature'] )),
-  (( endfor ))
+var temperature = [ 
+  (% for sensor in daily_trend %)
+    (( sensor['temperature'] )),
+  (% endfor %)
 ];
 var myLineChart = new Chart(ctx, {
   type: 'line',
