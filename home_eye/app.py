@@ -50,12 +50,16 @@ def home():
 @login_required
 def sensor(name):
     code1, json = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
-    code2, trend = http.get_json('{}/api/sensors/{}/hourly-trend'.format(config.sensors_url, name))
+    code2, hourly_trend = http.get_json('{}/api/sensors/{}/hourly-trend'.format(config.sensors_url, name))
+    code2, daily_trend = http.get_json('{}/api/sensors/{}/daily-trend'.format(config.sensors_url, name))
 
-    labels = [x['timestamp'] for x in trend]
-    humidity_data = [x['humidity'] for x in trend]
-    temperature_data = [x['temperature'] for x in trend]
-    return render_template('sensor.html', sensor = json, labels = labels, humidity = humidity_data, temperature = temperature_data)
+    labels = [x['timestamp'] for x in hourly_trend]
+    humidity_data = [x['humidity'] for x in hourly_trend]
+    temperature_data = [x['temperature'] for x in hourly_trend]
+
+
+    
+    return render_template('sensor.html', sensor = json, labels = labels, humidity = humidity_data, temperature = temperature_data, daily_trend = daily_trend)
 
 
 if __name__ == '__main__':
