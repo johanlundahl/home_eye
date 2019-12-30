@@ -25,10 +25,10 @@
     </div>
 </div>
 
-<canvas id="myChart"></canvas>
+<canvas id="hoursChart"></canvas>
 <canvas id="daysChart"></canvas>
-<script>
 
+<script>
 var options = {
     title: {
       display: true,
@@ -44,6 +44,29 @@ var options = {
       }]
     }
   };
+
+var ctx = document.getElementById('hoursChart').getContext('2d');
+var labels = (( labels|safe ));
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: (( labels|safe )),
+    datasets: [{ 
+        data: (( humidity|safe )),
+        label: "Humidity",
+        borderColor: "#3e95cd",
+        fill: false
+      },{ 
+        data: (( temperature|safe )),
+        label: "Temperature",
+        borderColor: "#c45850",
+        fill: false
+      }
+    ]
+  },
+  options: options
+});
+
 
 var ctx = document.getElementById('daysChart').getContext('2d');
 var labels = [ 
@@ -80,7 +103,6 @@ var myLineChart = new Chart(ctx, {
   },
   options: options
 });
-
 
 </script>
 
