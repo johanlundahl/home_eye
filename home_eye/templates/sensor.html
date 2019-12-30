@@ -29,23 +29,28 @@
 <canvas id="daysChart"></canvas>
 
 <script>
-var options = {
-    title: {
-      display: true,
-    },
-    aspectRatio: 1,
-    scales: {
-      xAxes: [{
-        ticks: {
-          autoSkip: true,
-          maxRotation: 90,
-          minRotation: 90
-        }
-      }]
-    }
-  };
+function get_options(title) {
+  var options = {
+      title: {
+        display: true,
+        text: title
+      },
+      aspectRatio: 1,
+      scales: {
+        xAxes: [{
+          ticks: {
+            autoSkip: true,
+            maxRotation: 90,
+            minRotation: 90
+          }
+        }]
+      }
+    };
+  return options;  
+}
 
 var ctx = document.getElementById('hoursChart').getContext('2d');
+var options_hours = get_options('Last 24h trend');
 var labels = (( labels|safe ));
 var myLineChart = new Chart(ctx, {
   type: 'line',
@@ -64,11 +69,12 @@ var myLineChart = new Chart(ctx, {
       }
     ]
   },
-  options: options
+  options: options_hours
 });
 
 
 var ctx = document.getElementById('daysChart').getContext('2d');
+var options_days = get_options('Last 30 days trend');
 var labels = [ 
   (% for sensor in daily_trend %)
     "(( sensor['timestamp'] ))",
@@ -101,7 +107,7 @@ var myLineChart = new Chart(ctx, {
       }
     ]
   },
-  options: options
+  options: options_days
 });
 
 </script>
