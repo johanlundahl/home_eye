@@ -90,11 +90,7 @@ var labels = [
     "(( sensor['timestamp'] ))",
   (% endfor %)
 ];
-var humidity = [ 
-  (% for sensor in daily_trend %)
-    (( sensor['humidity'] )),
-  (% endfor %)
-];
+var humidity = get_chart_data('humidity');
 var temperature = get_chart_data('temperature');
 
 var myLineChart = new Chart(ctx, {
