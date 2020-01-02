@@ -1,6 +1,8 @@
 # Home Eye
 This project serves web pages that display sensor values. Sensor values are fetched from [Home Store](http://github.com/johanlundahl/home_store).
 
+This project is intended to use with [Home Monitor](http://github.com/johanlundahl/home_monitor), [Home Store](http://github.com/johanlundahl/home_store) and [Temp Sensor](http://github.com/johanlundahl/temp_sensor).
+
 ## Installation
 
 Clone this git repo
