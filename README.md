@@ -60,13 +60,13 @@ Define which time the different jobs should be run at, e.g.
 
 Reboot your Rasperry Pi and the application will start:
 ```
-sudo reboot
+$ sudo reboot
 ```
 
 ## Logging
 Application events are logged to the application log file and can be viewed through
 ```
-tail -f application.log
+$ tail -f application.log
 ```
 
 
