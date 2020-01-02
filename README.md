@@ -63,6 +63,13 @@ Reboot your Rasperry Pi and the application will start:
 sudo reboot
 ```
 
+## Logging
+Application events are logged to the application log file and can be viewed through
+```
+tail -f application.log
+```
+
+
 ## How to use the application
 The web application is started on HTTPS on the port specified in the `home_eye/config.py` file. Required username and password is also defined in the config file.
 
