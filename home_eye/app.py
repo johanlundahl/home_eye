@@ -50,17 +50,41 @@ def home():
 @app.route('/<name>', methods=['GET'])
 @login_required
 def sensor(name):
-    code1, json = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
-    code2, hourly_trend = http.get_json('{}/api/sensors/{}/hourly-trend'.format(config.sensors_url, name))
-    code2, daily_trend = http.get_json('{}/api/sensors/{}/daily-trend'.format(config.sensors_url, name))
+    code1, latest = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
+    code2, trend = http.get_json('{}/api/sensors/{}?size=30'.format(config.sensors_url, name))
+    print('Fetching sensors', code1, len(latest), code2, len(trend))
+    #code2, hourly_trend = http.get_json('{}/api/sensors/{}/hourly-trend'.format(config.sensors_url, name))
+    #code2, daily_trend = http.get_json('{}/api/sensors/{}/daily-trend'.format(config.sensors_url, name))
 
-    labels = [x['timestamp'] for x in hourly_trend]
-    humidity_data = [x['humidity'] for x in hourly_trend]
-    temperature_data = [x['temperature'] for x in hourly_trend]
+    labels = [x['timestamp'] for x in trend]
+    humidities = [x['humidity'] for x in trend]
+    temperatures = [x['temperature'] for x in trend]
 
+    return render_template('sensor.html', sensor = latest, active=['active', '', ''], chart_labels=labels, chart_humidity=humidities, chart_temperature=temperatures)
 
+@app.route('/<name>/hours', methods=['GET'])
+@login_required
+def sensor_hours(name):
+    code1, latest = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
+    code2, trend = http.get_json('{}/api/sensors/{}/hourly-trend'.format(config.sensors_url, name))
     
-    return render_template('sensor.html', sensor = json, labels = labels, humidity = humidity_data, temperature = temperature_data, daily_trend = daily_trend)
+    labels = [x['timestamp'] for x in trend]
+    humidities = [x['humidity'] for x in trend]
+    temperatures = [x['temperature'] for x in trend]
+
+    return render_template('sensor.html', sensor = latest, active=['', 'active', ''], chart_labels=labels, chart_humidity=humidities, chart_temperature=temperatures)
+
+@app.route('/<name>/days', methods=['GET'])
+@login_required
+def sensor_days(name):
+    code1, latest = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
+    code2, trend = http.get_json('{}/api/sensors/{}/daily-trend'.format(config.sensors_url, name))
+    
+    labels = [x['timestamp'] for x in trend]
+    humidities = [x['humidity'] for x in trend]
+    temperatures = [x['temperature'] for x in trend]
+
+    return render_template('sensor.html', sensor = latest, active=['', '', 'active'], chart_labels=labels, chart_humidity=humidities, chart_temperature=temperatures)
 
 
 if __name__ == '__main__':

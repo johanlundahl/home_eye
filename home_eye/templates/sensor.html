@@ -25,9 +25,21 @@
     </div>
 </div>
 
-<canvas id="hoursChart"></canvas>
 <br/><br/>
-<canvas id="daysChart"></canvas>
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link ((active[0]))" href="/((sensor['name']))">Last readings</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link ((active[1]))" href="/((sensor['name']))/hours">Last 24 hours</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link ((active[2]))" href="/((sensor['name']))/days">Last 30 days</a>
+  </li>
+</ul>
+
+<canvas id="theChart"></canvas>
 
 <script>
 function get_options(title) {
@@ -50,6 +62,30 @@ function get_options(title) {
   return options;  
 }
 
+var ctx = document.getElementById('theChart').getContext('2d');
+var chart_options = get_options('');
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: (( chart_labels|safe )),
+    datasets: [{ 
+        data: (( chart_humidity|safe )),
+        label: "Humidity",
+        borderColor: "#3e95cd",
+        fill: false
+      },{ 
+        data: (( chart_temperature|safe )),
+        label: "Temperature",
+        borderColor: "#c45850",
+        fill: false
+      }
+    ]
+  },
+  options: chart_options
+});
+
+
+/*
 var ctx = document.getElementById('hoursChart').getContext('2d');
 var options_hours = get_options('Last 24h trend');
 var labels = (( labels|safe ));
@@ -111,7 +147,7 @@ var myLineChart = new Chart(ctx, {
   },
   options: options_days
 });
-
+*/
 </script>
 
 (% endblock %)
