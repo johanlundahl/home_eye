@@ -4,13 +4,30 @@
 
 (% block content %)
 
-<div class="text-center">  
-  <h1>Login</h1>
+<form action="/login" method="POST">
+  
+<div class="container text-center">  
+  	<div class="row">
+		<div class="col">
+  			<h1>Login</h1>
+  		</div>
+  	</div>
+  	<div class="row">
+		<div class="col">
+    		<input name="username" type="text">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+    		<input name="password" type="password">
+    	</div>
+	</div>
 
-  <form action="/login" method="POST">
-    <input name="username" type="text">
-    <input name="password" type="password">
-    <input type="submit">
-  </form>
+	<div class="row">
+		<div class="col">
+    		<input type="submit">
+		</div>
+	</div>  
 </div>  
+</form>
 (% endblock %)
