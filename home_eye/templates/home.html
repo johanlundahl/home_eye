@@ -4,6 +4,12 @@
 
 (% block content %)
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" aria-current="page">Home</li>
+  </ol>
+</nav>
+
 (% for sensor in sensors %)
     <a href="(( sensor['name'] ))">
     <div class="container">
