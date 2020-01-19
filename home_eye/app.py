@@ -45,7 +45,13 @@ def home():
     code_outdoor, outdoor_json = http.get_json('{}/api/sensors/outdoor/latest'.format(config.sensors_url))
     code_indoor, indoor_json = http.get_json('{}/api/sensors/indoor/latest'.format(config.sensors_url))
     sensors = [basement_json, outdoor_json, indoor_json]
-    return render_template('home.html', sensors = sensors)
+    
+    code, overview = http.get_json('{}overview?api_key={}'.format(config.solar_url, config.solar_api_key))
+    updated = overview['overview']['lastUpdateTime']
+    current_power = float(overview['overview']['currentPower']['power']) #aktuell effekt i W
+    day_energy = float(overview['overview']['lastDayData']['energy']) #kWh
+    solar = [round(current_power), round(day_energy/1000), updated]
+    return render_template('home.html', sensors = sensors, solar = solar)
 
 @app.route('/<name>', methods=['GET'])
 @login_required
@@ -57,7 +63,10 @@ def sensor(name):
     humidities = [x['humidity'] for x in trend]
     temperatures = [x['temperature'] for x in trend]
 
-    return render_template('sensor.html', sensor = latest, active=['active', '', ''], chart_labels=labels, chart_humidity=humidities, chart_temperature=temperatures)
+    h_avg = round(sum(humidities)/len(humidities), 1)
+    t_avg = round(sum(temperatures)/len(temperatures), 1)
+
+    return render_template('sensor.html', sensor = latest, active=['active', '', ''], chart_labels=labels, chart_humidity=humidities, chart_temperature=temperatures, humidity_avg=h_avg, temperature_avg=t_avg)
 
 @app.route('/<name>/hours', methods=['GET'])
 @login_required
@@ -69,7 +78,10 @@ def sensor_hours(name):
     humidities = [x['humidity'] for x in trend]
     temperatures = [x['temperature'] for x in trend]
 
-    return render_template('sensor.html', sensor = latest, active=['', 'active', ''], chart_labels=labels, chart_humidity=humidities, chart_temperature=temperatures)
+    h_avg = round(sum(humidities)/len(humidities), 1)
+    t_avg = round(sum(temperatures)/len(temperatures), 1)
+
+    return render_template('sensor.html', sensor = latest, active=['', 'active', ''], chart_labels=labels, chart_humidity=humidities, chart_temperature=temperatures, humidity_avg=h_avg, temperature_avg=t_avg)
 
 @app.route('/<name>/days', methods=['GET'])
 @login_required
@@ -81,8 +93,19 @@ def sensor_days(name):
     humidities = [x['humidity'] for x in trend]
     temperatures = [x['temperature'] for x in trend]
 
-    return render_template('sensor.html', sensor = latest, active=['', '', 'active'], chart_labels=labels, chart_humidity=humidities, chart_temperature=temperatures)
+    h_avg = round(sum(humidities)/len(humidities), 1)
+    t_avg = round(sum(temperatures)/len(temperatures), 1)
 
+    return render_template('sensor.html', sensor = latest, active=['', '', 'active'], chart_labels=labels, chart_humidity=humidities, chart_temperature=temperatures, humidity_avg=h_avg, temperature_avg=t_avg)
+
+
+@app.route('/solar', methods=['GET'])
+@login_required
+def solar():
+    url = '{}overview?api_key={}'.format(config.solar_url, config.solar_api_key)
+    code, overview = http.get_json(url)
+
+    return render_template('solar.html', updated,)
 
 if __name__ == '__main__':
     if 'win32' in sys.platform:

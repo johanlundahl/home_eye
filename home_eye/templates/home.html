@@ -10,6 +10,27 @@
   </ol>
 </nav>
 
+    <a href="solar">
+    <div class="container">
+        <h1>Solar panel</h1>
+        <div class="row">
+            <div class="col dashboard_value">
+                <p><i class="fas fa-plug"></i> (( solar[0] )) W</p>
+            </div>
+            <div class="col dashboard_value">
+                <i class="fas fa-solar-panel"></i> (( solar[1] )) kWh
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                Uppmättes (( solar[2] ))
+            </div>
+        </div> 
+    </div>
+    </a>
+
+    <br/><br/>
+
 (% for sensor in sensors %)
     <a href="(( sensor['name'] ))">
     <div class="container">

@@ -34,19 +34,30 @@
 
 <br/><br/>
 
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link ((active[0]))" href="/((sensor['name']))">Last readings</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link ((active[1]))" href="/((sensor['name']))/hours">24 hours</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link ((active[2]))" href="/((sensor['name']))/days">30 days</a>
-  </li>
-</ul>
 
-<canvas id="theChart"></canvas>
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link ((active[0]))" href="/((sensor['name']))">Last readings</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link ((active[1]))" href="/((sensor['name']))/hours">24 hours</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link ((active[2]))" href="/((sensor['name']))/days">30 days</a>
+    </li>
+  </ul>
+</div>
+
+<br/>
+<div class="container">
+  <p class="text-left">Average (( temperature_avg )) &deg;C, (( humidity_avg )) %</p>
+</div>
+
+
+<div class="container">
+  <canvas id="theChart"></canvas>
+</div>
 
 <script>
 function get_options(title) {
