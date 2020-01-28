@@ -5,6 +5,7 @@ from home_eye import config
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from pytils import http, logger
 from OpenSSL import SSL
+from datetime import datetime, timedelta
 import os
 import sys
 
@@ -73,7 +74,9 @@ def sensor(name):
 @login_required
 def sensor_hours(name):
     code1, latest = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
-    code2, trend = http.get_json('{}/api/sensors/{}/hourly-trend'.format(config.sensors_url, name))
+    #code2, trend = http.get_json('{}/api/sensors/{}/hourly-trend'.format(config.sensors_url, name))
+    yesterday = datetime.now() - timedelta(days=1)
+    code2, trend = http.get_json('{}/api/sensors/{}?timestamp[gt]={}'.format(config.sensors_url, name, yesterday.strftime('%Y-%m-%d %H:%M:%S')))
     trend = list(reversed(trend))
 
     labels = [x['timestamp'] for x in trend]
@@ -91,7 +94,7 @@ def sensor_days(name):
     code1, latest = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
     code2, trend = http.get_json('{}/api/sensors/{}/daily-trend'.format(config.sensors_url, name))
     trend = list(reversed(trend))
-    
+
     labels = [x['timestamp'] for x in trend]
     humidities = [x['humidity'] for x in trend]
     temperatures = [x['temperature'] for x in trend]
