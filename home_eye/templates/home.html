@@ -10,46 +10,67 @@
   </ol>
 </nav>
 
-    <a href="solar">
-    <div class="container">
+<a href="solar">
+    <div class="container sensor">
         <h1>Solar panel</h1>
         <div class="row">
-            <div class="col dashboard_value">
-                <p><i class="fas fa-plug"></i> (( solar[0] )) W</p>
+            <div class="col sensor-reading">
+                <div class="">
+                    <i class="fas fa-plug sensor-icon"></i> 
+                    <span class="sensor-value">(( solar[0] ))</span> 
+                    <span class="sensor-unit">W</span>
+                </div>
+                <div><span class="sensor-text">Power</span></div>
             </div>
-            <div class="col dashboard_value">
-                <i class="fas fa-solar-panel"></i> (( solar[1] )) kWh
+            <div class="col sensor-reading">
+                <div class="sensor-reading">
+                    <i class="fas fa-solar-panel sensor-icon"></i> 
+                    <span class="sensor-value">(( solar[1] ))</span> 
+                    <span class="sensor-unit">kWh</span>
+                </div>
+                <div><span class="sensor-text">Energy</span></div>
+            </div>
+            <div class="col sensor-reading">
+                <div class="sensor-timestamp">(( solar[2].split(' ')[0] ))</div>
+                <div class="sensor-timestamp">(( solar[2].split(' ')[1] ))</div>
+                <div><span class="sensor-text">Registered</span></div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                Uppmättes (( solar[2] ))
-            </div>
-        </div> 
     </div>
-    </a>
+</a>
 
-    <br/><br/>
+<br/><br/>
 
 (% for sensor in sensors %)
-    <a href="(( sensor['name'] ))">
-    <div class="container">
+<a href="(( sensor['name'] ))">
+    <div class="container sensor">
         <h1>(( sensor['name'] ))</h1>
         <div class="row">
-            <div class="col dashboard_value">
-                <p><i class="fas fa-thermometer-half"></i> (( sensor['temperature'] )) &deg;C</p>
+            <div class="col sensor-reading">
+                <div class="">
+                    <i class="fas fa-thermometer-half sensor-icon"></i>  
+                    <span class="sensor-value">(( sensor['temperature'] ))</span> 
+                    <span class="sensor-unit">&deg;C</span>
+                </div>
+                <div><span class="sensor-text">Temperature</span></div>
             </div>
-            <div class="col dashboard_value">
-                <i class="fas fa-tint"></i> (( sensor['humidity'] )) %
+            <div class="col sensor-reading">
+                <div class="sensor-reading">
+                    <i class="fas fa-tint sensor-icon"></i> 
+                    <span class="sensor-value">(( sensor['humidity'] ))</span> 
+                    <span class="sensor-unit">%</span>
+                </div>
+                <div><span class="sensor-text">Humidity</span></div>
+            </div>
+            <div class="col sensor-reading">
+                <div class="sensor-timestamp">(( sensor['timestamp'].split(' ')[0] ))</div>
+                <div class="sensor-timestamp">(( sensor['timestamp'].split(' ')[1] ))</div>
+                <div><span class="sensor-text">Registered</span></div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                Uppmättes (( sensor['timestamp'] ))
-            </div>
-        </div> 
     </div>
-    </a>
+
+</a>
 
     <br/><br/>
 (% endfor %)
