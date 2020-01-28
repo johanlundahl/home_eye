@@ -57,6 +57,9 @@ def home():
 @app.route('/<name>', methods=['GET'])
 @login_required
 def sensor(name):
+    if 'favicon.ico' in name:
+        return '', 200
+
     code1, latest = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
     code2, trend = http.get_json('{}/api/sensors/{}?size=100'.format(config.sensors_url, name))
     trend = list(reversed(trend))
@@ -74,9 +77,9 @@ def sensor(name):
 @login_required
 def sensor_hours(name):
     code1, latest = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
-    #code2, trend = http.get_json('{}/api/sensors/{}/hourly-trend'.format(config.sensors_url, name))
     yesterday = datetime.now() - timedelta(days=1)
-    code2, trend = http.get_json('{}/api/sensors/{}?timestamp[gt]={}'.format(config.sensors_url, name, yesterday.strftime('%Y-%m-%d %H:%M:%S')))
+    code2, trend = http.get_json('{}/api/sensors/{}?timestamp[gt]={}&size=3600'.format(config.sensors_url, name, yesterday.strftime('%Y-%m-%d %H:%M:%S')))
+    trend = trend[0::int(len(trend)/100)]
     trend = list(reversed(trend))
 
     labels = [x['timestamp'] for x in trend]
