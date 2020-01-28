@@ -58,6 +58,7 @@ def home():
 def sensor(name):
     code1, latest = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
     code2, trend = http.get_json('{}/api/sensors/{}?size=100'.format(config.sensors_url, name))
+    trend = list(reversed(trend))
 
     labels = [x['timestamp'] for x in trend]
     humidities = [x['humidity'] for x in trend]
@@ -73,7 +74,8 @@ def sensor(name):
 def sensor_hours(name):
     code1, latest = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
     code2, trend = http.get_json('{}/api/sensors/{}/hourly-trend'.format(config.sensors_url, name))
-    
+    trend = list(reversed(trend))
+
     labels = [x['timestamp'] for x in trend]
     humidities = [x['humidity'] for x in trend]
     temperatures = [x['temperature'] for x in trend]
@@ -88,6 +90,7 @@ def sensor_hours(name):
 def sensor_days(name):
     code1, latest = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
     code2, trend = http.get_json('{}/api/sensors/{}/daily-trend'.format(config.sensors_url, name))
+    trend = list(reversed(trend))
     
     labels = [x['timestamp'] for x in trend]
     humidities = [x['humidity'] for x in trend]
