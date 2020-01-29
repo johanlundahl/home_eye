@@ -14,21 +14,24 @@
 	font-weight: bold;
 }
 .sensor-text {
-	font-size: 1.5vw;
+	font-size: 2vw;
 	font-weight: normal;
 	text-transform: uppercase;
 }
 .sensor-unit {
-	font-size: 3vw;
-}
-.sensor-icon {
 	font-size: 4vw;
 }
+.sensor-icon {
+	font-size: 5vw;
+}
 .sensor-value {
-	font-size: 5vw; 
+	font-size: 7vw; 
 }
 .sensor-timestamp {
-	font-size: 2vw; 
+	font-size: 3.5vw; 
+}
+.sensor-description {
+	font-size: 3vw;	
 }
 
 a:link {
@@ -50,7 +53,7 @@ a:active {
 
 h1 {
 	text-transform: capitalize;
-	font-size: 4vw; 
+	font-size: 7vw; 
 }
 
 .title {
