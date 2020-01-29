@@ -54,12 +54,14 @@ def home():
     solar = [round(current_power), round(day_energy/1000), updated]
     return render_template('home.html', sensors = sensors, solar = solar)
 
+@app.route('/favicon.ico', methods=['GET'])
+@login_required
+def favicon():
+    return '', 200
+
 @app.route('/<name>', methods=['GET'])
 @login_required
 def sensor(name):
-    if 'favicon.ico' in name:
-        return '', 200
-
     code1, latest = http.get_json('{}/api/sensors/{}/latest'.format(config.sensors_url, name))
     code2, trend = http.get_json('{}/api/sensors/{}?size=100'.format(config.sensors_url, name))
     trend = list(reversed(trend))
@@ -114,7 +116,12 @@ def solar():
     url = '{}overview?api_key={}'.format(config.solar_url, config.solar_api_key)
     code, overview = http.get_json(url)
 
-    return render_template('solar.html', updated,)
+    solar = {}
+    solar['energy'] = round(overview['overview']['lastDayData']['energy']/1000)
+    solar['power'] = round(overview['overview']['currentPower']['power']/1000)
+    solar['timestamp'] = overview['overview']['lastUpdateTime']
+
+    return render_template('solar.html', sensor=solar)
 
 if __name__ == '__main__':
     if 'win32' in sys.platform:
