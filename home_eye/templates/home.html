@@ -17,7 +17,7 @@
             <div class="col sensor-reading">
                 <div class="">
                     <i class="fas fa-plug sensor-icon"></i> 
-                    <span class="sensor-value">(( solar[0] ))</span> 
+                    <span class="sensor-value">(( solar.power ))</span> 
                     <span class="sensor-unit">W</span>
                 </div>
                 <div><span class="sensor-text">Power</span></div>
@@ -25,14 +25,14 @@
             <div class="col sensor-reading">
                 <div class="sensor-reading">
                     <i class="fas fa-solar-panel sensor-icon"></i> 
-                    <span class="sensor-value">(( solar[1] ))</span> 
+                    <span class="sensor-value">(( solar.energy ))</span> 
                     <span class="sensor-unit">kWh</span>
                 </div>
                 <div><span class="sensor-text">Energy</span></div>
             </div>
             <div class="col sensor-reading">
-                <div class="sensor-timestamp">(( solar[2].split(' ')[0] ))</div>
-                <div class="sensor-timestamp">(( solar[2].split(' ')[1] ))</div>
+                <div class="sensor-timestamp">(( solar.updated.split(' ')[0] ))</div>
+                <div class="sensor-timestamp">(( solar.updated.split(' ')[1] ))</div>
                 <div><span class="sensor-text">Registered</span></div>
             </div>
         </div>
@@ -42,14 +42,14 @@
 <br/><br/>
 
 (% for sensor in sensors %)
-<a href="(( sensor['name'] ))">
+<a href="(( sensor.name ))">
     <div class="container sensor">
-        <h1>(( sensor['name'] ))</h1>
+        <h1>(( sensor.name ))</h1>
         <div class="row">
             <div class="col sensor-reading">
                 <div class="">
                     <i class="fas fa-thermometer-half sensor-icon"></i>  
-                    <span class="sensor-value">(( sensor['temperature'] ))</span> 
+                    <span class="sensor-value">(( sensor.temperature ))</span> 
                     <span class="sensor-unit">&deg;C</span>
                 </div>
                 <div><span class="sensor-text">Temperature</span></div>
@@ -57,14 +57,14 @@
             <div class="col sensor-reading">
                 <div class="sensor-reading">
                     <i class="fas fa-tint sensor-icon"></i> 
-                    <span class="sensor-value">(( sensor['humidity'] ))</span> 
+                    <span class="sensor-value">(( sensor.humidity ))</span> 
                     <span class="sensor-unit">%</span>
                 </div>
                 <div><span class="sensor-text">Humidity</span></div>
             </div>
             <div class="col sensor-reading">
-                <div class="sensor-timestamp">(( sensor['timestamp'].split(' ')[0] ))</div>
-                <div class="sensor-timestamp">(( sensor['timestamp'].split(' ')[1] ))</div>
+                <div class="sensor-timestamp">(( sensor.updated.split(' ')[0] ))</div>
+                <div class="sensor-timestamp">(( sensor.updated.split(' ')[1] ))</div>
                 <div><span class="sensor-text">Registered</span></div>
             </div>
         </div>

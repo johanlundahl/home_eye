@@ -7,17 +7,17 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item active title" aria-current="page">(( sensor['name'] ))</li>
+    <li class="breadcrumb-item active title" aria-current="page">(( sensor.name ))</li>
   </ol>
 </nav>
 
 <div class="container sensor">
-    <h1>(( sensor['name'] ))</h1>
+    <h1>(( sensor.name ))</h1>
     <div class="row">
         <div class="col sensor-reading">
             <div class="">
                 <i class="fas fa-thermometer-half sensor-icon"></i>  
-                <span class="sensor-value">(( sensor['temperature'] ))</span> 
+                <span class="sensor-value">(( sensor.temperature ))</span> 
                 <span class="sensor-unit">&deg;C</span>
             </div>
             <div><span class="sensor-text">Temperature</span></div>
@@ -25,14 +25,14 @@
         <div class="col sensor-reading">
             <div class="sensor-reading">
                 <i class="fas fa-tint sensor-icon"></i> 
-                <span class="sensor-value">(( sensor['humidity'] ))</span> 
+                <span class="sensor-value">(( sensor.humidity ))</span> 
                 <span class="sensor-unit">%</span>
             </div>
             <div><span class="sensor-text">Humidity</span></div>
         </div>
         <div class="col sensor-reading">
-            <div class="sensor-timestamp">(( sensor['timestamp'].split(' ')[0] ))</div>
-            <div class="sensor-timestamp">(( sensor['timestamp'].split(' ')[1] ))</div>
+            <div class="sensor-timestamp">(( sensor.updated.split(' ')[0] ))</div>
+            <div class="sensor-timestamp">(( sensor.updated.split(' ')[1] ))</div>
             <div><span class="sensor-text">Registered</span></div>
         </div>
     </div>
@@ -44,20 +44,20 @@
 <div class="container">
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link ((active[0]))" href="/((sensor['name']))">Lastest</a>
+      <a class="nav-link ((active[0]))" href="/((sensor.name))">Day</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link ((active[1]))" href="/((sensor['name']))/hours">24 hours</a>
+      <a class="nav-link ((active[1]))" href="/((sensor.name))/week">Week</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link ((active[2]))" href="/((sensor['name']))/days">30 days</a>
+      <a class="nav-link ((active[2]))" href="/((sensor.name))/month">Month</a>
     </li>
   </ul>
 </div>
 
 <br/>
 <div class="container">
-  <p class="text-left">Average (( temperature_avg )) &deg;C, (( humidity_avg )) %</p>
+  <p class="text-left">Average (( history.temperature_avg )) &deg;C, (( history.humidity_avg )) %</p>
 </div>
 
 
@@ -91,14 +91,14 @@ var chart_options = get_options('');
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: (( chart_labels|safe )),
+    labels: (( history.timestamps|safe )),
     datasets: [{ 
-        data: (( chart_humidity|safe )),
+        data: (( history.humidities|safe )),
         label: "Humidity",
         borderColor: "#3e95cd",
         fill: false
       },{ 
-        data: (( chart_temperature|safe )),
+        data: (( history.temperatures|safe )),
         label: "Temperature",
         borderColor: "#c45850",
         fill: false
@@ -107,71 +107,6 @@ var myLineChart = new Chart(ctx, {
   },
   options: chart_options
 });
-
-
-/*
-var ctx = document.getElementById('hoursChart').getContext('2d');
-var options_hours = get_options('Last 24h trend');
-var labels = (( labels|safe ));
-var myLineChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: (( labels|safe )),
-    datasets: [{ 
-        data: (( humidity|safe )),
-        label: "Humidity",
-        borderColor: "#3e95cd",
-        fill: false
-      },{ 
-        data: (( temperature|safe )),
-        label: "Temperature",
-        borderColor: "#c45850",
-        fill: false
-      }
-    ]
-  },
-  options: options_hours
-});
-
-
-var ctx = document.getElementById('daysChart').getContext('2d');
-var options_days = get_options('Last 30 days trend');
-var labels = [ 
-  (% for sensor in daily_trend %)
-    "(( sensor['timestamp'] ))",
-  (% endfor %)
-];
-var humidity = [ 
-  (% for sensor in daily_trend %)
-    (( sensor['humidity'] )),
-  (% endfor %)
-];
-var temperature = [ 
-  (% for sensor in daily_trend %)
-    (( sensor['temperature'] )),
-  (% endfor %)
-];
-
-var myLineChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: labels,
-    datasets: [{ 
-        data: humidity,
-        label: "Humidity",
-        borderColor: "#3e95cd",
-        fill: false
-      },{ 
-        data: temperature,
-        label: "Temperature",
-        borderColor: "#c45850",
-        fill: false
-      }
-    ]
-  },
-  options: options_days
-});
-*/
 </script>
 
 (% endblock %)
