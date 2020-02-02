@@ -63,7 +63,7 @@ def home():
 @login_required
 def sensor(name):
     latest = sensor_proxy.get_latest(name)
-    history = sensor_proxy.get_history(name, days=1, size=100)
+    history = sensor_proxy.get_history(name, days=1, size=24)
     return render_template('sensor.html', sensor = latest, active=['active', '', ''], history=history)
 
 @app.route('/<name>/week', methods=['GET'])
@@ -77,7 +77,7 @@ def sensor_hours(name):
 @login_required
 def sensor_month(name):
     latest = sensor_proxy.get_latest(name)
-    history = sensor_proxy.get_history(name, days=30, size=200)
+    history = sensor_proxy.get_history(name, days=30, size=60)
     return render_template('sensor.html', sensor = latest, active=['', '', 'active'], history=history)
 
 @app.route('/solar', methods=['GET'])
