@@ -14,7 +14,7 @@ class SensorProxy:
 
 	def get_history(self, name, days, size):
 		from_day = datetime.now() - timedelta(days=days)
-		status, trend = http.get('{}/api/sensors/{}?size={}&timestamp[gt]={}'.format(self.base_url, name, size, from_day.strftime('%Y-%m-%d %H:%M:%S')))
+		status, trend = http.get('{}/api/sensors/{}/history?from={}&resolution={}'.format(self.base_url, name, from_day.strftime('%Y-%m-%d %H:%M:%S'), size))
 		sensors = json.loads(trend, object_hook=SensorDecoder.decode)
 		return SensorHistory(list(reversed(sensors)))
 		
