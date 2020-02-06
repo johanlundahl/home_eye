@@ -1,5 +1,4 @@
 class Solar:
-    
     def __init__(self, power, energy, updated):
         self._power = power
         self._energy = energy
@@ -30,12 +29,23 @@ class Solar:
         energy = float(dct['overview']['lastDayData']['energy'])
         return Solar(power, energy, updated)
 
-class SolarDecoder():
+
+class SolarHistory:
+    def __init__(self, dates, values):
+        self._dates = dates
+        self._values = values
+
+    @property
+    def dates(self):
+        return self._dates
+    
+    @property
+    def values(self):
+        return self._values
+
     @classmethod
-    def decode(cls, dct):
-        if 'lastUpdateTime' in dct:
-            print(dct)
-            updated = dct['overview']['lastUpdateTime']
-            power = float(dct['overview']['currentPower']['power'])
-            energy = float(dct['overview']['lastDayData']['energy'])
-            return Solar(power, energy, updated)
+    def from_dict(cls, dct):
+        readings = dct['energy']['values']
+        dates = [x['date'].split(' ')[0] for x in readings]
+        values = [x['value'] for x in readings]
+        return SolarHistory(dates, values)

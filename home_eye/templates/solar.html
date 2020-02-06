@@ -43,7 +43,47 @@
 
 <br/>
 
+<div class="container">
+  <canvas id="theChart"></canvas>
+</div>
 
+<script>
+function get_options(title) {
+  var options = {
+      title: {
+        display: true,
+        text: title
+      },
+      aspectRatio: 1,
+      scales: {
+        xAxes: [{
+          ticks: {
+            autoSkip: true,
+            maxRotation: 90,
+            minRotation: 90
+          }
+        }]
+      }
+    };
+  return options;  
+}
+
+var ctx = document.getElementById('theChart').getContext('2d');
+var chart_options = get_options('');
+var myLineChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: (( history.dates|safe )),
+    datasets: [{ 
+        data: (( history.values|safe )),
+        label: "Energy",
+        borderColor: "#3e95cd",
+        fill: false
+      }
+    ]
+  },
+  options: chart_options
+});
 </script>
 
 (% endblock %)

@@ -80,11 +80,13 @@ def sensor_month(name):
     history = sensor_proxy.get_history(name, days=30, size=60)
     return render_template('sensor.html', sensor = latest, active=['', '', 'active'], history=history)
 
+
 @app.route('/solar', methods=['GET'])
 @login_required
 def solar():
     solar = solar_proxy.get_today()
-    return render_template('solar.html', solar=solar)
+    solar_history = solar_proxy.get_energy_history(days=7)
+    return render_template('solar.html', solar=solar, history=solar_history)
 
 if __name__ == '__main__':
     if 'win32' in sys.platform:
