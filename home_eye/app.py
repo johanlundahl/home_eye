@@ -6,10 +6,7 @@ from home_eye.model.sensor_proxy import SensorProxy
 from home_eye import config
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from pytils import http, logger
-from OpenSSL import SSL
 from datetime import datetime, timedelta
-import os
-import sys
 
 app = FlaskApp(__name__)
 app.secret_key = config.app_secret_key
@@ -89,16 +86,9 @@ def solar():
     return render_template('solar.html', solar=solar, history=solar_history)
 
 if __name__ == '__main__':
-    if 'win32' in sys.platform:
-        app.run(host='0.0.0.0')
-    else:
-        try:
-            logger.init()
-            context = SSL.Context(SSL.SSLv23_METHOD)
-            crt = os.path.join(os.path.dirname(__file__), config.crt_file)
-            key = os.path.join(os.path.dirname(__file__), config.key_file)
-            context = (crt, key)
-            app.run(host='0.0.0.0', port=config.app_port, ssl_context='adhoc')
-        except Exception:
-            logger.exception('Application Exception')
+    try:
+        logger.init()
+        app.run(host='0.0.0.0', port=config.app_port)
+    except Exception:
+        logger.exception('Application Exception')
         
