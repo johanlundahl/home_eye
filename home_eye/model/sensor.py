@@ -60,7 +60,7 @@ class SensorHistory:
     @property
     def temperature_avg(self):
         t = self.temperatures
-        return round(sum(t)/len(t), 1)
+        return round(sum(t)/len(t), 1) if len(t) > 0 else 0
 
     def __repr__(self):
         return 'SensorHistory({}, {}, {})'.format(len(self._sensors), self.humidity_avg, self.temperature_avg)
