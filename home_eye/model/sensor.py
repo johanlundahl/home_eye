@@ -55,7 +55,7 @@ class SensorHistory:
     @property
     def humidity_avg(self):
         h = self.humidities
-        return round(sum(h)/len(h), 1)
+        return round(sum(h)/len(h), 1) if len(h) > 0 else 0
 
     @property
     def temperature_avg(self):
