@@ -36,7 +36,7 @@ key_file = 'key-file-name'
 To enable HTTPS the application requires a cert and key file. See example on how to generate these files in [this blog post](https://blog.miguelgrinberg.com/post/running-your-flask-application-over-https).
 
 
-## Running standalone
+## Running
 
 To start the application manually 
 ```
@@ -63,10 +63,6 @@ Reboot your Rasperry Pi and the application will start:
 $ sudo reboot
 ```
 
-## Running with Apache
-
-Follow [this tutorial](https://www.codementor.io/@abhishake/minimal-apache-configuration-for-deploying-a-flask-app-ubuntu-18-04-phu50a7ft) to set up the application to run under Apache. When run with Apache then `home_eye/myapp.wsgi` is the main application file.
-
 ## Logging
 Application events are logged to the application log file and can be viewed through
 ```
@@ -81,3 +77,9 @@ Example:
 ```
 https://localhost:5050
 ```
+
+## Running with Apache
+
+This application can be served by a self hosted Apache web server. Follow [this tutorial](https://www.codementor.io/@abhishake/minimal-apache-configuration-for-deploying-a-flask-app-ubuntu-18-04-phu50a7ft) to set up the application to run under Apache. When run with Apache then `home_eye/myapp.wsgi` is the main application file.
+
+Logging is then handled by Apache and the URL will be defined in the Apache configuration.
