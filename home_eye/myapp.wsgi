@@ -2,15 +2,14 @@
 
 import logging
 import sys
+from home_eye.myapp import logger as logr
+from home_eye.myapp import app as application
+from home_eye.config import config as config
 
 logging.basicConfig(stream=sys.stderr)
-sys.path.insert(0, '/home/pi/home_eye/')
-
-from home_eye.myapp import logger as logr
+sys.path.insert(0, config.app_root_path)
 logr.init()
-
-from home_eye.myapp import app as application
-application.secret_key = 'anything you wish'
+application.secret_key = config.app_secret_key
 
 
 
