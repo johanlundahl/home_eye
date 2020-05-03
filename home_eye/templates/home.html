@@ -42,36 +42,36 @@
 <br/><br/>
 
 (% for sensor in sensors %)
-<a href="(( sensor.name ))">
-    <div class="container sensor">
-        <h1>(( sensor.name ))</h1>
-        <div class="row">
-            <div class="col sensor-reading">
-                <div class="">
-                    <i class="fas fa-thermometer-half sensor-icon"></i>  
-                    <span class="sensor-value">(( sensor.temperature ))</span> 
-                    <span class="sensor-unit">&deg;C</span>
+    (% if sensor is not none %)
+    <a href="(( sensor.name ))">
+        <div class="container sensor">
+            <h1>(( sensor.name ))</h1>
+            <div class="row">
+                <div class="col sensor-reading">
+                    <div class="">
+                        <i class="fas fa-thermometer-half sensor-icon"></i>  
+                        <span class="sensor-value">(( sensor.temperature ))</span> 
+                        <span class="sensor-unit">&deg;C</span>
+                    </div>
+                    <div><span class="sensor-text">Temperature</span></div>
                 </div>
-                <div><span class="sensor-text">Temperature</span></div>
-            </div>
-            <div class="col sensor-reading">
-                <div class="sensor-reading">
-                    <i class="fas fa-tint sensor-icon"></i> 
-                    <span class="sensor-value">(( sensor.humidity ))</span> 
-                    <span class="sensor-unit">%</span>
+                <div class="col sensor-reading">
+                    <div class="sensor-reading">
+                        <i class="fas fa-tint sensor-icon"></i> 
+                        <span class="sensor-value">(( sensor.humidity ))</span> 
+                        <span class="sensor-unit">%</span>
+                    </div>
+                    <div><span class="sensor-text">Humidity</span></div>
                 </div>
-                <div><span class="sensor-text">Humidity</span></div>
-            </div>
-            <div class="col sensor-reading">
-                <div class="sensor-timestamp">(( sensor.updated.split(' ')[0] ))</div>
-                <div class="sensor-timestamp">(( sensor.updated.split(' ')[1] ))</div>
-                <div><span class="sensor-text">Registered</span></div>
+                <div class="col sensor-reading">
+                    <div class="sensor-timestamp">(( sensor.updated.split(' ')[0] ))</div>
+                    <div class="sensor-timestamp">(( sensor.updated.split(' ')[1] ))</div>
+                    <div><span class="sensor-text">Registered</span></div>
+                </div>
             </div>
         </div>
-    </div>
-
-</a>
-
+    </a>
     <br/><br/>
+    (% endif %)
 (% endfor %)
 (% endblock %)
