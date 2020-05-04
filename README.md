@@ -141,9 +141,12 @@ $ sudo mkdir /etc/apache2/ssl
 ```
 2. Generate a crt and key file valid for 3 years
 ```
-sudo openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -out /etc/apache2/ssl/server.crt -keyout /etc/apache2/ssl/server.key
+$ sudo openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -out /etc/apache2/ssl/server.crt -keyout /etc/apache2/ssl/server.key
+``
+3. Enable the certificate
 ```
-3. sudo a2enmod ssl
+$ sudo a2enmod ssl
+```
 4. Edit the .conf file to include SSL
 
 ```
