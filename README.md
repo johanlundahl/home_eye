@@ -135,8 +135,14 @@ Configure an A record with your domain pointing to your servers IP address. You'
 
 Enable SSL https://hallard.me/enable-ssl-for-apache-server-in-5-minutes/
 
-1. sudo mkdir /etc/apache2/ssl
-2. sudo openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -out /etc/apache2/ssl/server.crt -keyout /etc/apache2/ssl/server.key
+1. Start by creating a ssl folder
+```
+$ sudo mkdir /etc/apache2/ssl
+```
+2. Generate a crt and key file valid for 3 years
+```
+sudo openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -out /etc/apache2/ssl/server.crt -keyout /etc/apache2/ssl/server.key
+```
 3. sudo a2enmod ssl
 4. Edit the .conf file to include SSL
 
