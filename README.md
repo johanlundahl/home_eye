@@ -94,7 +94,7 @@ Check that the server in installed by visiting the Pi's IP in your browser.
 
 ### Configure Apache
 
-Create a conf file 
+Create a apache configuration file for your application 
 ```
 $ sudo nano /etc/apache2/sites-available/example.conf
 ```
@@ -129,18 +129,17 @@ Reload Apache configurations
 $ sudo service apache2 start
 ```
 
-Configure aa A record with your domain pointing to your servers IP address. You'll find the IP address of your machine through `hostname -I`. The domain needs to be added in the application .conf file of Apache configuration in `/etc/apache/sites-available`.
+Configure an A record with your domain pointing to your servers IP address. You'll find the IP address of your machine through `hostname -I`. The domain needs to be added in the application .conf file of Apache configuration in `/etc/apache/sites-available`.
 
-Enable SSL on local machine... https://hallard.me/enable-ssl-for-apache-server-in-5-minutes/ SSL needs to added to conf file...
+### Enable SSL
 
-### SSL
-
-https://hallard.me/enable-ssl-for-apache-server-in-5-minutes/
+Enable SSL https://hallard.me/enable-ssl-for-apache-server-in-5-minutes/
 
 1. sudo mkdir /etc/apache2/ssl
 2. sudo openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -out /etc/apache2/ssl/server.crt -keyout /etc/apache2/ssl/server.key
 3. sudo a2enmod ssl
 4. Edit the .conf file to include SSL
+
 ... ```
 ... <VirtualHost *:443>
 ... SSLEngine On
