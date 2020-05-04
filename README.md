@@ -79,13 +79,23 @@ https://localhost:5050
 ```
 
 ## Running with Apache
+This is a description on how to serve a flask application on a self hosted Apache web server.
 
 ### Install Apache
-This application can be served by a self hosted Apache web server. Follow [this tutorial](https://www.codementor.io/@abhishake/minimal-apache-configuration-for-deploying-a-flask-app-ubuntu-18-04-phu50a7ft) to set up the application to run under Apache. When run with Apache then `home_eye/myapp.wsgi` is the main application file.
+The following steps describe how to install Apache and is based on [this tutorial](https://www.codementor.io/@abhishake/minimal-apache-configuration-for-deploying-a-flask-app-ubuntu-18-04-phu50a7ft).
 
-Logging is then handled by Apache and the URL will be defined in the Apache configuration.
+Install Apache
+```
+$ sudo apt update
+$ sudo apt install apache2
+```
 
-Start by [installing Apache to the Pi and configure the flask app](https://www.codementor.io/@abhishake/minimal-apache-configuration-for-deploying-a-flask-app-ubuntu-18-04-phu50a7ft). Start the Apache server with
+Install mod_wsgi for python 3
+```
+$ sudo apt-get install libapache2-mod-wsgi-py3 python-dev
+```
+
+Start Apache
 ```
 $ sudo service apache2 start
 ```
