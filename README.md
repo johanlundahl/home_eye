@@ -87,7 +87,7 @@ Logging is then handled by Apache and the URL will be defined in the Apache conf
 
 Start by [installing Apache to the Pi and configure the flask app](https://www.codementor.io/@abhishake/minimal-apache-configuration-for-deploying-a-flask-app-ubuntu-18-04-phu50a7ft). Start the Apache server with
 ```
-sudo service apache2 start
+$ sudo service apache2 start
 ```
 
 Check that the server in installed by visiting the Pi's IP in your browser.
@@ -135,19 +135,22 @@ Configure an A record with your domain pointing to your servers IP address. You'
 
 The following steps describe how to enable SSL for your application and is based on [a tutorial](https://hallard.me/enable-ssl-for-apache-server-in-5-minutes/).
 
-1. Start by creating a ssl folder
+Start by creating a ssl folder
 ```
 $ sudo mkdir /etc/apache2/ssl
 ```
-2. Generate a crt and key file valid for 3 years
+
+Generate self-signed certificate valid for 3 years (1095 days)
 ```
 $ sudo openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -out /etc/apache2/ssl/server.crt -keyout /etc/apache2/ssl/server.key
-``
-3. Enable the certificate
+```
+
+Enable the certificate
 ```
 $ sudo a2enmod ssl
 ```
-4. Edit the .conf file to include SSL
+
+Edit the .conf file to include SSL
 
 ```
 <VirtualHost *:443>
@@ -157,8 +160,17 @@ $ sudo a2enmod ssl
 	...
 ```
 
-5. For port 80: Redirect "/" "https://your_domain_or_IP/"
-5. Restart `sudo service apache2 restart`
+To automatically redirect from http to https add the following to the VirtualHost for http
+```
+<VirtualHost *:80>
+	...
+	Redirect "/" "https://your_domain_or_IP/"
+```
+
+Restart apache for the changes to take affect
+```
+$ sudo service apache2 restart
+```
 
 <!--
 TODO:
