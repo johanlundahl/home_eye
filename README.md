@@ -141,10 +141,11 @@ Enable SSL https://hallard.me/enable-ssl-for-apache-server-in-5-minutes/
 4. Edit the .conf file to include SSL
 
 ```
-... <VirtualHost *:443>
-... SSLEngine On
-... SSLCertificateFile /etc/ssl/certs/example.com.crt
-... SSLCertificateKeyFile /etc/ssl/private/example.com.key
+<VirtualHost *:443>
+	SSLEngine On
+	SSLCertificateFile /etc/ssl/certs/example.com.crt
+	SSLCertificateKeyFile /etc/ssl/private/example.com.key
+	...
 ```
 
 5. For port 80: Redirect "/" "https://your_domain_or_IP/"
