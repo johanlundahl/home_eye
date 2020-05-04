@@ -80,6 +80,82 @@ https://localhost:5050
 
 ## Running with Apache
 
+### Install Apache
 This application can be served by a self hosted Apache web server. Follow [this tutorial](https://www.codementor.io/@abhishake/minimal-apache-configuration-for-deploying-a-flask-app-ubuntu-18-04-phu50a7ft) to set up the application to run under Apache. When run with Apache then `home_eye/myapp.wsgi` is the main application file.
 
 Logging is then handled by Apache and the URL will be defined in the Apache configuration.
+
+Start by [installing Apache to the Pi and configure the flask app](https://www.codementor.io/@abhishake/minimal-apache-configuration-for-deploying-a-flask-app-ubuntu-18-04-phu50a7ft). Start the Apache server with
+```
+sudo service apache2 start
+```
+
+Check that the server in installed by visiting the Pi's IP in your browser.
+
+### Configure Apache
+
+Create a conf file 
+```
+$ sudo nano /etc/apache2/sites-available/example.conf
+```
+with the following content
+
+```
+<VirtualHost *:80>
+     # Add machine's IP address (use ifconfig command)
+     ServerName ip-address-of-host
+     # Give an alias to to start your website url with
+     WSGIScriptAlias /home_eye /home/pi/home_eye/home_eye/myapp.wsgi
+     <Directory /home/pi/home_eye/home_eye/>
+            # set permissions as per apache2.conf file
+            Options FollowSymLinks
+            AllowOverride None
+            Require all granted
+     </Directory>
+     ErrorLog ${APACHE_LOG_DIR}/error.log
+     LogLevel warn
+     CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+```
+
+Enable the configuration
+```
+$ sudo a2ensite example.conf
+```
+
+Reload Apache configurations
+```
+$ sudo service apache2 start
+```
+
+Configure aa A record with your domain pointing to your servers IP address. You'll find the IP address of your machine through `hostname -I`. The domain needs to be added in the application .conf file of Apache configuration in `/etc/apache/sites-available`.
+
+Enable SSL on local machine... https://hallard.me/enable-ssl-for-apache-server-in-5-minutes/ SSL needs to added to conf file...
+
+### SSL
+
+https://hallard.me/enable-ssl-for-apache-server-in-5-minutes/
+
+1. sudo mkdir /etc/apache2/ssl
+2. sudo openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -out /etc/apache2/ssl/server.crt -keyout /etc/apache2/ssl/server.key
+3. sudo a2enmod ssl
+4. Edit the .conf file to include SSL
+... ```
+... <VirtualHost *:443>
+... SSLEngine On
+... SSLCertificateFile /etc/ssl/certs/example.com.crt
+... SSLCertificateKeyFile /etc/ssl/private/example.com.key
+... ```
+
+5. For port 80: Redirect "/" "https://your_domain_or_IP/"
+5. Restart `sudo service apache2 restart`
+
+<!--
+TODO:
+- dokumentera README för Apache
+- config parameter för .wsgi filen
+
+
+-->
+
