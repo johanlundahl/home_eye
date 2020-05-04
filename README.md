@@ -140,12 +140,12 @@ Enable SSL https://hallard.me/enable-ssl-for-apache-server-in-5-minutes/
 3. sudo a2enmod ssl
 4. Edit the .conf file to include SSL
 
-... ```
+```
 ... <VirtualHost *:443>
 ... SSLEngine On
 ... SSLCertificateFile /etc/ssl/certs/example.com.crt
 ... SSLCertificateKeyFile /etc/ssl/private/example.com.key
-... ```
+```
 
 5. For port 80: Redirect "/" "https://your_domain_or_IP/"
 5. Restart `sudo service apache2 restart`
