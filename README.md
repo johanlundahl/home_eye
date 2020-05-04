@@ -79,7 +79,7 @@ https://localhost:5050
 ```
 
 ## Running with Apache
-This is a description on how to serve a flask application on a self hosted Apache web server.
+This is a description on how to serve a flask application on a self hosted Apache web server on a Raspberry Pi running Raspbian.
 
 ### Install Apache
 The following steps describe how to install Apache and is based on [this tutorial](https://www.codementor.io/@abhishake/minimal-apache-configuration-for-deploying-a-flask-app-ubuntu-18-04-phu50a7ft).
