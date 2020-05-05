@@ -44,12 +44,12 @@
 (% for sensor in sensors %)
     (% if sensor is not none %)
     
-    <div class="alert alert-primary" role="alert">
-        <div class="container">
-            <div class="float-left">
-                <h1>(( sensor.name )) Y</h1>
+    <div class="alert alert-primary d-flex" role="alert">
+        <div>
+            <div class="mr-auto p-2">
+                <h1>(( sensor.name ))</h1>
             </div>
-            <div class="float-right">
+            <div class="p-2">
                 <h1>
                     <i class="fas fa-thermometer-half sensor-icon"></i>
                     <span class="badge badge-dark">(( sensor.temperature ))</span>
