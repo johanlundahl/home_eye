@@ -40,18 +40,19 @@
 </a>
 
 <br/><br/>
-
+<div class="container">
 (% for sensor in sensors %)
     (% if sensor is not none %)
     
     <h1>
         <i class="fas fa-thermometer-half sensor-icon"></i>
         (( sensor.name ))
-        
+
     </h1>
 
     (% endif %)
 (% endfor %)
+</div>
 
 (% for sensor in sensors %)
     (% if sensor is not none %)
