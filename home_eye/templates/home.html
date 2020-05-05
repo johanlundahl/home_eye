@@ -10,36 +10,23 @@
   </ol>
 </nav>
 
-<a href="solar">
-    <div class="container sensor">
-        <h1>Solar panel</h1>
-        <div class="row">
-            <div class="col sensor-reading">
-                <div class="">
+
+
+<div class="container">
+    <a href="solar">    
+        <div class="alert alert-primary d-flex" role="alert">
+            <div class="mr-auto p-2">
+                <h1>Solar panel</h1>
+            </div>
+            <div class="p-2">
+                <h1>
                     <i class="fas fa-plug sensor-icon"></i> 
-                    <span class="sensor-value">(( solar.power ))</span> 
-                    <span class="sensor-unit">W</span>
-                </div>
-                <div><span class="sensor-text">Power</span></div>
-            </div>
-            <div class="col sensor-reading">
-                <div class="sensor-reading">
-                    <i class="fas fa-solar-panel sensor-icon"></i> 
-                    <span class="sensor-value">(( solar.energy ))</span> 
-                    <span class="sensor-unit">kWh</span>
-                </div>
-                <div><span class="sensor-text">Energy</span></div>
-            </div>
-            <div class="col sensor-reading">
-                <div class="sensor-timestamp">(( solar.updated.split(' ')[0] ))</div>
-                <div class="sensor-timestamp">(( solar.updated.split(' ')[1] ))</div>
-                <div><span class="sensor-text">Registered</span></div>
+                    <!--span class="badge badge-dark"-->(( solar.power )) W<!--/span-->
+                </h1>
             </div>
         </div>
-    </div>
-</a>
-
-<br/><br/>
+    </a>
+</div>
 
 <div class="container">
 (% for sensor in sensors %)
@@ -52,7 +39,7 @@
             <div class="p-2">
                 <h1>
                     <i class="fas fa-thermometer-half sensor-icon"></i>
-                    <span class="badge badge-dark">(( sensor.temperature )) &deg;C</span>
+                    <!--span class="badge badge-dark"-->(( sensor.temperature )) &deg;C<!--/span-->
                 </h1>
             </div>
         </div>
@@ -60,6 +47,7 @@
     (% endif %)
 (% endfor %)
 </div>
+
 
 (% for sensor in sensors %)
     (% if sensor is not none %)
