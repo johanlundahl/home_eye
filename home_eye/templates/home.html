@@ -44,12 +44,13 @@
 (% for sensor in sensors %)
     (% if sensor is not none %)
     
-    <h1>
-        <i class="fas fa-thermometer-half sensor-icon"></i>
-        (( sensor.name ))
-        <span class="badge badge-dark">(( sensor.temperature ))</span>
-    </h1>
-
+    <div class="alert alert-primary">
+        <h1>
+            <i class="fas fa-thermometer-half sensor-icon"></i>
+            (( sensor.name ))
+            <span class="badge badge-dark">(( sensor.temperature ))</span>
+        </h1>
+    </div>
     (% endif %)
 (% endfor %)
 </div>
