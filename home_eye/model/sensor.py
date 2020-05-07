@@ -1,9 +1,10 @@
+from home_eye.model.value import Value
 
 class Sensor:   
     def __init__(self, name, temperature, humidity, updated):
         self._name = name
-        self._temperature = temperature
-        self._humidity = humidity
+        self._temperature = Value(temperature, '°C')
+        self._humidity = Value(humidity, '%')
         self._updated = updated
 
     @property
@@ -46,11 +47,11 @@ class SensorHistory:
     
     @property
     def humidities(self):
-        return [x.humidity for x in self._sensors]
+        return [x.humidity.value for x in self._sensors]
     
     @property
     def temperatures(self):
-        return [x.temperature for x in self._sensors]
+        return [x.temperature.value for x in self._sensors]
     
     @property
     def humidity_avg(self):

@@ -1,7 +1,9 @@
+from home_eye.model.value import Value
+
 class Solar:
     def __init__(self, power, energy, updated):
-        self._power = power
-        self._energy = energy
+        self._power = Value(power, 'W')
+        self._energy = Value(energy, 'Wh')
         self._updated = updated
 
     @property
@@ -10,11 +12,11 @@ class Solar:
     
     @property
     def power(self):
-        return round(self._power)
+        return self._power
     
     @property
     def energy(self):
-        return round(self._energy/1000)
+        return self._energy
     
     def __repr__(self):
         return 'Solar({}, {}, {})'.format(self.power, self.energy, self.updated)
