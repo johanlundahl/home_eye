@@ -22,7 +22,7 @@
 	font-size: 4vw;
 }
 .sensor-icon {
-	font-size: 5vw;
+	font-size: 4.5vw;
 }
 .sensor-value {
 	font-size: 7vw; 
@@ -52,8 +52,7 @@ a:active {
 }
 
 h1 {
-	text-transform: capitalize;
-	font-size: 7vw; 
+	font-size: 5vw; 
 }
 
 .title {
