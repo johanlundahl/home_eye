@@ -1,3 +1,4 @@
+from datetime import datetime
 
 class Value:
 
@@ -15,6 +16,8 @@ class Value:
 			return str(self.format_number(self._value)) 
 		if isinstance(self._value, str):
 			return str(self._value.capitalize())
+		if isinstance(self._value, datetime):
+			return self._value.strftime('%-H:%M %-d %b')
 		return str(self._value)
 	
 	@property

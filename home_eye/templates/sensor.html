@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col sensor-reading">
             <div class="">
-                <i class="fas fa-thermometer-half sensor-icon"></i>  
+                <i class="fas fa-thermometer-half sensor-icon mr-3"></i> 
                 <span class="sensor-value">(( sensor.temperature.display_value ))</span> 
                 <span class="sensor-unit">(( sensor.temperature.unit ))</span>
             </div>
@@ -24,15 +24,15 @@
         </div>
         <div class="col sensor-reading">
             <div class="sensor-reading">
-                <i class="fas fa-tint sensor-icon"></i> 
+                <i class="fas fa-tint sensor-icon mr-3"></i> 
                 <span class="sensor-value">(( sensor.humidity.display_value ))</span> 
                 <span class="sensor-unit">(( sensor.humidity.unit ))</span>
             </div>
             <div><span class="sensor-text">Humidity</span></div>
         </div>
         <div class="col sensor-reading">
-            <div class="sensor-timestamp">(( sensor.updated.split(' ')[0] ))</div>
-            <div class="sensor-timestamp">(( sensor.updated.split(' ')[1] ))</div>
+            <div class="sensor-timestamp">(( sensor.updated.display_value.split(' ')[0] ))</div>
+            <div class="sensor-timestamp">(( sensor.updated.display_value.split(' ')[1] )) ((sensor.updated.display_value.split(' ')[2]))</div>
             <div><span class="sensor-text">Registered</span></div>
         </div>
     </div>

@@ -1,11 +1,12 @@
 from home_eye.model.value import Value
+from datetime import datetime
 
 class Sensor:   
     def __init__(self, name, temperature, humidity, updated):
         self._name = name
         self._temperature = Value(temperature, '°C')
         self._humidity = Value(humidity, '%')
-        self._updated = updated
+        self._updated = Value(updated)
 
     @property
     def name(self):
@@ -34,7 +35,7 @@ class SensorDecoder:
     @classmethod
     def decode(cls, dct):
         if 'humidity' in dct and 'temperature' in dct: 
-            return Sensor(dct['name'], dct['temperature'], dct['humidity'], dct['timestamp'])
+            return Sensor(dct['name'], dct['temperature'], dct['humidity'], datetime.strptime(dct['timestamp'], '%Y-%m-%d %H:%M:%S'))
 
 
 class SensorHistory:
@@ -43,7 +44,7 @@ class SensorHistory:
 
     @property
     def timestamps(self):
-        return [x.updated for x in self._sensors]
+        return [x.updated.display_value for x in self._sensors]
     
     @property
     def humidities(self):
