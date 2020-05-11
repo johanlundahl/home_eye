@@ -1,5 +1,5 @@
 from home_eye.model.value import Value
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class Sensor:   
     def __init__(self, name, temperature, humidity, updated):
@@ -7,6 +7,7 @@ class Sensor:
         self._temperature = Value(temperature, '°C')
         self._humidity = Value(humidity, '%')
         self._updated = Value(updated)
+        self._now = datetime.now()
 
     @property
     def name(self):
@@ -24,13 +25,17 @@ class Sensor:
     def updated(self):
         return self._updated
 
+    @property
+    def age(self):
+        delta = self._now - self._updated.value
+        return delta.seconds // 3600
+
     def __repr__(self):
         return 'Sensor({}, {}, {}, {})'.format(self.name, self.temperature, self.humidity, self.updated)
     
     def __str__(self):
         return 'Sensor({}, {}, {}, {})'.format(self.name, self.temperature, self.humidity, self.updated)
         
-
 class SensorDecoder:
     @classmethod
     def decode(cls, dct):

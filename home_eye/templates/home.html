@@ -12,8 +12,8 @@
 
 
 
-<div class="container">
-    <a href="solar">    
+<div class="container"> 
+    <a href="solar">
         <div class="alert alert-primary d-flex" role="alert">
             <div class="mr-auto p-2">
                 <h1 class="mb-0">Solar panel</h1>
@@ -32,9 +32,9 @@
 (% for sensor in sensors %)
     (% if sensor is not none %)
     <a href="(( sensor.name ))">    
-        <div class="alert alert-primary d-flex" role="alert">
+        <div class="alert (( 'alert-success' if sensor.age < 1 )) (( 'alert-warning' if sensor.age >= 1 and sensor.age < 2 )) (( 'alert-danger' if sensor.age >= 2 )) d-flex" role="alert">
             <div class="mr-auto p-2">
-                <h1 class="mb-0">(( sensor.name ))</h1>
+                <h1 class="mb-0">(( sensor.name ))  </h1>
             </div>
             <div class="p-2">
                 <h1 class="mb-0">
