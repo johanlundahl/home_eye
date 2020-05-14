@@ -13,6 +13,62 @@
 
 <div class="container sensor">
     <h1>(( sensor.name ))</h1>
+
+
+    <table class="table plain_text">
+      <tbody>
+        <tr>
+          <td>Temperature</td>
+          <td><i class="fas fa-thermometer-half"></i>
+            (( sensor.temperature.display_value ))
+            (( sensor.temperature.unit ))</td>
+        </tr>
+        <tr>
+          <td>Humidity</td>
+          <td><i class="fas fa-tint"></i> 
+            (( sensor.humidity.display_value ))
+            (( sensor.humidity.unit ))</td>
+        </tr>
+        <tr>
+          <td>Registered</td>
+          <td>(( sensor.updated.display_value ))</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <br><br>
+
+     <div class="d-flex">
+        <div class="plain_text mr-auto p-2">
+            Temperature
+        </div>
+        <div class="p-2 plain_text mb-0">
+            <i class="fas fa-thermometer-half sensor-icon"></i>
+            (( sensor.temperature.display_value ))
+            (( sensor.temperature.unit ))
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="plain_text mr-auto p-2">
+            Humidity
+        </div>
+        <div class="p-2 plain_text mb-0">
+            <i class="fas fa-tint sensor-icon"></i> 
+            (( sensor.humidity.display_value ))
+            (( sensor.humidity.unit ))
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="plain_text mr-auto p-2">
+            Registered
+        </div>
+        <div class="p-2 plain_text mb-0">
+            (( sensor.updated.display_value ))
+        </div>
+    </div>
+
+    <br/><br/>
+
     <div class="row">
         <div class="col sensor-reading">
             <div class="">

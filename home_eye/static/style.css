@@ -58,3 +58,7 @@ h1 {
 .title {
 	text-transform: capitalize;
 }
+
+.plain_text {
+	font-size: 3vw;
+}
