@@ -7,7 +7,7 @@ from home_eye import config
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from pytils import http, logger
 from datetime import datetime, timedelta
-from flask_cors import CORS
+#from flask_cors import CORS
 
 
 app = FlaskApp(__name__)
@@ -16,7 +16,7 @@ login_manager = LoginManager(app)
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-CORS(app, resources={r'/*': {'origins': '*'}})
+#CORS(app, resources={r'/*': {'origins': '*'}})
 
 solar_proxy = SolarProxy(config.solar_url, config.solar_api_key)
 sensor_proxy = SensorProxy(config.sensors_url)
