@@ -1,4 +1,7 @@
 from datetime import datetime
+import locale
+
+locale.setlocale(locale.LC_ALL, '')
 
 class Value:
 
@@ -13,7 +16,7 @@ class Value:
 	@property
 	def display_value(self):
 		if isinstance(self._value, (int, float)):
-			return str(self.format_number(self._value)) 
+			return '{0:n}'.format(self.format_number(self._value)) 
 		if isinstance(self._value, str):
 			return str(self._value.capitalize())
 		if isinstance(self._value, datetime):
@@ -33,7 +36,7 @@ class Value:
 		return int(round(value, 0))
 
 	def thousand(self, value):
-		if value > 999:
+		if value > 999 and self._unit is not '':
 			self._unit = 'k' + self._unit
 			return value/1000
 		else:
