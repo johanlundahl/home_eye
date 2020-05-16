@@ -20,6 +20,31 @@
     <link rel="stylesheet" href="(( url_for('static', filename='style.css') ))"></link>
   </head>
   <body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Homie</a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Sensors</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/storage">Storage</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Sign out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
     <div class="container-fluid" style="margin:0;padding:0;">
 
       (% with messages = get_flashed_messages() %)

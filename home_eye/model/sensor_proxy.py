@@ -18,4 +18,6 @@ class SensorProxy:
 		sensors = json.loads(trend, object_hook=SensorDecoder.decode)
 		return SensorHistory(list(reversed(sensors)))
 		
-
+	def get_status(self):
+		status, summary = http.get('{}/api/status'.format(self.base_url))
+		return json.loads(summary)

@@ -1,0 +1,41 @@
+(% extends 'base.html' %)
+
+(% block title %) Homie - storage (% endblock %)
+
+(% block content %)
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active title" aria-current="page">Storage</li>
+  </ol>
+</nav>
+
+<div class="container sensor">
+    <h1>Storage</h1>
+    <table class="table plain_text">
+      <tbody>
+        <tr>
+          <td>Size</td>
+          <td>
+            (( status['size'] ))</td>
+        </tr>
+        <tr>
+          <td>Count</td>
+          <td>(( status['count'] ))</td>
+        </tr>
+        <tr>
+          <td>Oldest entry</td>
+          <td>(( status['oldest'] ))</td>
+        </tr>
+        <tr>
+          <td>Newest entry</td>
+          <td>(( status['newest'] ))</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+<br/>
+
+(% endblock %)

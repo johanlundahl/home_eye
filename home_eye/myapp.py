@@ -7,12 +7,16 @@ from home_eye import config
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from pytils import http, logger
 from datetime import datetime, timedelta
+from flask_cors import CORS
+
 
 app = FlaskApp(__name__)
 app.secret_key = config.app_secret_key
 login_manager = LoginManager(app)
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+CORS(app, resources={r'/*': {'origins': '*'}})
 
 solar_proxy = SolarProxy(config.solar_url, config.solar_api_key)
 sensor_proxy = SensorProxy(config.sensors_url)
@@ -55,6 +59,13 @@ def home():
     solar = solar_proxy.get_today()
 
     return render_template('home.html', sensors = sensors, solar = solar)
+
+@app.route('/storage', methods=['GET'])
+@login_required
+def storage():
+    status = sensor_proxy.get_status()
+    return render_template('storage.html', status = status)
+
 
 @app.route('/<name>', methods=['GET'])
 @login_required
