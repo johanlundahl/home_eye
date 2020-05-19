@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from home_eye.model.sensor import SensorDecoder, Sensor, SensorHistory
+from home_eye.model.sensor import SensorDecoder, Sensor, SensorHistory, StatusDecoder
 from pytils import http
 import json
 
@@ -20,4 +20,4 @@ class SensorProxy:
 		
 	def get_status(self):
 		status, summary = http.get('{}/api/status'.format(self.base_url))
-		return json.loads(summary)
+		return json.loads(summary, object_hook=StatusDecoder.decode)
