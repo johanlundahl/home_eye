@@ -17,20 +17,19 @@
       <tbody>
         <tr>
           <td>Size</td>
-          <td>
-            (( status['size'] ))</td>
+          <td>(( status.size.display_value )) (( status.size.unit ))</td>
         </tr>
         <tr>
           <td>Count</td>
-          <td>(( status['count'] ))</td>
+          <td>(( status.count ))</td>
         </tr>
         <tr>
           <td>Oldest entry</td>
-          <td>(( status['oldest'] ))</td>
+          <td>(( status.oldest ))</td>
         </tr>
         <tr>
           <td>Newest entry</td>
-          <td>(( status['newest'] ))</td>
+          <td>(( status.newest ))</td>
         </tr>
       </tbody>
     </table>
