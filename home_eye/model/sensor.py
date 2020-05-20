@@ -28,7 +28,7 @@ class Sensor:
     @property
     def age(self):
         delta = self._now - self._updated.value
-        return delta.seconds // 3600
+        return delta.total_seconds() // 3600
 
     def __repr__(self):
         return 'Sensor({}, {}, {}, {})'.format(self.name, self.temperature, self.humidity, self.updated)
