@@ -20,7 +20,7 @@ class Value:
 		if isinstance(self._value, str):
 			return str(self._value.capitalize())
 		if isinstance(self._value, datetime):
-			return self._value.strftime('%-d %b %-H:%M')
+			return self._value.strftime('%-d %b, %-H:%M')
 		return str(self._value)
 	
 	@property
