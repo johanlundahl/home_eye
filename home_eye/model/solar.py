@@ -1,10 +1,11 @@
 from home_eye.model.value import Value
+from datetime import datetime
 
 class Solar:
     def __init__(self, power, energy, updated):
         self._power = Value(power, 'W')
         self._energy = Value(energy, 'Wh')
-        self._updated = updated
+        self._updated = Value(updated)
 
     @property
     def updated(self):
@@ -26,7 +27,7 @@ class Solar:
 
     @classmethod
     def from_dict(cls, dct):
-        updated = dct['overview']['lastUpdateTime']
+        updated = datetime.strptime(dct['overview']['lastUpdateTime'], '%Y-%m-%d %H:%M:%S')
         power = float(dct['overview']['currentPower']['power'])
         energy = float(dct['overview']['lastDayData']['energy'])
         return Solar(power, energy, updated)
