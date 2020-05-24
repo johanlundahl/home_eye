@@ -1,5 +1,6 @@
 Flask
 flask_login
+Flask-Cors
 requests
 git+https://github.com/johanlundahl/pytils.git
 pyOpenSSL

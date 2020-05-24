@@ -23,7 +23,7 @@ $ nano home_eye/config.py
 ```
 
 Edit the `home_eye/config.py` to set the following configuration parameters:
-```
+```python
 username = 'username-to-this-web-application'
 password = 'password-to-this-web-application'
 app_secret_key = 'secrec-key-used-by-web-server'
