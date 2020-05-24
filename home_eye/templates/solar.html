@@ -13,33 +13,23 @@
 
 <div class="container sensor">
     <h1>Solar panel</h1>
-    <div class="row">
-        <div class="col sensor-reading">
-            <div class="">
-                <i class="fas fa-plug sensor-icon"></i>  
-                <span class="sensor-value">(( solar.power.display_value ))</span> 
-                <span class="sensor-unit">(( solar.power.unit ))</span>
-            </div>
-            <div><span class="sensor-text">Power</span></div>
-        </div>
-        <div class="col sensor-reading">
-            <div class="sensor-reading">
-                <i class="fas fa-solar-panel sensor-icon"></i> 
-                <span class="sensor-value">(( solar.energy.display_value ))</span> 
-                <span class="sensor-unit">(( solar.energy.unit ))</span>
-            </div>
-            <div><span class="sensor-text">Energy</span></div>
-        </div>
-        <div class="col sensor-reading">
-            <div class="sensor-timestamp">(( solar.updated.split(' ')[0] ))</div>
-            <div class="sensor-timestamp">(( solar.updated.split(' ')[1] ))</div>
-            <div><span class="sensor-text">Registered</span></div>
-        </div>
-    </div>
+    <table class="table plain_text">
+      <tbody>
+        <tr>
+          <td>Power</td>
+          <td><i class="fas fa-plug sensor-icon"></i> (( solar.power.display_value )) (( solar.power.unit ))</td>
+        </tr>
+        <tr>
+          <td>Energy</td>
+          <td><i class="fas fa-solar-panel sensor-icon"></i> (( solar.energy.display_value )) (( solar.energy.unit ))</td>
+        </tr>
+        <tr>
+          <td>Registered</td>
+          <td>(( solar.updated.display_value ))</td>
+        </tr>
+      </tbody>
+    </table>
 </div>
-
-<br/><br/>
-
 
 <br/>
 
