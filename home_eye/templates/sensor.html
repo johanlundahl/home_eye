@@ -1,6 +1,6 @@
 (% extends 'base.html' %)
 
-(% block title %) Welcome! (% endblock %)
+(% block title %) (( sensor.name )) (% endblock %)
 
 (% block content %)
 
@@ -33,59 +33,6 @@
         </tr>
       </tbody>
     </table>
-
-     <!--div class="d-flex">
-        <div class="plain_text mr-auto p-2">
-            Temperature
-        </div>
-        <div class="p-2 plain_text mb-0">
-            <i class="fas fa-thermometer-half sensor-icon"></i>
-            (( sensor.temperature.display_value ))
-            (( sensor.temperature.unit ))
-        </div>
-    </div>
-    <div class="d-flex">
-        <div class="plain_text mr-auto p-2">
-            Humidity
-        </div>
-        <div class="p-2 plain_text mb-0">
-            <i class="fas fa-tint sensor-icon"></i> 
-            (( sensor.humidity.display_value ))
-            (( sensor.humidity.unit ))
-        </div>
-    </div>
-    <div class="d-flex">
-        <div class="plain_text mr-auto p-2">
-            Registered
-        </div>
-        <div class="p-2 plain_text mb-0">
-            (( sensor.updated.display_value ))
-        </div>
-    </div-->
-
-    <!--div class="row">
-        <div class="col sensor-reading">
-            <div class="">
-                <i class="fas fa-thermometer-half sensor-icon mr-3"></i> 
-                <span class="sensor-value">(( sensor.temperature.display_value ))</span> 
-                <span class="sensor-unit">(( sensor.temperature.unit ))</span>
-            </div>
-            <div><span class="sensor-text">Temperature</span></div>
-        </div>
-        <div class="col sensor-reading">
-            <div class="sensor-reading">
-                <i class="fas fa-tint sensor-icon mr-3"></i> 
-                <span class="sensor-value">(( sensor.humidity.display_value ))</span> 
-                <span class="sensor-unit">(( sensor.humidity.unit ))</span>
-            </div>
-            <div><span class="sensor-text">Humidity</span></div>
-        </div>
-        <div class="col sensor-reading">
-            <div class="sensor-timestamp">(( sensor.updated.display_value.split(' ')[0] ))</div>
-            <div class="sensor-timestamp">(( sensor.updated.display_value.split(' ')[1] )) ((sensor.updated.display_value.split(' ')[2]))</div>
-            <div><span class="sensor-text">Registered</span></div>
-        </div>
-    </div-->
 </div>
 
 <br/><br/>
