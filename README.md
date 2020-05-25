@@ -24,13 +24,14 @@ $ nano home_eye/config.py
 
 Edit the `home_eye/config.py` to set the following configuration parameters:
 ```python
-username = 'username-to-this-web-application'
-password = 'password-to-this-web-application'
-app_secret_key = 'secrec-key-used-by-web-server'
-app_port = 5050		# port exposing this web application on
-sensors_url = 'http://base-url-to-home-store'
-crt_file = 'cert-file-name'
-key_file = 'key-file-name'
+username        = 'username-to-this-web-application'
+password        = 'password-to-this-web-application'
+app_secret_key  = 'secrec-key-used-by-web-server'
+app_port        = 5050      # port exposing this web application on
+sensors_url     = 'http://base-url-to-home-store'
+solar_url       = 'https://solar-url'
+solar_api_key   = 'api-key-to-solar-url'
+app_root_path   = 'file-path-to-application'
 ```
 
 To enable HTTPS the application requires a cert and key file. See example on how to generate these files in [this blog post](https://blog.miguelgrinberg.com/post/running-your-flask-application-over-https).
@@ -164,17 +165,17 @@ Edit the .conf file to include SSL
 
 ```
 <VirtualHost *:443>
-	SSLEngine On
-	SSLCertificateFile /etc/ssl/certs/example.com.crt
-	SSLCertificateKeyFile /etc/ssl/private/example.com.key
-	...
+    SSLEngine On
+    SSLCertificateFile /etc/ssl/certs/example.com.crt
+    SSLCertificateKeyFile /etc/ssl/private/example.com.key
+    ...
 ```
 
 To automatically redirect from http to https add the following to the VirtualHost for http
 ```
 <VirtualHost *:80>
-	...
-	Redirect "/" "https://your_domain_or_IP/"
+    ...
+    Redirect "/" "https://your_domain_or_IP/"
 ```
 
 Restart apache for the changes to take affect
