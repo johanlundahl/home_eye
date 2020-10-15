@@ -1,11 +1,12 @@
 from flask import Flask, request, render_template ,redirect, url_for
+from flask_babel import Babel, format_datetime, gettext
 from home_eye.flask_app import FlaskApp
 from home_eye.model.user import User
 from home_eye.model.solar_proxy import SolarProxy
 from home_eye.model.sensor_proxy import SensorProxy
 from home_eye import config
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
-from pytils import http, logger
+from pytils import http, log
 from datetime import datetime, timedelta
 #from flask_cors import CORS
 
@@ -15,7 +16,12 @@ app.secret_key = config.app_secret_key
 login_manager = LoginManager(app)
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+babel = Babel(app)
 
+app.config['BABEL_DEFAULT_LOCALE'] = 'sv'
+app.test_request_context().push()
+print(format_datetime(datetime(1987, 3, 5, 17, 12), 'EEEE, d. MMMM yyyy H:mm'))
+print(gettext('Hej'))
 #CORS(app, resources={r'/*': {'origins': '*'}})
 
 solar_proxy = SolarProxy(config.solar_url, config.solar_api_key)
@@ -29,7 +35,7 @@ def load_user(user_id):
 def login():
     if request.method == 'GET':
         return render_template('login.html')
-    if request.method == 'POST' and all(x in request.form for x in ['username', 'password']):
+    if request.method == 'POST' and has_login_parameters(request):
         username = request.form['username']
         password = request.form['password']
         
@@ -38,6 +44,9 @@ def login():
             
         return redirect(url_for('home'))
     return 500
+
+def has_login_parameters(request):
+    return all(x in request.form for x in ['username', 'password'])
 
 @app.route('/logout', methods=['GET'])
 def logout():
@@ -98,8 +107,8 @@ def solar():
 
 if __name__ == '__main__':
     try:
-        logger.init()
+        log.init()
         app.run(host='0.0.0.0', port=config.app_port)
     except Exception:
-        logger.exception('Application Exception')
+        log.exception('Application Exception')
         
