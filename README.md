@@ -14,7 +14,7 @@ $ git clone https://github.com/johanlundahl/home_eye
 Install required python modules
 
 ```
-$ sudo pip3 install -r requirements.txt
+$ make init
 ```
 
 Edit config.py and add required configuration parameters for the application by
@@ -41,12 +41,7 @@ To enable HTTPS the application requires a cert and key file. See example on how
 
 To start the application manually 
 ```
-$ python3 -m home_eye.app
-```
-
-Make the python script executable:
-```
-$ chmod +x home_eye/app.py
+$ make run
 ```
 
 To make the application start automatically define a crontab job. Edit crontab by
@@ -67,7 +62,7 @@ $ sudo reboot
 ## Logging
 Application events are logged to the application log file and can be viewed through
 ```
-$ tail -f application.log
+$ make logging
 ```
 
 
