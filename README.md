@@ -17,21 +17,26 @@ Install required python modules
 $ make init
 ```
 
-Edit config.py and add required configuration parameters for the application by
+Edit myapp.yaml and add required configuration parameters for the application by
 ```
-$ nano home_eye/config.py
+$ nano home_eye/myapp.yaml
 ```
 
 Edit the `home_eye/config.py` to set the following configuration parameters:
-```python
-username        = 'username-to-this-web-application'
-password        = 'password-to-this-web-application'
-app_secret_key  = 'secrec-key-used-by-web-server'
-app_port        = 5050      # port exposing this web application on
-sensors_url     = 'http://base-url-to-home-store'
-solar_url       = 'https://solar-url'
-solar_api_key   = 'api-key-to-solar-url'
-app_root_path   = 'file-path-to-application'
+```yaml
+authentication:
+    username: ''
+    password: ''
+
+web_server:
+    port: 5050
+    secret_key: ''
+
+integration:
+    sensors_url: ''
+    solar_url: ''
+    solar_api_key: ''
+    app_root_path: ''
 ```
 
 To enable HTTPS the application requires a cert and key file. See example on how to generate these files in [this blog post](https://blog.miguelgrinberg.com/post/running-your-flask-application-over-https).
