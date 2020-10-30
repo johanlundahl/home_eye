@@ -1,0 +1,14 @@
+
+authentication:
+    username: ''
+    password: ''
+
+web_server:
+    port: 5050
+    secret_key: ''
+
+integration:
+    sensors_url: ''
+    solar_url: ''
+    solar_api_key: ''
+    app_root_path: ''

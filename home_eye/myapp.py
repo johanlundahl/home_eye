@@ -1,31 +1,22 @@
+from datetime import datetime, timedelta
 from flask import Flask, request, render_template ,redirect, url_for
-from flask_babel import Babel, format_datetime, gettext
+from flask_login import LoginManager, current_user, login_user, logout_user, login_required
+from pytils import http, log
+from pytils.config import cfg
 from home_eye.flask_app import FlaskApp
 from home_eye.model.user import User
 from home_eye.model.solar_proxy import SolarProxy
 from home_eye.model.sensor_proxy import SensorProxy
-from home_eye import config
-from flask_login import LoginManager, current_user, login_user, logout_user, login_required
-from pytils import http, log
-from datetime import datetime, timedelta
-#from flask_cors import CORS
-
+#from home_eye import config
 
 app = FlaskApp(__name__)
-app.secret_key = config.app_secret_key
+app.secret_key = cfg.web_server.secret_key
 login_manager = LoginManager(app)
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-babel = Babel(app)
 
-app.config['BABEL_DEFAULT_LOCALE'] = 'sv'
-app.test_request_context().push()
-print(format_datetime(datetime(1987, 3, 5, 17, 12), 'EEEE, d. MMMM yyyy H:mm'))
-print(gettext('Hej'))
-#CORS(app, resources={r'/*': {'origins': '*'}})
-
-solar_proxy = SolarProxy(config.solar_url, config.solar_api_key)
-sensor_proxy = SensorProxy(config.sensors_url)
+solar_proxy = SolarProxy(cfg.integration.solar_url, cfg.integration.solar_api_key)
+sensor_proxy = SensorProxy(cfg.integration.sensors_url)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -39,7 +30,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         
-        if username == config.username and password == config.password:
+        if username == cfg.authentication.username and password == cfg.authentication.password:
             login_user(User(username, password))
             
         return redirect(url_for('home'))
@@ -108,7 +99,7 @@ def solar():
 if __name__ == '__main__':
     try:
         log.init()
-        app.run(host='0.0.0.0', port=config.app_port)
+        app.run(host='0.0.0.0', port=cfg.web_server.port)
     except Exception:
         log.exception('Application Exception')
         
