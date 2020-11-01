@@ -4,12 +4,12 @@ from flask_login import LoginManager, current_user, login_user, logout_user, log
 from pytils import http, log
 from pytils.date import Date
 from pytils.config import cfg
+from pytils.http import Navigation
 from home_eye.flask_app import FlaskApp
-from home_eye.model.navigation import Navigation
 from home_eye.model.user import User
 from home_eye.model.solar_proxy import SolarProxy
 from home_eye.model.sensor_proxy import SensorProxy
-#from home_eye import config
+
 
 app = FlaskApp(__name__)
 app.secret_key = cfg.web_server.secret_key
