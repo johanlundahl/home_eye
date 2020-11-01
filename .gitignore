@@ -4,3 +4,4 @@ home_eye/config.py
 *.log
 *.crt
 *.key
+*.yaml
