@@ -2,8 +2,10 @@ from datetime import datetime, timedelta
 from flask import Flask, request, render_template ,redirect, url_for
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from pytils import http, log
+from pytils.date import Date
 from pytils.config import cfg
 from home_eye.flask_app import FlaskApp
+from home_eye.model.navigation import Navigation
 from home_eye.model.user import User
 from home_eye.model.solar_proxy import SolarProxy
 from home_eye.model.sensor_proxy import SensorProxy
@@ -73,6 +75,42 @@ def sensor(name):
     latest = sensor_proxy.get_latest(name)
     history = sensor_proxy.get_history(name, days=1, size=24)
     return render_template('sensor.html', sensor = latest, active=['active', '', ''], history=history)
+
+@app.route('/v2/<name>/latest', methods=['GET'])
+@login_required
+def v2_sensor(name):
+    latest = sensor_proxy.get_latest(name)
+    return render_template('sensor-latest.html', sensor = latest)
+
+
+@app.route('/v2/<name>/day', methods=['GET'])
+@login_required
+def v2_sensor_day(name):
+    date = Date.parse(request.args['date']) if 'date' in request.args else Date.today()
+    history = sensor_proxy.get_day(name, day=str(date))
+    link = '/v2/{}/day?date={}'
+    prev_link = link.format(name, str(date.prev))
+    next_link = link.format(name, str(date.next))
+    nav = Navigation(str(date), prev_link, next_link)
+    return render_template('sensor-history.html', name=name, nav=nav, active=['active', '', '', ''], history=history)
+
+@app.route('/v2/<name>/month', methods=['GET'])
+@login_required
+def v2_sensor_month(name):
+    first = Date.parse(request.args['from']) if 'from' in request.args else Date.today().first_in_month()
+    last = Date.parse(request.args['to']) if 'to' in request.args else Date.today().last_in_month()
+    history = sensor_proxy.get_days(name, first=first, last=last)
+    
+    link = '/v2/{}/month?from={}&to={}'
+    prev_to = first.prev
+    prev_from = prev_to.first_in_month()
+    prev_link = link.format(name, prev_from, prev_to)
+    next_from = last.next
+    next_to = next_from.last_in_month()
+    next_link = link.format(name, next_from, next_to)
+    nav = Navigation(str(last.datetime.strftime('%B %Y')), prev_link, next_link)
+    return render_template('sensor-history.html', name=name, nav=nav, active=['', '', 'active', ''], history=history)
+
 
 @app.route('/<name>/week', methods=['GET'])
 @login_required
