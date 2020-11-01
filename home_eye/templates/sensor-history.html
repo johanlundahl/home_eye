@@ -1,0 +1,86 @@
+(% extends 'base.html' %)
+(% block title %) (( name )) (% endblock %)
+(% block content %)
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active title" aria-current="page">(( name ))</li>
+  </ol>
+</nav>
+
+<div class="topnav">
+  <a href="/v2/((name))/latest">Latest</a>
+  <a href="/v2/((name))/day" class="((active[0]))">Day</a>
+  <a href="/v2/((name))/week" class="((active[1]))">Week</a>
+  <a href="/v2/((name))/month" class="((active[2]))">Month</a>
+  <a href="" class="((active[3]))">Year</a>
+</div>
+
+<br/>
+
+<div class="row">
+  <div class="col text-center">
+    <a href="((nav.prev))"><i class="fas fa-angle-left"></i></a>
+  </div>
+  <div class="col-8 text-center">(( nav.title ))</div>
+  <div class="col text-center">
+    <a href="((nav.next))"><i class="fas fa-angle-right"></i></a>
+  </div>
+</div>
+
+
+<div class="container">
+  <canvas id="theChart"></canvas>
+</div>
+
+<script>
+function get_options(title) {
+  var options = {
+      title: {
+        display: true,
+        text: title
+      },
+      aspectRatio: 1,
+      scales: {
+        xAxes: [{
+          ticks: {
+            autoSkip: true,
+            maxRotation: 90,
+            minRotation: 90
+          }
+        }]
+      },
+      elements: {
+        point:{
+          radius: 0
+        }
+      }
+    };
+  return options;  
+}
+
+var ctx = document.getElementById('theChart').getContext('2d');
+var chart_options = get_options('');
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: (( history.timestamps|safe )),
+    datasets: [{ 
+        data: (( history.humidities|safe )),
+        label: "Humidity",
+        borderColor: "#3e95cd",
+        fill: false
+      },{ 
+        data: (( history.temperatures|safe )),
+        label: "Temperature",
+        borderColor: "#c45850",
+        fill: false
+      }
+    ]
+  },
+  options: chart_options
+});
+</script>
+
+(% endblock %)
