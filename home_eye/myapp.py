@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from flask import Flask, request, render_template ,redirect, url_for
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from pytils import http, log
-from pytils.date import Date
+from pytils.date import Date, Week
 from pytils.config import cfg
 from pytils.http import Navigation
 from home_eye.flask_app import FlaskApp
@@ -93,6 +93,22 @@ def v2_sensor_day(name):
     next_link = link.format(name, str(date.next))
     nav = Navigation(str(date), prev_link, next_link)
     return render_template('sensor-history.html', name=name, nav=nav, active=['active', '', '', ''], history=history)
+
+@app.route('/v2/<name>/week', methods=['GET'])
+@login_required
+@http.validate_querystrings(method='GET', parameters=['year', 'week'])
+def v2_sensor_week(name):
+    current_week = Date.today().week
+    year = int(request.args['year']) if 'year' in request.args else current_week.year 
+    week_nbr = int(request.args['week']) if 'week' in request.args else  current_week.number
+    week = Week(year, week_nbr)
+
+    history = sensor_proxy.get_days(name, first=week.first_day, last=week.last_day)
+    link = '/v2/{}/week?year={}&week={}'
+    prev_link = link.format(name, week.prev.year, week.prev.number)
+    next_link = link.format(name, week.next.year, week.next.number)
+    nav = Navigation(str(week), prev_link, next_link)
+    return render_template('sensor-history.html', name=name, nav=nav, active=['', 'active', '', ''], history=history)
 
 @app.route('/v2/<name>/month', methods=['GET'])
 @login_required
