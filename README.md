@@ -144,18 +144,6 @@ Configure an A record with your domain pointing to your servers IP address. You'
 
 ### Enable SSL
 
-The following steps describe how to enable SSL for your application and is based on [a tutorial](https://hallard.me/enable-ssl-for-apache-server-in-5-minutes/).
-
-Start by creating a ssl folder
-```
-$ sudo mkdir /etc/apache2/ssl
-```
-
-Generate self-signed certificate valid for 3 years (1095 days)
-```
-$ sudo openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -out /etc/apache2/ssl/server.crt -keyout /etc/apache2/ssl/server.key
-```
-
 Enable the certificate
 ```
 $ sudo a2enmod ssl
@@ -166,8 +154,6 @@ Edit the .conf file to include SSL
 ```
 <VirtualHost *:443>
     SSLEngine On
-    SSLCertificateFile /etc/ssl/certs/example.com.crt
-    SSLCertificateKeyFile /etc/ssl/private/example.com.key
     ...
 ```
 
@@ -178,16 +164,16 @@ To automatically redirect from http to https add the following to the VirtualHos
     Redirect "/" "https://your_domain_or_IP/"
 ```
 
+The following steps describe how to enable SSL for your application and is based on [a tutorial](https://hallard.me/enable-ssl-for-apache-server-in-5-minutes/).
+
+Use [Let's Encrypt](https://letsencrypt.org/getting-started/) to enable HTTPS on your local Apache installation. Follow the steps in [this tutorial](https://certbot.eff.org/lets-encrypt/pip-apache) to generate certificates with certbot.
+
 Restart apache for the changes to take affect
 ```
 $ sudo service apache2 restart
 ```
 
-<!--
-TODO:
-- dokumentera README för Apache
-- config parameter för .wsgi filen
-
-
--->
-
+To view the web server error log enter
+```
+$ tail -f /var/log/apache2/error.log
+```
