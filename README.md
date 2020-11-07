@@ -164,8 +164,6 @@ To automatically redirect from http to https add the following to the VirtualHos
     Redirect "/" "https://your_domain_or_IP/"
 ```
 
-The following steps describe how to enable SSL for your application and is based on [a tutorial](https://hallard.me/enable-ssl-for-apache-server-in-5-minutes/).
-
 Use [Let's Encrypt](https://letsencrypt.org/getting-started/) to enable HTTPS on your local Apache installation. Follow the steps in [this tutorial](https://certbot.eff.org/lets-encrypt/pip-apache) to generate certificates with certbot.
 
 Restart apache for the changes to take affect
