@@ -94,3 +94,8 @@ h1 {
   border-top: 3px solid red;
   color: red;
 }
+
+.nav-arrows {
+  margin-left: 3vw;
+  margin-right: 3vw;
+}
