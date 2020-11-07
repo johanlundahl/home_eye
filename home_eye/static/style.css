@@ -63,10 +63,15 @@ h1 {
 	font-size: 5vw;
 }
 
+.breadcrumb {
+  margin-bottom: 0px;
+}
+
 /* Add a black background color to the top navigation */
 .topnav {
   background-color: #FFFFFF; /*333*/
   overflow: hidden;
+  margin-top: 0px;
 }
 
 /* Style the links inside the navigation bar */
@@ -78,13 +83,14 @@ h1 {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
-  border-bottom: 3px solid transparent;
+  border-top: 3px solid transparent;
 }
 
 .topnav a:hover {
-  border-bottom: 3px solid red;
+  border-top: 3px solid red;
 }
 
 .topnav a.active {
-  border-bottom: 3px solid red;
+  border-top: 3px solid red;
+  color: red;
 }
