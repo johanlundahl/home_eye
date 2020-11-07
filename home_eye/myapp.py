@@ -7,7 +7,7 @@ import yaml
 from pytils import http
 import pytils.log as logz
 from pytils.date import Date, Week
-from pytils.config import cfg
+from pytils import config
 from pytils import config
 from pytils.http import Navigation
 from home_eye.flask_app import FlaskApp
@@ -18,8 +18,8 @@ from home_eye.model.sensor_proxy import SensorProxy
 here = os.path.dirname(__file__)
 cfg_file = os.path.join(here, 'myapp.yaml')
 print(cfg_file)
-yaml_config = config.load_config(cfg_file)
-cfg = Box(yaml_config)
+cfg = config.init(cfg_file)
+ 
 
 app = FlaskApp(__name__)
 app.secret_key = cfg.web_server.secret_key
