@@ -1,15 +1,25 @@
 from datetime import datetime, timedelta
+import os
+from box import Box
 from flask import Flask, request, render_template ,redirect, url_for
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
-from pytils import http, log
+import yaml
+from pytils import http
+import pytils.log as logz
 from pytils.date import Date, Week
 from pytils.config import cfg
+from pytils import config
 from pytils.http import Navigation
 from home_eye.flask_app import FlaskApp
 from home_eye.model.user import User
 from home_eye.model.solar_proxy import SolarProxy
 from home_eye.model.sensor_proxy import SensorProxy
 
+here = os.path.dirname(__file__)
+cfg_file = os.path.join(here, 'myapp.yaml')
+print(cfg_file)
+yaml_config = config.load_config(cfg_file)
+cfg = Box(yaml_config)
 
 app = FlaskApp(__name__)
 app.secret_key = cfg.web_server.secret_key
@@ -103,6 +113,8 @@ def v2_sensor_week(name):
     week_nbr = int(request.args['week']) if 'week' in request.args else  current_week.number
     week = Week(year, week_nbr)
 
+    print(str(week), week.first_day, week.last_day)
+
     history = sensor_proxy.get_days(name, first=week.first_day, last=week.last_day)
     link = '/v2/{}/week?year={}&week={}'
     prev_link = link.format(name, week.prev.year, week.prev.number)
@@ -152,8 +164,8 @@ def solar():
 
 if __name__ == '__main__':
     try:
-        log.init()
+        logz.init()
         app.run(host='0.0.0.0', port=cfg.web_server.port)
     except Exception:
-        log.exception('Application Exception')
+        logz.exception('Application Exception')
         
