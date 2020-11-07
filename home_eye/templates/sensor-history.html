@@ -49,13 +49,26 @@ function get_options(title) {
             maxRotation: 90,
             minRotation: 90
           }
-        }]
+        }],
+        yAxes: [
+          {
+          id: 'left-y-axis',
+          type: 'linear',
+          position: 'left'
+         },
+         {
+          id: 'right-y-axis', 
+          type: 'linear',
+          position: 'right'
+         }
+        ]
+        
       },
       elements: {
         point:{
           radius: 0
         }
-      }
+      },
     };
   return options;  
 }
@@ -70,12 +83,14 @@ var myLineChart = new Chart(ctx, {
         data: (( history.humidities|safe )),
         label: "Humidity",
         borderColor: "#3e95cd",
-        fill: false
+        fill: false,
+        yAxisID: 'right-y-axis'
       },{ 
         data: (( history.temperatures|safe )),
         label: "Temperature",
         borderColor: "#c45850",
-        fill: false
+        fill: false,
+        yAxisId: 'left-y-axis'
       }
     ]
   },
