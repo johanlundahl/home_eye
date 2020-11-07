@@ -4,3 +4,5 @@ Flask-Cors
 requests
 git+https://github.com/johanlundahl/pytils.git
 pyOpenSSL
+python-box
+pyyaml

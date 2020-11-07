@@ -15,11 +15,10 @@ from home_eye.model.user import User
 from home_eye.model.solar_proxy import SolarProxy
 from home_eye.model.sensor_proxy import SensorProxy
 
+# load config from file
 here = os.path.dirname(__file__)
 cfg_file = os.path.join(here, 'myapp.yaml')
-print(cfg_file)
-cfg = config.init(cfg_file)
- 
+cfg = config.init(cfg_file) 
 
 app = FlaskApp(__name__)
 app.secret_key = cfg.web_server.secret_key
@@ -112,8 +111,6 @@ def v2_sensor_week(name):
     year = int(request.args['year']) if 'year' in request.args else current_week.year 
     week_nbr = int(request.args['week']) if 'week' in request.args else  current_week.number
     week = Week(year, week_nbr)
-
-    print(str(week), week.first_day, week.last_day)
 
     history = sensor_proxy.get_days(name, first=week.first_day, last=week.last_day)
     link = '/v2/{}/week?year={}&week={}'

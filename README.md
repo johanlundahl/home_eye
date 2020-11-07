@@ -116,6 +116,8 @@ with the following content
      # Add machine's IP address (use ifconfig command)
      ServerName ip-address-of-host
      # Give an alias to to start your website url with
+     WSGIDaemonProcess home_eye python-path=/home/pi/home_eye/:/usr/lib/python3/dist-packages/
+     WSGIProcessGroup home_eye
      WSGIScriptAlias /home_eye /home/pi/home_eye/home_eye/myapp.wsgi
      <Directory /home/pi/home_eye/home_eye/>
             # set permissions as per apache2.conf file
@@ -163,7 +165,7 @@ To automatically redirect from http to https add the following to the VirtualHos
     ...
     Redirect "/" "https://your_domain_or_IP/"
 ```
-
+    
 Use [Let's Encrypt](https://letsencrypt.org/getting-started/) to enable HTTPS on your local Apache installation. Follow the steps in [this tutorial](https://certbot.eff.org/lets-encrypt/pip-apache) to generate certificates with certbot.
 
 Restart apache for the changes to take affect
