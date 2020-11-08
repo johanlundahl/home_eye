@@ -99,3 +99,44 @@ h1 {
   margin-left: 3vw;
   margin-right: 3vw;
 }
+
+@media screen and (max-width: 34em) {
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -45%;
+  }
+
+  .row-offcanvas-left.active {
+    left: 45%;
+    margin-left: -6px;
+  }
+  
+  .sidebar-offcanvas {
+    width: 45%;
+  }
+}
+
+.card {
+    overflow:hidden;
+}
+
+.card-body .rotate {
+    z-index: 8;
+    float: right;
+    height: 100%;
+}
+
+.card-body .rotate i {
+    color: rgba(5, 5, 5, 0.3);
+    position: absolute;
+    left: 0;
+    left: auto;
+    right: 0px;
+    bottom: 0;
+    display: block;
+    -webkit-transform: rotate(-24deg);
+    -moz-transform: rotate(-24deg);
+    -o-transform: rotate(-24deg);
+    -ms-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+}
