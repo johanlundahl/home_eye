@@ -49,14 +49,9 @@ To start the application manually
 $ make run
 ```
 
-To make the application start automatically define a crontab job. Edit crontab by
+To make the application start automatically at reboot run the following command
 ```
-$ crontab -e
-```
-
-Define which time the different jobs should be run at, e.g.
-```
-@reboot python3 /home/pi/home_eye/home_eye/app.py
+$ make autostart
 ```
 
 Reboot your Rasperry Pi and the application will start:
