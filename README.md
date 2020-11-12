@@ -129,7 +129,25 @@ with the following content
      LogLevel warn
      CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
+<VirtualHost *:443>
+     SSLEngine on
+     # Add machine's IP address (use ifconfig command)
+     ServerName test.jlundahl.com
+     # Give an alias to to start your website url with
+     WSGIDaemonProcess home_eye python-path=/home/pi/home_eye/:/usr/lib/python3/dist-packages/
+     WSGIProcessGroup home_eye
+     WSGIScriptAlias / /home/pi/home_eye/home_eye/myapp.wsgi
 
+     <Directory /home/pi/home_eye/home_eye/>
+            # set permissions as per apache2.conf file
+            Options FollowSymLinks
+            AllowOverride None
+            Require all granted
+     </Directory>
+     ErrorLog ${APACHE_LOG_DIR}/error.log
+     LogLevel warn
+     CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
 ```
 
 Enable the configuration

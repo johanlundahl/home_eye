@@ -69,9 +69,9 @@ h1 {
 
 /* Add a black background color to the top navigation */
 .topnav {
-  background-color: #FFFFFF; /*333*/
+  background-color: #333; /*333*/
   overflow: hidden;
-  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 /* Style the links inside the navigation bar */
@@ -87,11 +87,11 @@ h1 {
 }
 
 .topnav a:hover {
-  border-top: 3px solid red;
+  border-bottom: 3px solid red;
 }
 
 .topnav a.active {
-  border-top: 3px solid red;
+  border-bottom: 3px solid red;
   color: red;
 }
 

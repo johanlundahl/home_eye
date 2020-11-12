@@ -3,31 +3,19 @@
 (% block content %)
 
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
+  <ol class="breadcrumb bg-light">
     <li class="breadcrumb-item"><a href="/">Home</a></li>
     <li class="breadcrumb-item active title" aria-current="page">(( name ))</li>
   </ol>
 </nav>
 
-<div class="topnav">
+<div class="topnav bg-light">
   <a href="/v2/((name))/latest">Latest</a>
   <!--a href="/v2/((name))/day" class="((active[0]))">Day</a-->
   <a href="/v2/((name))/week" class="((active[1]))">Week</a>
   <a href="/v2/((name))/month" class="((active[2]))">Month</a>
   <a href="" class="((active[3]))">Year</a>
 </div>
-
-<br/>
-
-<!--div class="row">
-  <div class="col text-center">
-    <a href="((nav.prev))"><i class="fas fa-angle-left"></i></a>
-  </div>
-  <div class="col-8 text-center">(( nav.title ))</div>
-  <div class="col text-center">
-    <a href="((nav.next))"><i class="fas fa-angle-right"></i></a>
-  </div>
-</div-->
 
 <div class="row plain_text">
   <div class="col text-center">
@@ -36,6 +24,8 @@
     <a href="((nav.next))"><i class="fas fa-angle-right nav-arrows"></i></a>
   </div>
 </div>
+
+<br/>
 
 <div class="container">
   <canvas id="theChart"></canvas>
