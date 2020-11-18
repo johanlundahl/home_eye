@@ -8,7 +8,6 @@ from pytils import http
 import pytils.log as logz
 from pytils.date import Date, Week
 from pytils import config
-from pytils import config
 from pytils.http import Navigation
 from home_eye.flask_app import FlaskApp
 from home_eye.model.user import User
@@ -78,13 +77,6 @@ def storage():
     return render_template('storage.html', status = status)
 
 
-@app.route('/<name>', methods=['GET'])
-@login_required
-def sensor(name):
-    latest = sensor_proxy.get_latest(name)
-    history = sensor_proxy.get_history(name, days=1, size=24)
-    return render_template('sensor.html', sensor = latest, active=['active', '', ''], history=history)
-
 @app.route('/v2/<name>/latest', methods=['GET'])
 @login_required
 def v2_sensor(name):
@@ -135,22 +127,6 @@ def v2_sensor_month(name):
     next_link = link.format(name, next_from, next_to)
     nav = Navigation(str(last.datetime.strftime('%B %Y')), prev_link, next_link)
     return render_template('sensor-history.html', name=name, nav=nav, active=['', '', 'active', ''], history=history)
-
-
-@app.route('/<name>/week', methods=['GET'])
-@login_required
-def sensor_hours(name):
-    latest = sensor_proxy.get_latest(name)
-    history = sensor_proxy.get_history(name, days=7, size=48) 
-    return render_template('sensor.html', sensor = latest, active=['', 'active', ''], history=history)
-
-@app.route('/<name>/month', methods=['GET'])
-@login_required
-def sensor_month(name):
-    latest = sensor_proxy.get_latest(name)
-    history = sensor_proxy.get_history(name, days=30, size=60)
-    return render_template('sensor.html', sensor = latest, active=['', '', 'active'], history=history)
-
 
 @app.route('/solar', methods=['GET'])
 @login_required
