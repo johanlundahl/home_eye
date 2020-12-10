@@ -17,3 +17,15 @@ run:
 update:
 	git pull
 	sudo pip3 install -r requirements.txt
+
+apache-install:
+	sudo apt update
+	sudo apt install apache2
+	sudo apt-get install libapache2-mod-wsgi-py3 python-dev
+
+apache-logging:
+	tail -f /var/log/apache2/error.log
+
+apache-restart:
+	sudo service apache2 restart
+
