@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import os
 from box import Box
-from flask import Flask, request, render_template ,redirect, url_for
+from flask import Flask, request, render_template ,redirect, url_for, jsonify
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 import yaml
 from pytils import http
@@ -62,13 +62,15 @@ def favicon():
 @app.route('/', methods=['GET'])
 @login_required
 def home():
-    basement = sensor_proxy.get_latest('basement')
-    outdoor = sensor_proxy.get_latest('outdoor')
-    indoor = sensor_proxy.get_latest('indoor')
-    sensors = [basement, outdoor, indoor]    
     solar = solar_proxy.get_today()
-
+    sensors = ['basement', 'outdoor', 'indoor']    
     return render_template('home.html', sensors = sensors, solar = solar)
+
+@app.route('/api/v2/sensors/<name>/latest', methods=['GET'])
+@login_required
+def sensor_latest(name):
+    sensor = sensor_proxy.get_latest(name)
+    return jsonify(sensor.to_json())
 
 @app.route('/storage', methods=['GET'])
 @login_required
@@ -76,13 +78,11 @@ def storage():
     status = sensor_proxy.get_status()
     return render_template('storage.html', status = status)
 
-
 @app.route('/v2/<name>/latest', methods=['GET'])
 @login_required
 def v2_sensor(name):
     latest = sensor_proxy.get_latest(name)
     return render_template('sensor-latest.html', sensor = latest)
-
 
 @app.route('/v2/<name>/day', methods=['GET'])
 @login_required

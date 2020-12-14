@@ -4,13 +4,13 @@
 
 (% block content %)
 
-<nav aria-label="breadcrumb">
+<!--nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item" aria-current="page">Home</li>
   </ol>
-</nav>
+</nav-->
 
-
+<br/>
 
 <div class="container"> 
     <a href="solar">
@@ -30,21 +30,47 @@
 
 <div class="container">
 (% for sensor in sensors %)
-    (% if sensor is not none %)
-    <a href="v2/(( sensor.name ))/latest">    
-        <div class="alert (( 'alert-success' if sensor.age < 1 )) (( 'alert-warning' if sensor.age >= 1 and sensor.age < 2 )) (( 'alert-danger' if sensor.age >= 2 )) d-flex" role="alert">
+    <a href="/v2/(( sensor ))/latest">    
+        <div class="alert alert-success d-flex" id="sensor_block_((sensor))" role="alert">
             <div class="mr-auto p-2">
-                <h1 class="mb-0">(( sensor.name ))  </h1>
+                <h1 class="mb-0">(( sensor ))  </h1>
             </div>
             <div class="p-2">
-                <h1 class="mb-0">
-                    <i class="fas fa-thermometer-half sensor-icon"></i>
-                    (( sensor.temperature ))
+                <h1 class="mb-0" id="sensor_(( sensor ))">
+                    <i class="fas fa-circle-notch fa-spin" ></i>
+                    <i class="fas fa-thermometer-half sensor-icon" style="visibility: hidden"></i>
+                    <span></span>
                 </h1>
             </div>
         </div>
     </a>
-    (% endif %)
+    <script>
+        jQuery.ajax({
+            url: "/api/v2/sensors/(( sensor|safe ))/latest",
+            type: 'GET',
+            data: null,
+            contentType: 'application/json;charset=UTF-8',
+            success: function(evt) {
+                console.log(evt)
+                $("#sensor_((sensor)) *:nth-child(3)").html(evt.temperature.display_value + evt.temperature.unit);
+                $("#sensor_((sensor)) *:nth-child(2)").css('visibility', 'visible');
+                $("#sensor_((sensor)) *:nth-child(1)").css('visibility', 'hidden');
+                if (evt.age >= 1 && evt.age < 2){ 
+                    $("#sensor_block_((sensor))").addClass('alert-warning');   
+                }
+                if (evt.age >= 2){
+                    $("#sensor_block_((sensor))").addClass('alert-danger'); 
+                }
+            },
+            error: function(errormsg){
+                console.log(errormsg)
+                $("#sensor_((sensor)) *:nth-child(3)").html(':(');
+                $("#sensor_((sensor)) *:nth-child(2)").css('visibility', 'visible');
+                $("#sensor_((sensor)) *:nth-child(2)").css('visibility', 'hidden');
+                $("#sensor_((sensor)) *:nth-child(1)").css('visibility', 'hidden');
+            }
+        }); 
+    </script>
 (% endfor %)
 </div>
 
