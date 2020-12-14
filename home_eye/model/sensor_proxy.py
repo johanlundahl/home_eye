@@ -9,7 +9,7 @@ class SensorProxy:
 		self.base_url = base_url
 
 	def get_latest(self, name):
-		status, obj = http.get('{}/api/sensors/{}/latest'.format(self.base_url, name))
+		status, obj = http.get('{}/api/v2/sensors/{}/latest'.format(self.base_url, name))
 		return json.loads(obj, object_hook=SensorDecoder.decode)
 
 	def get_history(self, name, days, size):
