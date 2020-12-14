@@ -11,21 +11,17 @@
 
 <div class="topnav bg-light">
   <a href="/v2/((name))/latest">Latest</a>
-  <!--a href="/v2/((name))/day" class="((active[0]))">Day</a-->
   <a href="/v2/((name))/week" class="((active[1]))">Week</a>
   <a href="/v2/((name))/month" class="((active[2]))">Month</a>
   <a href="" class="((active[3]))">Year</a>
 </div>
 
-<div class="row plain_text">
-  <div class="col text-center">
-    <a href="((nav.prev))"><i class="fas fa-angle-left nav-arrows"></i></a>
-    (( nav.title ))
-    <a href="((nav.next))"><i class="fas fa-angle-right nav-arrows"></i></a>
-  </div>
+<div class="container text-center">
+  <a href="((nav.prev))"><i class="fas fa-angle-left nav-arrows"></i></a>
+  (( nav.title ))
+  <a href="((nav.next))"><i class="fas fa-angle-right nav-arrows"></i></a>
 </div>
 
-<br/>
 
 <div class="container">
   <canvas id="theChart"></canvas>
