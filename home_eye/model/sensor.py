@@ -1,5 +1,6 @@
-from home_eye.model.value import Value
 from datetime import datetime, timedelta
+from flask.json import JSONEncoder
+from home_eye.model.value import Value
 
 class Sensor:   
     def __init__(self, name, temperature, humidity, updated):
@@ -30,6 +31,14 @@ class Sensor:
         delta = self._now - self._updated.value
         return delta.total_seconds() // 3600
 
+    def to_json(self):
+        result = { 'name': self.name, 
+            'temperature': self.temperature.to_json(), 
+            'humidity': self.humidity.to_json(),
+            'updated': self.updated.to_json(), 
+            'age': self.age }   
+        return result
+
     def __repr__(self):
         return 'Sensor({}, {}, {}, {})'.format(self.name, self.temperature, self.humidity, self.updated)
     
@@ -41,6 +50,13 @@ class SensorDecoder:
     def decode(cls, dct):
         if 'humidity' in dct and 'temperature' in dct: 
             return Sensor(dct['name'], dct['temperature'], dct['humidity'], datetime.strptime(dct['timestamp'], '%Y-%m-%d %H:%M:%S'))
+
+class ComplexEncoder(JSONEncoder):
+
+    def default(self, o):
+        if hasattr(o,'to_json'):
+            return o.to_json()
+        return JSONEncoder.default(self, o)
 
 class Status:
     def __init__(self, count, size, oldest, newest):
