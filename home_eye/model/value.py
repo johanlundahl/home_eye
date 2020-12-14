@@ -20,7 +20,7 @@ class Value:
 		if isinstance(self._value, str):
 			return str(self._value.capitalize())
 		if isinstance(self._value, datetime):
-			return self._value.strftime('%-d %b, %-H:%M')
+			return self._value.strftime('%-H:%M, %-d %b %Y')
 		return str(self._value)
 	
 	@property
@@ -53,6 +53,11 @@ class Value:
 
 	def round(self, value):
 		return int(round(value, 0))
+
+	def to_json(self):
+		return { 'value': self.value,
+			'display_value': self.display_value,
+			'unit': self.unit }
 
 	def __str__(self):
 		return '{} {}'.format(self.display_value, self.unit)
