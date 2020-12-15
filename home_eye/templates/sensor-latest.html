@@ -20,26 +20,22 @@
 <div class="container">
   <div class="row mb-3">
     <div class="col-xl-3 col-sm-6 py-2">
-        <div class="card bg-dark text-white h-100">
-            <div class="card-body bg-dark">
-                <div class="rotate">
-                    <i class="fa fa-thermometer-half fa-4x"></i>
-                </div>
+        <div class="card bg-white text-dark h-100">
+            <div class="card-body bg-white">
                 <h6 class="text-uppercase">Temperature</h6>
                 <h1 class="h2">
+                  <i class="fa fa-thermometer-half"></i>
                   (( sensor.temperature.display_value ))
                   (( sensor.temperature.unit ))</h1>
             </div>
         </div>
     </div>
     <div class="col-xl-3 col-sm-6 py-2">
-        <div class="card text-white bg-dark h-100">
-            <div class="card-body bg-dark">
-                <div class="rotate">
-                    <i class="fa fa-tint fa-4x"></i>
-                </div>
+        <div class="card text-dark bg-white h-100">
+            <div class="card-body bg-white">
                 <h6 class="text-uppercase">Humidity</h6>
                 <h1 class="h2">
+                  <i class="fa fa-tint"></i>
                   (( sensor.humidity.display_value ))
                   (( sensor.humidity.unit ))
                 </h1>
@@ -47,13 +43,11 @@
         </div>
     </div>
     <div class="col-xl-3 col-sm-6 py-2">
-        <div class="card text-white bg-dark h-100">
-            <div class="card-body bg-dark">
-                <div class="rotate">
-                    <i class="fa fa-clock-o fa-4x"></i>
-                </div>
+        <div class="card text-dark bg-white h-100">
+            <div class="card-body bg-white">
                 <h6 class="text-uppercase">Registered</h6>
-                <h1 class="h2">
+                <h1 class="h3">
+                  <i class="fa fa-clock-o"></i>
                   (( sensor.updated.display_value ))
                 </h1>
             </div>

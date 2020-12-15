@@ -71,7 +71,7 @@ h1 {
 .topnav {
   background-color: #333; /*333*/
   overflow: hidden;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 
 /* Style the links inside the navigation bar */
@@ -80,10 +80,9 @@ h1 {
   display: block;
   color: #000000; /*#f2f2f2*/
   text-align: center;
-  padding: 14px 16px;
+  padding: 6px 13px;
   text-decoration: none;
   font-size: 17px;
-  border-top: 3px solid transparent;
 }
 
 .topnav a:hover {
@@ -127,7 +126,7 @@ h1 {
 }
 
 .card-body .rotate i {
-    color: rgba(5, 5, 5, 0.3);
+    /*opacity: 0.3;*/
     position: absolute;
     left: 0;
     left: auto;
