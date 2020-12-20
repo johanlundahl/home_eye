@@ -65,11 +65,12 @@ h1 {
 
 .breadcrumb {
   margin-bottom: 0px;
+  background-color: #FFFFFF;
 }
 
 /* Add a black background color to the top navigation */
 .topnav {
-  background-color: #333; /*333*/
+  /*background-color: #333;*/ /*333*/
   overflow: hidden;
   margin-bottom: 10px;
 }
