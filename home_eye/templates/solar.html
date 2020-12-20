@@ -3,41 +3,44 @@
 (% block content %)
 
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb bg-white">
-    <li class="breadcrumb-item h2"><a href="/">Home</a></li>
-    <li class="breadcrumb-item title h2" style="color: #6155a6" aria-current="page">Solar panel</li>
+  <ol class="breadcrumb bg-light">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item title" style="color: #6155a6" aria-current="page">Solar panel</li>
   </ol>
 </nav>
 
 <!-- ffabe1 ffe6e6-->
 
-<hr style="border:3px solid #ffabe1;margin-bottom:0px;padding-bottom:0px;"/>
-<hr style="border:3px solid #ffe6e6;margin-top:0px;padding-top:0px;"/>
-
-<div class="container sensor">
-    <table class="table plain_text table-borderless">
-      <tbody>
-        <tr>
-          <td>Power</td>
-          <td><i class="fas fa-plug sensor-icon"></i> (( solar.power.display_value )) (( solar.power.unit ))</td>
-        </tr>
-        <tr>
-          <td>Energy</td>
-          <td><i class="fas fa-solar-panel sensor-icon"></i> (( solar.energy.display_value )) (( solar.energy.unit ))</td>
-        </tr>
-        <tr>
-          <td>Registered</td>
-          <td>(( solar.updated.display_value ))</td>
-        </tr>
-      </tbody>
-    </table>
-</div>
-
+<!--hr style="border:3px solid #ffabe1;margin-bottom:0px;padding-bottom:0px;"/>
+<hr style="border:3px solid #ffe6e6;margin-top:0px;padding-top:0px;"/-->
 <br/>
 
-
 <div class="container">
-  <canvas id="theChart"></canvas>
+  <div class="container sensor my-rounded bg-white" style="padding-top:10px;border-radius: 20px;">
+      <!--h3 style="color: #6155a6">Solar panel</h3-->
+      <table class="table plain_text table-borderless">
+        <tbody>
+          <tr>
+            <td>Power</td>
+            <td>(( solar.power.display_value )) (( solar.power.unit ))</td>
+          </tr>
+          <tr>
+            <td>Energy</td>
+            <td>(( solar.energy.display_value )) (( solar.energy.unit ))</td>
+          </tr>
+          <tr>
+            <td>Registered</td>
+            <td>(( solar.updated.display_value ))</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
+  <br/>
+
+  <div class="container bg-white" style="border-radius: 20px;">
+    <canvas id="theChart"></canvas>
+  </div>
 </div>
 
 <script>
