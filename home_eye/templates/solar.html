@@ -1,19 +1,21 @@
 (% extends 'base.html' %)
-
 (% block title %) solar (% endblock %)
-
 (% block content %)
 
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item active title" aria-current="page">Solar panel</li>
+  <ol class="breadcrumb bg-white">
+    <li class="breadcrumb-item h2"><a href="/">Home</a></li>
+    <li class="breadcrumb-item title h2" style="color: #6155a6" aria-current="page">Solar panel</li>
   </ol>
 </nav>
 
+<!-- ffabe1 ffe6e6-->
+
+<hr style="border:3px solid #ffabe1;margin-bottom:0px;padding-bottom:0px;"/>
+<hr style="border:3px solid #ffe6e6;margin-top:0px;padding-top:0px;"/>
+
 <div class="container sensor">
-    <h1>Solar panel</h1>
-    <table class="table plain_text">
+    <table class="table plain_text table-borderless">
       <tbody>
         <tr>
           <td>Power</td>
@@ -33,46 +35,57 @@
 
 <br/>
 
+
 <div class="container">
   <canvas id="theChart"></canvas>
 </div>
 
 <script>
-function get_options(title) {
-  var options = {
-      title: {
-        display: true,
-        text: title
-      },
-      aspectRatio: 1,
-      scales: {
-        xAxes: [{
-          ticks: {
-            autoSkip: true,
-            maxRotation: 90,
-            minRotation: 90
-          }
-        }]
-      }
-    };
-  return options;  
+function sum(arr){
+  var sum = 0;
+  for(i=0; i < arr.length; i++){
+    sum += arr[i];
+  }
+  return sum;
 }
 
+var trend = (( history.values|safe ));
+var sum = sum(trend);
+var avg = sum/trend.length;
+
 var ctx = document.getElementById('theChart').getContext('2d');
-var chart_options = get_options('');
-var myLineChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: (( history.dates|safe )),
-    datasets: [{ 
-        data: (( history.values|safe )),
-        label: "Energy",
-        borderColor: "#3e95cd",
-        fill: false
-      }
-    ]
-  },
-  options: chart_options
+var myBarChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+    labels: ['Today', '7 day avg'],
+      datasets: [{ 
+          data: [((solar.energy.value|safe)), avg],
+          backgroundColor: ["#6155a6", "#a685e2" ],
+          fill: false
+        }
+      ]
+    },
+    options: {
+      legend: {
+            display: false
+         },
+        scales: {
+            xAxes: [{
+                ticks: {
+                    min: 1,
+                    display: false
+                }, gridLines: {
+                  display:false
+                }
+            }],
+            yAxes: [{
+                stacked: true,
+                gridLines: {
+                  display:false
+                }
+            }]
+        }
+    }
 });
 </script>
 
