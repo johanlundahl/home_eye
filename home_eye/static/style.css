@@ -1,89 +1,129 @@
-
-.my-rounded {
-  border-radius: 25px;
+/* Typography */
+h1 {
+  font-size: 5vw; 
 }
 
-.sensor {
-	background: white;
-  padding: 10px;
+h2 {
+  font-size: 5vw;
+  padding-bottom:10px;
+  font-weight: bold;
 }
 
-.dashboard_value {
-	font-size: 5vw; 
-	text-align: center; 
-	font-weight: bold;
+.my-title {
+  text-transform: capitalize;
 }
-.sensor-reading {
-	line-height: 1;
-	text-align: center; 
-	font-weight: bold;
-}
-.sensor-text {
-	font-size: 2vw;
-	font-weight: normal;
-	text-transform: uppercase;
-}
-.sensor-unit {
-	font-size: 4vw;
-}
-.sensor-icon {
-	font-size: 4.5vw;
-}
-.sensor-value {
-	font-size: 7vw; 
-}
-.sensor-timestamp {
-	font-size: 3.5vw; 
-}
-.sensor-description {
-	font-size: 3vw;	
+
+.my-title-arrow {
+  padding-right: 2vw;
 }
 
 a:link {
-  	color: black;
-  	text-decoration: none;
+    color: black;
+    text-decoration: none;
 }
 a:visited {
-  	color: black;
-  	text-decoration: none;
+    color: black;
+    text-decoration: none;
 }
 a:hover {
-  	color: black;
-  	text-decoration: none;
+    color: black;
+    text-decoration: none;
 }
 a:active {
-  	color: black;
-  	text-decoration: none;
+    color: black;
+    text-decoration: none;
 }
 
-h1 {
-	font-size: 5vw; 
+.menu-icon {
+  font-size: 5vw;  
 }
 
 .title {
-	text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 .plain_text {
-	font-size: 5vw;
+  font-size: 4.5vw;
+}
+
+.purple {
+  /* ffabe1 ffe6e6 */
+  color: #6155a6;
+}
+
+.my-topnav a {
+  float: left;
+  display: block;
+  color: #444444; /*#f2f2f2*/
+  text-align: center;
+  padding: 6px 13px;
+  text-decoration: none;
+}
+
+.my-topnav a:hover {
+  /*border-bottom: 3px solid #ffabe1;*/
+  color: #212121;
+}
+
+.my-topnav a.active {
+  /*border-bottom: 3px solid #ffe6e6;*/
+  color: #000000;
+  font-weight: bold;
+}
+
+
+
+/* Layout */
+.my-navbar-toggler {
+  border:none;
 }
 
 .breadcrumb {
   margin-bottom: 0px;
+  font-size: 4vw;
 }
 
-/* Add a black background color to the top navigation */
-.topnav {
-  /*background-color: #333;*/ /*333*/
+.my-topnav {
   overflow: hidden;
   margin-bottom: 10px;
 }
 
-/* Style the links inside the navigation bar */
+
+
+/* Containers */
+.my-box {
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.my-title-box {
+  padding: 15px;
+}
+
+.my-rounded {
+  border-radius: 20px;
+}
+
+.my-row {
+  padding-bottom:7px;
+}
+
+
+.sensor-icon {
+	font-size: 4.5vw;
+}
+
+
+/* Add a black background color to the top navigation */
+/*.topnav {
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
 .topnav a {
   float: left;
   display: block;
-  color: #000000; /*#f2f2f2*/
+  color: #000000; 
   text-align: center;
   padding: 6px 13px;
   text-decoration: none;
@@ -97,50 +137,30 @@ h1 {
 .topnav a.active {
   border-bottom: 3px solid red;
   color: red;
-}
+}*/
 
 .nav-arrows {
   margin-left: 3vw;
   margin-right: 3vw;
 }
 
-@media screen and (max-width: 34em) {
-  .row-offcanvas-left
-  .sidebar-offcanvas {
-    left: -45%;
+
+@media screen and (min-width: 640px) {
+  h1 {
+    font-size: 30px; 
   }
 
-  .row-offcanvas-left.active {
-    left: 45%;
-    margin-left: -6px;
+  h2 {
+    font-size: 30px; 
+    padding-bottom:10px;
+    font-weight: bold;
   }
-  
-  .sidebar-offcanvas {
-    width: 45%;
+
+  .plain_text {
+    font-size: 25px;
   }
-}
 
-.card {
-    overflow:hidden;
-}
-
-.card-body .rotate {
-    z-index: 8;
-    float: right;
-    height: 100%;
-}
-
-.card-body .rotate i {
-    /*opacity: 0.3;*/
-    position: absolute;
-    left: 0;
-    left: auto;
-    right: 0px;
-    bottom: 0;
-    display: block;
-    -webkit-transform: rotate(-24deg);
-    -moz-transform: rotate(-24deg);
-    -o-transform: rotate(-24deg);
-    -ms-transform: rotate(-24deg);
-    transform: rotate(-24deg);
+  .menu-icon {
+    font-size: 30px;  
+  }
 }

@@ -1,14 +1,6 @@
 (% extends 'base.html' %)
-
 (% block title %) Welcome! (% endblock %)
-
 (% block content %)
-
-<!--nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page">Home</li>
-  </ol>
-</nav-->
 
 <br/>
 
@@ -28,14 +20,11 @@
     </a>
 </div>
 
-<!--i class="fas fa-solar-panel"></i-->
-<!--i class="fas fa-faucet"></i-->
-
 <div class="container">
 (% for sensor in sensors %)
     <a href="/v2/(( sensor ))/latest">    
         <div class="alert alert-success d-flex" id="sensor_block_((sensor))" role="alert">
-            <div class="mr-auto p-2">
+            <div class="mr-auto p-2 title">
                 <h1 class="mb-0">(( sensor ))  </h1>
             </div>
             <div class="p-2">

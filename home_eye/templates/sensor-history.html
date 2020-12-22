@@ -2,31 +2,32 @@
 (% block title %) (( name )) (% endblock %)
 (% block content %)
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb bg-light">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item active title" aria-current="page">(( name ))</li>
-  </ol>
-</nav>
-
-<div class="topnav bg-light">
-  <a href="/v2/((name))/latest">Latest</a>
-  <a href="/v2/((name))/week" class="((active[1]))">Week</a>
-  <a href="/v2/((name))/month" class="((active[2]))">Month</a>
-  <a href="" class="((active[3]))">Year</a>
-</div>
-
-<div class="container text-center">
-  <a href="((nav.prev))"><i class="fas fa-angle-left nav-arrows"></i></a>
-  (( nav.title ))
-  <a href="((nav.next))"><i class="fas fa-angle-right nav-arrows"></i></a>
-</div>
-
-
 <div class="container">
-  <canvas id="theChart"></canvas>
-</div>
+  <div class="my-title my-title-box">
+    <h1>
+      <a href="/"><i class="fas fa-arrow-left my-title-arrow"></i></a>
+      <b>(( name ))</b>
+    </h1>
+  </div>
 
+  <div class="topnav bg-light my-topnav plain_text">
+    <a href="/v2/((name))/latest">Latest</a>
+    <a href="/v2/((name))/week" class="((active[1]))">Week</a>
+    <a href="/v2/((name))/month"  class="((active[2]))">Month</a>
+  </div>
+
+  <div class="container my-box my-rounded bg-white plain_text">
+    <div class="container text-center">
+      <a href="((nav.prev))"><i class="fas fa-angle-left nav-arrows"></i></a>
+      (( nav.title ))
+      <a href="((nav.next))"><i class="fas fa-angle-right nav-arrows"></i></a>
+    </div>
+
+    <div class="container">
+      <canvas id="theChart"></canvas>
+    </div>
+  </div>
+</div>
 <script>
 function get_options(title) {
   var options = {
@@ -38,16 +39,15 @@ function get_options(title) {
       scales: {
         xAxes: [{
           ticks: {
-            autoSkip: true,
-            maxRotation: 90,
-            minRotation: 90
+            display: false
           }
         }],
         yAxes: [
           {
           id: 'left-y-axis',
           type: 'linear',
-          position: 'left'
+          position: 'left',
+          precision: 0
          },
          {
           id: 'right-y-axis', 
@@ -66,6 +66,7 @@ function get_options(title) {
   return options;  
 }
 
+Chart.defaults.scale.gridLines.display = false;
 var ctx = document.getElementById('theChart').getContext('2d');
 var chart_options = get_options('');
 var myLineChart = new Chart(ctx, {

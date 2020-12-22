@@ -2,43 +2,34 @@
 (% block title %) solar (% endblock %)
 (% block content %)
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb bg-light">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item title" style="color: #6155a6" aria-current="page">Solar panel</li>
-  </ol>
-</nav>
-
-<!-- ffabe1 ffe6e6-->
-
-<!--hr style="border:3px solid #ffabe1;margin-bottom:0px;padding-bottom:0px;"/>
-<hr style="border:3px solid #ffe6e6;margin-top:0px;padding-top:0px;"/-->
-<br/>
+<div class="container">
+  <div class="container my-title-box">
+    <h1>
+      <a href="/"><i class="fas fa-arrow-left my-title-arrow"></i></a>
+      <b>Solar panel</b>
+    </h1>
+  </div>
+</div>
 
 <div class="container">
-  <div class="container sensor my-rounded bg-white" style="padding-top:10px;border-radius: 20px;">
-      <!--h3 style="color: #6155a6">Solar panel</h3-->
-      <table class="table plain_text table-borderless">
-        <tbody>
-          <tr>
-            <td>Power</td>
-            <td>(( solar.power.display_value )) (( solar.power.unit ))</td>
-          </tr>
-          <tr>
-            <td>Energy</td>
-            <td>(( solar.energy.display_value )) (( solar.energy.unit ))</td>
-          </tr>
-          <tr>
-            <td>Registered</td>
-            <td>(( solar.updated.display_value ))</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="container my-box my-rounded bg-white plain_text">
+      <h2>Todays production</h2>
+      <div class="row plain_text my-row">
+        <div class="col-5">Power</div>
+        <div class="col-7">(( solar.power.display_value )) (( solar.power.unit ))</div>
+      </div>
+      <div class="row plain_text my-row">
+        <div class="col-5">Energy</div>
+        <div class="col-7">(( solar.energy.display_value )) (( solar.energy.unit ))</div>
+      </div>
+      <div class="row plain_text my-row">
+        <div class="col-5">Registered</div>
+        <div class="col-7">(( solar.updated.display_value ))</div>
+      </div>
   </div>
 
-  <br/>
-
-  <div class="container bg-white" style="border-radius: 20px;">
+  <div class="container bg-white my-box my-rounded">
+    <h2>Short term trend</h2>
     <canvas id="theChart"></canvas>
   </div>
 </div>
@@ -56,6 +47,7 @@ var trend = (( history.values|safe ));
 var sum = sum(trend);
 var avg = sum/trend.length;
 
+Chart.defaults.global.defaultFontSize = 18;
 var ctx = document.getElementById('theChart').getContext('2d');
 var myBarChart = new Chart(ctx, {
     type: 'horizontalBar',

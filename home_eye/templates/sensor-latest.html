@@ -2,57 +2,41 @@
 (% block title %) (( sensor.name )) (% endblock %)
 (% block content %)
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb bg-light">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item active title" aria-current="page">(( sensor.name ))</li>
-  </ol>
-</nav>
-
-<div class="topnav bg-light">
-  <a href="/v2/((sensor.name))/latest" class="active">Latest</a>
-  <a href="/v2/((sensor.name))/week">Week</a>
-  <a href="/v2/((sensor.name))/month">Month</a>
+<div class="container">
+  <div class="my-title my-title-box">
+    <h1>
+      <a href="/"><i class="fas fa-arrow-left my-title-arrow"></i></a>
+      <b>(( sensor.name ))</b>
+    </h1>
+  </div>
 </div>
 
-<br/>
+<div class="container">
+  <div class="topnav bg-light my-topnav plain_text">
+    <a href="/v2/((sensor.name))/latest" class="active">Latest</a>
+    <a href="/v2/((sensor.name))/week">Week</a>
+    <a href="/v2/((sensor.name))/month">Month</a>
+  </div>
+</div>
 
 <div class="container">
-  <div class="row mb-3">
-    <div class="col-xl-3 col-sm-6 py-2">
-        <div class="card bg-white text-dark h-100">
-            <div class="card-body bg-white">
-                <h6 class="text-uppercase">Temperature</h6>
-                <h1 class="h2">
-                  <i class="fa fa-thermometer-half"></i>
-                  (( sensor.temperature.display_value ))
-                  (( sensor.temperature.unit ))</h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-sm-6 py-2">
-        <div class="card text-dark bg-white h-100">
-            <div class="card-body bg-white">
-                <h6 class="text-uppercase">Humidity</h6>
-                <h1 class="h2">
-                  <i class="fa fa-tint"></i>
-                  (( sensor.humidity.display_value ))
-                  (( sensor.humidity.unit ))
-                </h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-sm-6 py-2">
-        <div class="card text-dark bg-white h-100">
-            <div class="card-body bg-white">
-                <h6 class="text-uppercase">Registered</h6>
-                <h1 class="h3">
-                  <i class="fa fa-clock-o"></i>
-                  (( sensor.updated.display_value ))
-                </h1>
-            </div>
-        </div>
-    </div>
+  <div class="container my-box my-rounded bg-white plain_text">
+      <div class="row plain_text my-row">
+        <div class="col-5">Temperature</div>
+        <div class="col-7">
+          (( sensor.temperature.display_value ))
+          (( sensor.temperature.unit ))</div>
+      </div>
+      <div class="row plain_text my-row">
+        <div class="col-5">Humidity</div>
+        <div class="col-7">
+          (( sensor.humidity.display_value ))
+          (( sensor.humidity.unit ))</div>
+      </div>
+      <div class="row plain_text my-row">
+        <div class="col-5">Registered</div>
+        <div class="col-7">(( sensor.updated.display_value ))</div>
+      </div>
   </div>
 </div>
 
