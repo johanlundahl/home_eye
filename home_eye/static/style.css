@@ -74,13 +74,12 @@ a:active {
 
 
 /* Layout */
+.my-page-container {
+  margin:0;
+  padding:0;
+}
 .my-navbar-toggler {
   border:none;
-}
-
-.breadcrumb {
-  margin-bottom: 0px;
-  font-size: 4vw;
 }
 
 .my-topnav {
@@ -108,36 +107,9 @@ a:active {
   padding-bottom:7px;
 }
 
-
 .sensor-icon {
 	font-size: 4.5vw;
 }
-
-
-/* Add a black background color to the top navigation */
-/*.topnav {
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-
-.topnav a {
-  float: left;
-  display: block;
-  color: #000000; 
-  text-align: center;
-  padding: 6px 13px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav a:hover {
-  border-bottom: 3px solid red;
-}
-
-.topnav a.active {
-  border-bottom: 3px solid red;
-  color: red;
-}*/
 
 .nav-arrows {
   margin-left: 3vw;

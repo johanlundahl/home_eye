@@ -1,40 +1,37 @@
 (% extends 'base.html' %)
-
 (% block title %)  storage (% endblock %)
-
 (% block content %)
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item active title" aria-current="page">Storage</li>
-  </ol>
-</nav>
-
-<div class="container sensor">
-    <h1>Storage</h1>
-    <table class="table plain_text">
-      <tbody>
-        <tr>
-          <td>Size</td>
-          <td>(( status.size.display_value )) (( status.size.unit ))</td>
-        </tr>
-        <tr>
-          <td>Count</td>
-          <td>(( status.count ))</td>
-        </tr>
-        <tr>
-          <td>Oldest entry</td>
-          <td>(( status.oldest ))</td>
-        </tr>
-        <tr>
-          <td>Newest entry</td>
-          <td>(( status.newest ))</td>
-        </tr>
-      </tbody>
-    </table>
+<div class="container">
+  <div class="my-title my-title-box">
+    <h1>
+      <a href="/"><i class="fas fa-arrow-left my-title-arrow"></i></a>
+      <b>Storage</b>
+    </h1>
+  </div>
 </div>
 
-<br/>
+<div class="container">
+  <div class="container my-box my-rounded bg-white plain_text">
+      <div class="row plain_text my-row">
+        <div class="col-5">Size</div>
+        <div class="col-7">
+          (( status.size.display_value )) 
+          (( status.size.unit ))</div>
+      </div>
+      <div class="row plain_text my-row">
+        <div class="col-5">Count</div>
+        <div class="col-7">(( status.count ))</div>
+      </div>
+      <div class="row plain_text my-row">
+        <div class="col-5">Oldest entry</div>
+        <div class="col-7">(( status.oldest ))</div>
+      </div>
+      <div class="row plain_text my-row">
+        <div class="col-5">Newest entry</div>
+        <div class="col-7">(( status.newest ))</div>
+      </div>
+  </div>
+</div>
 
 (% endblock %)
