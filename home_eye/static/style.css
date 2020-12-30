@@ -73,6 +73,7 @@ a:active {
 
 
 
+
 /* Layout */
 .my-page-container {
   margin:0;
@@ -80,6 +81,7 @@ a:active {
 }
 .my-navbar-toggler {
   border:none;
+  padding: 5px;
 }
 
 .my-topnav {
