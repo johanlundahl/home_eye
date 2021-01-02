@@ -1,11 +1,16 @@
 (% extends 'base.html' %)
 (% block title %) (( sensor.name )) (% endblock %)
+
+(% block nav_title %)
+<h1>
+  <a href="/"><i class="fas fa-arrow-left my-title-arrow"></i></a>
+</h1>
+(% endblock %)
 (% block content %)
 
 <div class="container">
   <div class="my-title my-title-box">
     <h1>
-      <a href="/"><i class="fas fa-arrow-left my-title-arrow"></i></a>
       <b>(( sensor.name ))</b>
     </h1>
   </div>
@@ -13,7 +18,7 @@
 
 <div class="container">
   <div class="topnav bg-light my-topnav plain_text">
-    <a href="/v2/((sensor.name))/latest" class="active">Latest</a>
+    <a href="/v2/((sensor.name))/latest" class="active">Today</a>
     <a href="/v2/((sensor.name))/week">Week</a>
     <a href="/v2/((sensor.name))/month">Month</a>
   </div>
@@ -38,6 +43,50 @@
         <div class="col-7">(( sensor.updated.display_value ))</div>
       </div>
   </div>
+
+  <div class="container bg-white my-box my-rounded">
+
+    <canvas id="theChart"></canvas>
+  </div>  
 </div>
+<script>
+          
+Chart.defaults.global.defaultFontSize = 18;
+Chart.defaults.global.defaultFontColor = 'black';
+var ctx = document.getElementById('theChart').getContext('2d');
+var myBarChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+    labels: ['Max', 'Min'],
+      datasets: [{ 
+          data: [(( min_max.max.temperature.value|safe )), (( min_max.min.temperature.value|safe ))],
+          backgroundColor: ["#6155a6", "#a685e2" ],
+          fill: false
+        }
+      ]
+    },
+    options: {
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+            ticks: {
+                min: 1,
+                display: false
+            }, gridLines: {
+              display:false
+            }
+        }],
+        yAxes: [{
+            stacked: true,
+            gridLines: {
+              display:false
+            }
+        }]
+      }
+    }
+});  
+</script>
 
 (% endblock %)

@@ -1,11 +1,17 @@
 (% extends 'base.html' %)
 (% block title %) solar (% endblock %)
+
+(% block nav_title %)
+<h1>
+  <a href="/"><i class="fas fa-arrow-left my-title-arrow"></i></a>
+</h1>
+(% endblock %)
+
 (% block content %)
 
 <div class="container">
-  <div class="container my-title-box">
+  <div class="my-title my-title-box">
     <h1>
-      <a href="/"><i class="fas fa-arrow-left my-title-arrow"></i></a>
       <b>Solar panel</b>
     </h1>
   </div>
@@ -48,6 +54,7 @@ var sum = sum(trend);
 var avg = sum/trend.length;
 
 Chart.defaults.global.defaultFontSize = 18;
+Chart.defaults.global.defaultFontColor = 'black';
 var ctx = document.getElementById('theChart').getContext('2d');
 var myBarChart = new Chart(ctx, {
     type: 'horizontalBar',
