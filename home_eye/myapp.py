@@ -99,17 +99,15 @@ def v2_sensor_day(name):
 
 @app.route('/v2/<name>/week', methods=['GET'])
 @login_required
-@http.validate_querystrings(method='GET', parameters=['year', 'week'])
+@http.validate_querystrings(method='GET', parameters=['date'])
 def v2_sensor_week(name):
-    current_week = Date.today().week
-    year = int(request.args['year']) if 'year' in request.args else current_week.year 
-    week_nbr = int(request.args['week']) if 'week' in request.args else  current_week.number
-    week = Week(year, week_nbr)
-
-    history = sensor_proxy.get_days(name, first=week.first_day, last=week.last_day)
-    link = '/v2/{}/week?year={}&week={}'
-    prev_link = link.format(name, week.prev.year, week.prev.number)
-    next_link = link.format(name, week.next.year, week.next.number)
+    a_date = request.args['date'] if 'date' in request.args else str(Date.today())
+    week = Week.from_date(Date.parse(a_date))
+    
+    history = sensor_proxy.get_days(name, first=week.monday, last=week.sunday)
+    link = '/v2/{}/week?date={}'
+    prev_link = link.format(name, week.prev.monday)
+    next_link = link.format(name, week.next.monday)
     nav = Navigation(str(week), prev_link, next_link)
     return render_template('sensor-history.html', name=name, nav=nav, active=['', 'active', '', ''], history=history)
 
