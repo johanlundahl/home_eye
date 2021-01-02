@@ -81,8 +81,10 @@ def storage():
 @app.route('/v2/<name>/latest', methods=['GET'])
 @login_required
 def v2_sensor(name):
+    date = datetime.now().strftime('%Y-%m-%d')
     latest = sensor_proxy.get_latest(name)
-    return render_template('sensor-latest.html', sensor = latest)
+    min_max = sensor_proxy.get_min_max(name, date)
+    return render_template('sensor-latest.html', sensor = latest, min_max = min_max)
 
 @app.route('/v2/<name>/day', methods=['GET'])
 @login_required
@@ -134,6 +136,11 @@ def solar():
     solar = solar_proxy.get_today()
     solar_history = solar_proxy.get_energy_history(days=7)
     return render_template('solar.html', solar=solar, history=solar_history)
+
+#@app.route('/v2/wizard/<step>', methods=['GET', 'POST'])
+#def wizard(step):
+#    steps = []
+#    step = [next='']
 
 if __name__ == '__main__':
     try:
