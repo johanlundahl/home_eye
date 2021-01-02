@@ -43,7 +43,6 @@
             data: null,
             contentType: 'application/json;charset=UTF-8',
             success: function(evt) {
-                console.log(evt)
                 $("#sensor_((sensor)) *:nth-child(3)").html(evt.temperature.display_value + evt.temperature.unit);
                 $("#sensor_((sensor)) *:nth-child(2)").css('visibility', 'visible');
                 $("#sensor_((sensor)) *:nth-child(1)").css('visibility', 'hidden');
