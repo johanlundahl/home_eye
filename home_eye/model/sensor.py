@@ -50,6 +50,8 @@ class SensorDecoder:
     def decode(cls, dct):
         if 'humidity' in dct and 'temperature' in dct: 
             return Sensor(dct['name'], dct['temperature'], dct['humidity'], datetime.strptime(dct['timestamp'], '%Y-%m-%d %H:%M:%S'))
+        if 'min' in dct and 'max' in dct:
+            return dct    
 
 class ComplexEncoder(JSONEncoder):
 
