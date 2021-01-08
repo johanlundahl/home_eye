@@ -18,12 +18,12 @@
   </head>
 
   <body class="bg-light">
-    <nav class="navbar bg-white navbar-expand-lg navbar-default my-navbar">
+    <nav class="navbar bg-white navbar-default my-navbar">
       <span class="navbar-brand">(% block nav_title %)(% endblock %)</span>
       <button class="navbar-toggler my-navbar-toggler" 
         type="button" data-toggle="collapse" data-target="#collapsibleNavbar"
         aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span><i class="fas fa-grip-lines menu-icon"></i></span>
+        <span><i class="fas fa-bars menu-icon"></i></span>
       </button>
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav my-navbar-nav">
@@ -39,6 +39,12 @@
         </ul>
       </div>
     </nav>
+
+    <script>
+      $('.navbar-toggler').click(function () {
+        $('.navbar-toggler span i').toggleClass('fa-bars fa-times');
+      });
+    </script>
 
     <div class="container-fluid my-page-container">
       (% with messages = get_flashed_messages() %)

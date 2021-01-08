@@ -37,7 +37,8 @@ a:active {
 }
 
 .menu-icon {
-  font-size: 5vw;  
+  font-size: 5vw;
+  border: 0px;
 }
 
 .title {
@@ -79,11 +80,17 @@ a:active {
   margin:0;
   padding:0;
 }
+
+.my-navbar-toggler:focus,
+.my-navbar-toggler:active,
 .my-navbar-toggler {
-  border:none;
+  border: none;
+  outline: none;
   padding: 5px;
   margin: 10px;
 }
+
+
 
 .my-topnav {
   overflow: hidden;
@@ -151,13 +158,13 @@ nav {
   }
 
   h2 {
-    font-size: 30px; 
-    padding-bottom:10px;
+    font-size: 25px; 
+    padding-bottom: 10px;
     font-weight: bold;
   }
 
   .plain_text {
-    font-size: 25px;
+    font-size: 20px;
   }
 
   .menu-icon {
