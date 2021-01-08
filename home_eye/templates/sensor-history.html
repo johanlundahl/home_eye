@@ -24,9 +24,9 @@
 
   <div class="container my-box my-rounded bg-white plain_text">
     <div class="container text-center">
-      <a href="((nav.prev))"><i class="fas fa-angle-left nav-arrows"></i></a>
+      <a href="((nav.prev))"><i class="fas fa-chevron-left nav-arrows"></i></a>
       (( nav.title ))
-      <a href="((nav.next))"><i class="fas fa-angle-right nav-arrows"></i></a>
+      <a href="((nav.next))"><i class="fas fa-chevron-right nav-arrows"></i></a>
     </div>
 
     <div class="container">
@@ -71,6 +71,8 @@ function get_options(title) {
     };
   return options;  
 }
+
+console.log('' + (( history.timestamps|safe )) );
 
 Chart.defaults.scale.gridLines.display = false;
 var ctx = document.getElementById('theChart').getContext('2d');
