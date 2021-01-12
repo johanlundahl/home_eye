@@ -1,6 +1,45 @@
 (% extends 'base.html' %)
 (% block title %) solar (% endblock %)
 
+(% block head %)
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    google.charts.load('current', {packages: ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function sum(arr){
+      var sum = 0;
+      for(i=0; i < arr.length; i++){
+        sum += arr[i];
+      }
+      return sum;
+    }
+
+    var trend = (( history.values|safe ));
+    var sum = sum(trend);
+    var avg = sum/trend.length;
+
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Types');
+      data.addColumn('number', 'Wh');
+      data.addColumn({type: 'string', role: 'annotation'});
+      data.addColumn({type: 'string', role: 'style'});
+      data.addRows([
+        ['Today', ((solar.energy.value|safe)), '' +((solar.energy.display_value|safe)), "color:#6155a6" ],
+        ['7 day avg', avg, '' +Math.round(avg), "color:#a685e2"]]);
+
+      var options = {
+        legend: {position:'none'},
+        cssClassName: {}
+      };
+      var chart = new google.visualization.BarChart(document.getElementById('myPieChart'));
+      chart.draw(data, options);
+    }
+  </script>
+(% endblock %)
+
+
 (% block nav_title %)
 <h1>
   <a href="/"><i class="fas fa-arrow-left my-title-arrow"></i></a>
@@ -18,8 +57,12 @@
 </div>
 
 <div class="container">
+  <div class="topnav bg-light my-topnav plain_text">
+    <a href="/v2/energy/production/today" class="active">Today</a>
+    <a href="/v2/energy/production/month">Month</a>
+  </div>
+
   <div class="container my-box my-rounded bg-white plain_text">
-      <h2>Todays production</h2>
       <div class="row plain_text my-row">
         <div class="col-5">Power</div>
         <div class="col-7">(( solar.power.display_value )) (( solar.power.unit ))</div>
@@ -35,60 +78,8 @@
   </div>
 
   <div class="container bg-white my-box my-rounded">
-    <h2>Short term trend</h2>
-    <canvas id="theChart"></canvas>
+    <div id="myPieChart" class="plain_text"/>
   </div>
 </div>
-
-<script>
-function sum(arr){
-  var sum = 0;
-  for(i=0; i < arr.length; i++){
-    sum += arr[i];
-  }
-  return sum;
-}
-
-var trend = (( history.values|safe ));
-var sum = sum(trend);
-var avg = sum/trend.length;
-
-Chart.defaults.global.defaultFontSize = 18;
-Chart.defaults.global.defaultFontColor = 'black';
-var ctx = document.getElementById('theChart').getContext('2d');
-var myBarChart = new Chart(ctx, {
-    type: 'horizontalBar',
-    data: {
-    labels: ['Today', '7 day avg'],
-      datasets: [{ 
-          data: [((solar.energy.value|safe)), avg],
-          backgroundColor: ["#6155a6", "#a685e2" ],
-          fill: false
-        }
-      ]
-    },
-    options: {
-      legend: {
-            display: false
-         },
-        scales: {
-            xAxes: [{
-                ticks: {
-                    min: 1,
-                    display: false
-                }, gridLines: {
-                  display:false
-                }
-            }],
-            yAxes: [{
-                stacked: true,
-                gridLines: {
-                  display:false
-                }
-            }]
-        }
-    }
-});
-</script>
 
 (% endblock %)

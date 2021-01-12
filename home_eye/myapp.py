@@ -128,17 +128,24 @@ def v2_sensor_month(name):
     nav = Navigation(str(last.datetime.strftime('%B %Y')), prev_link, next_link)
     return render_template('sensor-history.html', name=name, nav=nav, active=['', '', 'active', ''], history=history)
 
-@app.route('/solar', methods=['GET'])
+@app.route('/v2/energy/production/today', methods=['GET'])
 @login_required
-def solar():
+def solar_today():
     solar = solar_proxy.get_today()
-    solar_history = solar_proxy.get_energy_history(days=7)
+    solar_history = solar_proxy.get_energy_latest(days=7)
     return render_template('solar.html', solar=solar, history=solar_history)
 
-#@app.route('/v2/wizard/<step>', methods=['GET', 'POST'])
-#def wizard(step):
-#    steps = []
-#    step = [next='']
+@app.route('/v2/energy/production/month', methods=['GET'])
+@login_required
+def solar_month():
+    solar = solar_proxy.get_today()
+    today = Date.today()
+    first_day = str(today.first_in_month())
+    last_day = str(today.last_in_month())
+    solar_history = solar_proxy.get_energy_history(first_day, last_day)
+    value_pairs = [[x, y] if y is not None else [x, 0] for x,y in zip(solar_history.dates, solar_history.values)]
+    return render_template('solar-history.html', solar=solar, history=solar_history, history_data=value_pairs)
+
 
 if __name__ == '__main__':
     try:

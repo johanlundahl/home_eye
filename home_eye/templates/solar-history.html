@@ -1,0 +1,65 @@
+(% extends 'base.html' %)
+(% block title %) (( name )) (% endblock %)
+
+(% block head %)
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    google.charts.load('current', {packages: ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Days');
+      data.addColumn('number', 'Wh');
+      data.addRows( ((history_data|safe)) );
+
+      var options = {
+        legend:{position:'none'},
+        colors:['#6155a6']
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById('myPieChart'));
+      chart.draw(data, options);
+    }
+  </script>
+(% endblock %)
+
+(% block nav_title %)
+<h1>
+  <a href="/"><i class="fas fa-arrow-left my-title-arrow"></i></a>
+</h1>
+(% endblock %)
+(% block content %)
+
+<div class="container">
+  <div class="my-title my-title-box">
+    <h1>
+      <b>Solar panel</b>
+    </h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="topnav bg-light my-topnav plain_text">
+    <a href="/v2/energy/production/today">Today</a>
+    <a href="/v2/energy/production/month" class="active">Month</a>
+  </div>
+
+  <div class="container my-box my-rounded bg-white plain_text">
+      <div class="row plain_text my-row">
+        <div class="col-5">Energy</div>
+        <div class="col-7">(( solar.month.display_value )) (( solar.month.unit ))</div>
+      </div>
+      <div class="row plain_text my-row">
+        <div class="col-5">Registered</div>
+        <div class="col-7">(( solar.updated.display_value ))</div>
+      </div>
+  </div>
+
+  <div class="container my-box my-rounded bg-white plain_text">
+    <div class="container">
+      <div id="myPieChart"/>
+    </div>
+  </div>
+</div>
+
+(% endblock %)
