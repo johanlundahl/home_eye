@@ -2,10 +2,12 @@ from home_eye.model.value import Value
 from datetime import datetime
 
 class Solar:
-    def __init__(self, power, energy, updated):
+    def __init__(self, power, energy, updated, month=None, year=None):
         self._power = Value(power, 'W')
         self._energy = Value(energy, 'Wh')
         self._updated = Value(updated)
+        self._month = Value(month, 'Wh')
+        self._year = Value(year, 'Wh')
 
     @property
     def updated(self):
@@ -14,6 +16,14 @@ class Solar:
     @property
     def power(self):
         return self._power
+    
+    @property
+    def month(self):
+        return self._month
+    
+    @property
+    def year(self):
+        return self._year
     
     @property
     def energy(self):
@@ -30,7 +40,9 @@ class Solar:
         updated = datetime.strptime(dct['overview']['lastUpdateTime'], '%Y-%m-%d %H:%M:%S')
         power = float(dct['overview']['currentPower']['power'])
         energy = float(dct['overview']['lastDayData']['energy'])
-        return Solar(power, energy, updated)
+        month = float(dct['overview']['lastMonthData']['energy'])
+        year = float(dct['overview']['lastYearData']['energy'])
+        return Solar(power, energy, updated, month,)
 
 
 class SolarHistory:
