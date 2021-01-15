@@ -39,6 +39,7 @@ a:active {
 .menu-icon {
   font-size: 5vw;
   border: 0px;
+  transition: 0.5s;
 }
 
 .title {
@@ -88,6 +89,7 @@ a:active {
   outline: none;
   padding: 5px;
   margin: 10px;
+  z-index: 1000;
 }
 
 
