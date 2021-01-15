@@ -12,10 +12,11 @@ logging:
 	tail -f application.log
 
 run:
-	sudo python3 -m home_eye.myapp
+	python3 -m home_eye.myapp
 
 test:
 	python3 -m unittest tests/*.py
+
 update:
 	git pull
 	sudo pip3 install -r requirements.txt
