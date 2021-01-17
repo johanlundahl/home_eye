@@ -1,3 +1,6 @@
+(% from 'page-heading.html' import heading %)
+(% from 'page-navigation.html' import sensor_submenu, solar_submenu, back_to %)
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,8 +50,7 @@
         (% endif %)
       (% endwith %)
 
-      (% block content %)
-      (% endblock %)
+      (% block content %) (% endblock %)
     </div>
   </body>
 </html>

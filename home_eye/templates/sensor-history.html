@@ -1,26 +1,14 @@
 (% extends 'base.html' %)
 (% block title %) (( name )) (% endblock %)
-(% block nav_title %)
-<h1>
-  <a href="/"><i class="fas fa-arrow-left my-title-arrow"></i></a>
-</h1>
-(% endblock %)
+(% block nav_title %) (( back_to('/') )) (% endblock %)
+
 (% block content %)
 
-<div class="container">
-  <div class="my-title my-title-box">
-    <h1>
-      <b>(( name ))</b>
-    </h1>
-  </div>
-</div>
+(( heading(name) ))
 
 <div class="container">
-  <div class="topnav bg-light my-topnav plain_text">
-    <a href="/v2/((name))/latest">Today</a>
-    <a href="/v2/((name))/week" class="((active[1]))">Week</a>
-    <a href="/v2/((name))/month"  class="((active[2]))">Month</a>
-  </div>
+  
+  (( sensor_submenu(request.url, name) ))
 
   <div class="container my-box my-rounded bg-white plain_text">
     <div class="container text-center">
@@ -71,8 +59,6 @@ function get_options(title) {
     };
   return options;  
 }
-
-console.log('' + (( history.timestamps|safe )) );
 
 Chart.defaults.scale.gridLines.display = false;
 var ctx = document.getElementById('theChart').getContext('2d');

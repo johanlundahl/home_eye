@@ -1,30 +1,15 @@
 (% extends 'base.html' %)
 (% block title %) (( sensor.name )) (% endblock %)
+(% block nav_title %) (( back_to('/') )) (% endblock %)
 
-(% block nav_title %)
-<h1>
-  <a href="/"><i class="fas fa-arrow-left my-title-arrow"></i></a>
-</h1>
-(% endblock %)
 (% block content %)
 
-<div class="container">
-  <div class="my-title my-title-box">
-    <h1>
-      <b>(( sensor.name ))</b>
-    </h1>
-  </div>
-</div>
+(( heading(sensor.name) ))
 
 <div class="container">
-  <div class="topnav bg-light my-topnav plain_text">
-    <a href="/v2/((sensor.name))/latest" class="active">Today</a>
-    <a href="/v2/((sensor.name))/week">Week</a>
-    <a href="/v2/((sensor.name))/month">Month</a>
-  </div>
-</div>
 
-<div class="container">
+  (( sensor_submenu(request.url, sensor.name) ))
+
   <div class="container my-box my-rounded bg-white plain_text">
       <div class="row plain_text my-row">
         <div class="col-5">Temperature</div>

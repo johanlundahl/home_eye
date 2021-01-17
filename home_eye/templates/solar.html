@@ -39,28 +39,15 @@
   </script>
 (% endblock %)
 
-
-(% block nav_title %)
-<h1>
-  <a href="/"><i class="fas fa-arrow-left my-title-arrow"></i></a>
-</h1>
-(% endblock %)
+(% block nav_title %) (( back_to('/') )) (% endblock %)
 
 (% block content %)
 
-<div class="container">
-  <div class="my-title my-title-box">
-    <h1>
-      <b>Solar panel</b>
-    </h1>
-  </div>
-</div>
+(( heading('Solar panel') ))
 
 <div class="container">
-  <div class="topnav bg-light my-topnav plain_text">
-    <a href="/v2/energy/production/today" class="active">Today</a>
-    <a href="/v2/energy/production/month">Month</a>
-  </div>
+
+  (( solar_submenu(request.url, 'energy/production') ))
 
   <div class="container my-box my-rounded bg-white plain_text">
       <div class="row plain_text my-row">

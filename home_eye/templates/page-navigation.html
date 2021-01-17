@@ -1,0 +1,26 @@
+(% macro sensor_submenu(url, name) -%)
+
+<div class="topnav bg-light my-topnav plain_text">
+	<a href="/v2/(( name ))/latest" (% if '/latest' in url %)class="active"(% endif %)>Today</a>
+	<a href="/v2/(( name ))/week" (% if '/week' in url %)class="active"(% endif %)>Week</a>
+	<a href="/v2/(( name ))/month" (% if '/month' in url %)class="active"(% endif %)>Month</a>
+</div>
+
+(%- endmacro %)
+
+(% macro solar_submenu(url, name) -%)
+
+<div class="topnav bg-light my-topnav plain_text">
+	<a href="/v2/(( name ))/today" (% if '/today' in url %)class="active"(% endif %)>Today</a>
+	<a href="/v2/(( name ))/month" (% if '/month' in url %)class="active"(% endif %)>Month</a>
+</div>
+
+(%- endmacro %)
+
+(% macro back_to(url) -%)
+
+<h1>
+  <a href="(( url ))"><i class="fas fa-arrow-left my-title-arrow"></i></a>
+</h1>
+
+(%- endmacro %)
