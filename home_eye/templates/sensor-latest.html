@@ -2,6 +2,10 @@
 
 (% block head_title %) (( sensor.name )) (% endblock head_title %)
 
+(% block head_elements %)
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+(% endblock %)
+
 (% block navigation_title %) (( back_to('/') )) (% endblock navigation_title %)
 
 (% block page_content %)
@@ -37,8 +41,8 @@
     </div>  
   </div>
 <script>
-          
-Chart.defaults.global.defaultFontSize = 18;
+  
+Chart.defaults.global.defaultFontSize = getPxFromVw(4.5, 20);;
 Chart.defaults.global.defaultFontColor = 'black';
 var ctx = document.getElementById('theChart').getContext('2d');
 var myBarChart = new Chart(ctx, {

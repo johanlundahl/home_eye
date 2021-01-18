@@ -29,46 +29,10 @@
     </div>
   </div>
   <script>
-  function get_options(title) {
-    var options = {
-        title: {
-          display: true,
-          text: title
-        },
-        aspectRatio: 1,
-        scales: {
-          xAxes: [{
-            ticks: {
-              display: false
-            }
-          }],
-          yAxes: [
-            {
-            id: 'left-y-axis',
-            type: 'linear',
-            position: 'left',
-            precision: 0
-           },
-           {
-            id: 'right-y-axis', 
-            type: 'linear',
-            position: 'right'
-           }
-          ]
-          
-        },
-        elements: {
-          point:{
-            radius: 0
-          }
-        },
-      };
-    return options;  
-  }
 
+  Chart.defaults.global.defaultFontSize = getPxFromVw(4.5, 20);
   Chart.defaults.scale.gridLines.display = false;
   var ctx = document.getElementById('theChart').getContext('2d');
-  var chart_options = get_options('');
   var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -88,7 +52,48 @@
         }
       ]
     },
-    options: chart_options
+    options: {
+      title: {
+        display: true,
+        text: ''
+      },
+      aspectRatio: 1,
+      scales: {
+        xAxes: [{
+          ticks: {
+            display: false
+          }
+        }],
+        yAxes: [{
+          id: 'left-y-axis',
+          type: 'linear',
+          position: 'left',
+          ticks: {
+            stepSize: 1,
+            beginAtZero: false,
+          }
+        },
+        {
+          id: 'right-y-axis', 
+          type: 'linear',
+          position: 'right',
+          ticks: {
+            stepSize: 1,
+            beginAtZero: false,
+          }
+        }]    
+      },
+      elements: {
+        point:{
+          radius: 0
+        }
+      },
+      legend: {
+        labels: {
+          boxWidth: 20  
+        }
+      }  
+    }
   });
   </script>
 
