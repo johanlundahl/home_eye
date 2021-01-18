@@ -1,39 +1,41 @@
 (% extends 'base.html' %)
-(% block title %) (( sensor.name )) (% endblock %)
-(% block nav_title %) (( back_to('/') )) (% endblock %)
 
-(% block content %)
+(% block head_title %) (( sensor.name )) (% endblock head_title %)
 
-(( heading(sensor.name) ))
+(% block navigation_title %) (( back_to('/') )) (% endblock navigation_title %)
 
-<div class="container">
+(% block page_content %)
 
-  (( sensor_submenu(request.url, sensor.name) ))
+  (( heading(sensor.name) ))
 
-  <div class="container my-box my-rounded bg-white plain_text">
-      <div class="row plain_text my-row">
-        <div class="col-5">Temperature</div>
-        <div class="col-7">
-          (( sensor.temperature.display_value ))
-          (( sensor.temperature.unit ))</div>
-      </div>
-      <div class="row plain_text my-row">
-        <div class="col-5">Humidity</div>
-        <div class="col-7">
-          (( sensor.humidity.display_value ))
-          (( sensor.humidity.unit ))</div>
-      </div>
-      <div class="row plain_text my-row">
-        <div class="col-5">Registered</div>
-        <div class="col-7">(( sensor.updated.display_value ))</div>
-      </div>
+  <div class="container">
+
+    (( sensor_submenu(request.url, sensor.name) ))
+
+    <div class="container my-box my-rounded bg-white plain_text">
+        <div class="row plain_text my-row">
+          <div class="col-5">Temperature</div>
+          <div class="col-7">
+            (( sensor.temperature.display_value ))
+            (( sensor.temperature.unit ))</div>
+        </div>
+        <div class="row plain_text my-row">
+          <div class="col-5">Humidity</div>
+          <div class="col-7">
+            (( sensor.humidity.display_value ))
+            (( sensor.humidity.unit ))</div>
+        </div>
+        <div class="row plain_text my-row">
+          <div class="col-5">Registered</div>
+          <div class="col-7">(( sensor.updated.display_value ))</div>
+        </div>
+    </div>
+
+    <div class="container bg-white my-box my-rounded">
+
+      <canvas id="theChart"></canvas>
+    </div>  
   </div>
-
-  <div class="container bg-white my-box my-rounded">
-
-    <canvas id="theChart"></canvas>
-  </div>  
-</div>
 <script>
           
 Chart.defaults.global.defaultFontSize = 18;
@@ -74,4 +76,4 @@ var myBarChart = new Chart(ctx, {
 });  
 </script>
 
-(% endblock %)
+(% endblock page_content %)

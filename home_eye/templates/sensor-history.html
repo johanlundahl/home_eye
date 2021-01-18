@@ -1,89 +1,95 @@
 (% extends 'base.html' %)
-(% block title %) (( name )) (% endblock %)
-(% block nav_title %) (( back_to('/') )) (% endblock %)
 
-(% block content %)
+<!-- head -->
+(% block head_title %) Homie - (( name )) (% endblock %)
 
-(( heading(name) ))
+<!-- body -->
+(% block navigation_title %) 
+  (( back_to('/') )) 
+(% endblock navigation_title %)
 
-<div class="container">
-  
-  (( sensor_submenu(request.url, name) ))
+(% block page_content %)
 
-  <div class="container my-box my-rounded bg-white plain_text">
-    <div class="container text-center">
-      <a href="((nav.prev))"><i class="fas fa-chevron-left nav-arrows"></i></a>
-      (( nav.title ))
-      <a href="((nav.next))"><i class="fas fa-chevron-right nav-arrows"></i></a>
-    </div>
+  (( heading(name) ))
 
-    <div class="container">
-      <canvas id="theChart"></canvas>
+  <div class="container">
+
+    (( sensor_submenu(request.url, name) ))
+
+    <div class="container my-box my-rounded bg-white plain_text">
+      <div class="container text-center">
+        <a href="((nav.prev))"><i class="fas fa-chevron-left nav-arrows"></i></a>
+        (( nav.title ))
+        <a href="((nav.next))"><i class="fas fa-chevron-right nav-arrows"></i></a>
+      </div>
+
+      <div class="container">
+        <canvas id="theChart"></canvas>
+      </div>
     </div>
   </div>
-</div>
-<script>
-function get_options(title) {
-  var options = {
-      title: {
-        display: true,
-        text: title
-      },
-      aspectRatio: 1,
-      scales: {
-        xAxes: [{
-          ticks: {
-            display: false
+  <script>
+  function get_options(title) {
+    var options = {
+        title: {
+          display: true,
+          text: title
+        },
+        aspectRatio: 1,
+        scales: {
+          xAxes: [{
+            ticks: {
+              display: false
+            }
+          }],
+          yAxes: [
+            {
+            id: 'left-y-axis',
+            type: 'linear',
+            position: 'left',
+            precision: 0
+           },
+           {
+            id: 'right-y-axis', 
+            type: 'linear',
+            position: 'right'
+           }
+          ]
+          
+        },
+        elements: {
+          point:{
+            radius: 0
           }
-        }],
-        yAxes: [
-          {
-          id: 'left-y-axis',
-          type: 'linear',
-          position: 'left',
-          precision: 0
-         },
-         {
-          id: 'right-y-axis', 
-          type: 'linear',
-          position: 'right'
-         }
-        ]
-        
-      },
-      elements: {
-        point:{
-          radius: 0
+        },
+      };
+    return options;  
+  }
+
+  Chart.defaults.scale.gridLines.display = false;
+  var ctx = document.getElementById('theChart').getContext('2d');
+  var chart_options = get_options('');
+  var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: (( history.timestamps|safe )),
+      datasets: [{ 
+          data: (( history.humidities|safe )),
+          label: "Humidity",
+          borderColor: "#3e95cd",
+          fill: false,
+          yAxisID: 'right-y-axis'
+        },{ 
+          data: (( history.temperatures|safe )),
+          label: "Temperature",
+          borderColor: "#c45850",
+          fill: false,
+          yAxisId: 'left-y-axis'
         }
-      },
-    };
-  return options;  
-}
+      ]
+    },
+    options: chart_options
+  });
+  </script>
 
-Chart.defaults.scale.gridLines.display = false;
-var ctx = document.getElementById('theChart').getContext('2d');
-var chart_options = get_options('');
-var myLineChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: (( history.timestamps|safe )),
-    datasets: [{ 
-        data: (( history.humidities|safe )),
-        label: "Humidity",
-        borderColor: "#3e95cd",
-        fill: false,
-        yAxisID: 'right-y-axis'
-      },{ 
-        data: (( history.temperatures|safe )),
-        label: "Temperature",
-        borderColor: "#c45850",
-        fill: false,
-        yAxisId: 'left-y-axis'
-      }
-    ]
-  },
-  options: chart_options
-});
-</script>
-
-(% endblock %)
+(% endblock page_content %)

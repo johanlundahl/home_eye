@@ -1,7 +1,8 @@
 (% extends 'base.html' %)
-(% block title %) (( name )) (% endblock %)
 
-(% block head %)
+(% block head_title %) (( name )) (% endblock %)
+
+(% block head_elements %)
 <script src="https://www.gstatic.com/charts/loader.js"></script>
   <script>
     google.charts.load('current', {packages: ['corechart']});
@@ -21,34 +22,34 @@
       chart.draw(data, options);
     }
   </script>
-(% endblock %)
+(% endblock head_elements %)
 
-(% block nav_title %) (( back_to('/') )) (% endblock %)
+(% block navigation_title %) (( back_to('/') )) (% endblock %)
 
-(% block content %)
+(% block page_content %)
 
-(( heading('Solar panel') ))
+  (( heading('Solar panel') ))
 
-<div class="container">
+  <div class="container">
 
-  (( solar_submenu(request.url, 'energy/production') ))
+    (( solar_submenu(request.url, 'energy/production') ))
 
-  <div class="container my-box my-rounded bg-white plain_text">
-      <div class="row plain_text my-row">
-        <div class="col-5">Energy</div>
-        <div class="col-7">(( solar.month.display_value )) (( solar.month.unit ))</div>
+    <div class="container my-box my-rounded bg-white plain_text">
+        <div class="row plain_text my-row">
+          <div class="col-5">Energy</div>
+          <div class="col-7">(( solar.month.display_value )) (( solar.month.unit ))</div>
+        </div>
+        <div class="row plain_text my-row">
+          <div class="col-5">Registered</div>
+          <div class="col-7">(( solar.updated.display_value ))</div>
+        </div>
+    </div>
+
+    <div class="container my-box my-rounded bg-white plain_text">
+      <div class="container">
+        <div id="myPieChart"/>
       </div>
-      <div class="row plain_text my-row">
-        <div class="col-5">Registered</div>
-        <div class="col-7">(( solar.updated.display_value ))</div>
-      </div>
-  </div>
-
-  <div class="container my-box my-rounded bg-white plain_text">
-    <div class="container">
-      <div id="myPieChart"/>
     </div>
   </div>
-</div>
 
 (% endblock %)
