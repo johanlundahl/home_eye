@@ -133,7 +133,7 @@ def v2_sensor_month(name):
 def solar_today():
     solar = solar_proxy.get_today()
     solar_history = solar_proxy.get_energy_latest(days=7)
-    return render_template('solar.html', solar=solar, history=solar_history)
+    return render_template('solar-latest.html', solar=solar, history=solar_history)
 
 @app.route('/v2/energy/production/month', methods=['GET'])
 @login_required
