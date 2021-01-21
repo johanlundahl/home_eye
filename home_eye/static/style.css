@@ -55,6 +55,13 @@ a:active {
   color: #6155a6;
 }
 
+.system-color {
+  background: black;
+  color: #818181;
+}
+
+
+
 .my-topnav a {
   color: #444444; /*#f2f2f2*/
   text-align: center;

@@ -62,5 +62,5 @@ class SolarHistory:
     def from_dict(cls, dct):
         readings = dct['energy']['values']
         dates = [x['date'].split(' ')[0] for x in readings]
-        values = [x['value'] for x in readings]
+        values = [x['value'] if x['value'] is not None else 0 for x in readings]
         return SolarHistory(dates, values)

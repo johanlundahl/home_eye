@@ -3,41 +3,7 @@
 (% block head_title %) Solar (% endblock %)  
 
 (% block head_elements %)  
-<script src="https://www.gstatic.com/charts/loader.js"></script>
-  <script>
-    google.charts.load('current', {packages: ['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-
-    function sum(arr){
-      var sum = 0;
-      for(i=0; i < arr.length; i++){
-        sum += arr[i];
-      }
-      return sum;
-    }
-
-    var trend = (( history.values|safe ));
-    var sum = sum(trend);
-    var avg = sum/trend.length;
-
-    function drawChart() {
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Types');
-      data.addColumn('number', 'Wh');
-      data.addColumn({type: 'string', role: 'annotation'});
-      data.addColumn({type: 'string', role: 'style'});
-      data.addRows([
-        ['Today', ((solar.energy.value|safe)), '' +((solar.energy.display_value|safe)), "color:#6155a6" ],
-        ['7 day avg', avg, '' +Math.round(avg), "color:#a685e2"]]);
-
-      var options = {
-        legend: {position:'none'},
-        cssClassName: {}
-      };
-      var chart = new google.visualization.BarChart(document.getElementById('myPieChart'));
-      chart.draw(data, options);
-    }
-  </script>
+  <!--script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script-->
 (% endblock head_elements %)
 
 (% block navigation_title %) (( back_to('/') )) (% endblock %)
@@ -66,7 +32,8 @@
   </div>
 
   <div class="container bg-white my-box my-rounded">
-    <div id="myPieChart" class="plain_text"/>
+    (( horizontal_bar_chart('Today', solar.energy.value, '7 day avg', history.values|sum / history.values|count) ))
+
   </div>
 </div>
 

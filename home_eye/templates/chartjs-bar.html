@@ -1,0 +1,114 @@
+(% macro horizontal_bar_chart(series_1_name, series_1_value, series_2_name, series_2_value) %)
+
+	<canvas id="theChart"></canvas>
+
+	<script>
+	Chart.defaults.global.defaultFontSize = getPxFromVw(4.5, 20);
+	Chart.defaults.global.defaultFontColor = 'black';
+	var ctx = document.getElementById('theChart').getContext('2d');
+	var myBarChart = new Chart(ctx, {
+	    type: 'horizontalBar',
+	    data: {
+	    labels: ['((series_1_name))', '((series_2_name))'],
+	      datasets: [{ 
+	          data: [(( series_1_value|safe )), (( series_2_value|safe ))],
+	          backgroundColor: ["#6155a6", "#a685e2" ],
+	          fill: false
+	        }
+	      ]
+	    },
+	    options: {
+	      responsive: true, 
+	      maintainAspectRatio: false,      
+	      legend: {
+	        display: false
+	      },
+	      scales: {
+	        xAxes: [{
+	            ticks: {
+	                min: 1,
+	                display: false
+	            }, gridLines: {
+	              display:false
+	            }
+	        }],
+	        yAxes: [{
+	            stacked: true,
+	            gridLines: {
+	              display:false
+	            }
+	        }]
+	      },
+	      plugins: {
+	        datalabels: {
+	          color: 'white',
+	          font: {
+	            weight: 'bold'
+	          }
+	        }
+	      }
+	    }
+	});  
+	</script>
+
+(% endmacro %)
+
+
+(% macro vertical_bar_chart(labels, values) %)
+
+	<canvas id="theVChart"></canvas>
+
+	<script>
+	Chart.defaults.global.defaultFontSize = getPxFromVw(4.5, 20);
+	Chart.defaults.global.defaultFontColor = 'black';
+	var ctx = document.getElementById('theVChart').getContext('2d');
+	var myBarChart = new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	      labels: ((labels|safe)),
+	      datasets: [
+	        {
+	          label: "Population (millions)",
+	          backgroundColor: "#6155a6",
+	          data: (( values|safe ))
+	        }
+	      ]
+	    },
+	    options: {
+	      responsive: true, 
+	      maintainAspectRatio: false,      
+	      legend: {
+	        display: false
+	      },
+	      title: {
+	        display: false,
+	      },
+	      scales: {
+	        xAxes: [{
+	            ticks: {
+	                min: 1,
+	                display: false
+	            }, gridLines: {
+	              display:false
+	            }
+	        }],
+	        yAxes: [{
+	            stacked: true,
+	            gridLines: {
+	              display:false
+	            }
+	        }]
+	      },
+	      plugins: {
+	        datalabels: {
+	          color: 'white',
+	          font: {
+	            weight: 'bold'
+	          }
+	        }
+	      }
+	    }
+	});  
+	</script>
+
+(% endmacro %)

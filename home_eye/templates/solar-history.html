@@ -3,25 +3,7 @@
 (% block head_title %) (( name )) (% endblock %)
 
 (% block head_elements %)
-<script src="https://www.gstatic.com/charts/loader.js"></script>
-  <script>
-    google.charts.load('current', {packages: ['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
 
-    function drawChart() {
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Days');
-      data.addColumn('number', 'Wh');
-      data.addRows( ((history_data|safe)) );
-
-      var options = {
-        legend:{position:'none'},
-        colors:['#6155a6']
-      };
-      var chart = new google.visualization.ColumnChart(document.getElementById('myPieChart'));
-      chart.draw(data, options);
-    }
-  </script>
 (% endblock head_elements %)
 
 (% block navigation_title %) (( back_to('/') )) (% endblock %)
@@ -47,7 +29,7 @@
 
     <div class="container my-box my-rounded bg-white plain_text">
       <div class="container">
-        <div id="myPieChart"/>
+        (( vertical_bar_chart(history.dates, history.values) ))
       </div>
     </div>
   </div>

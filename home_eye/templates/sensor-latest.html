@@ -37,47 +37,11 @@
 
     <div class="container bg-white my-box my-rounded">
 
-      <canvas id="theChart"></canvas>
+      (( horizontal_bar_chart('Max', min_max.max.temperature.value, 'Min', min_max.min.temperature.value) ))
+
     </div>  
   </div>
-<script>
-  
-Chart.defaults.global.defaultFontSize = getPxFromVw(4.5, 20);;
-Chart.defaults.global.defaultFontColor = 'black';
-var ctx = document.getElementById('theChart').getContext('2d');
-var myBarChart = new Chart(ctx, {
-    type: 'horizontalBar',
-    data: {
-    labels: ['Max', 'Min'],
-      datasets: [{ 
-          data: [(( min_max.max.temperature.value|safe )), (( min_max.min.temperature.value|safe ))],
-          backgroundColor: ["#6155a6", "#a685e2" ],
-          fill: false
-        }
-      ]
-    },
-    options: {
-      legend: {
-        display: false
-      },
-      scales: {
-        xAxes: [{
-            ticks: {
-                min: 1,
-                display: false
-            }, gridLines: {
-              display:false
-            }
-        }],
-        yAxes: [{
-            stacked: true,
-            gridLines: {
-              display:false
-            }
-        }]
-      }
-    }
-});  
-</script>
+
+
 
 (% endblock page_content %)
