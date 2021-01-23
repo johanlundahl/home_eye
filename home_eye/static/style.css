@@ -1,17 +1,18 @@
 /* Typography */
 h1 {
   font-size: 6vw;
+  font-weight: bold;
   margin:0px;
+}
+
+h1::first-letter {
+  text-transform: uppercase;
 }
 
 h2 {
   font-size: 4.5vw;
   padding-bottom:10px;
   font-weight: bold;
-}
-
-.my-title {
-  text-transform: capitalize;
 }
 
 .my-title-arrow {
