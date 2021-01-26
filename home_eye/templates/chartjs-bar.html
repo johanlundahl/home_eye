@@ -30,8 +30,9 @@
 	      scales: {
 	        xAxes: [{
 	            ticks: {
-	                min: 1,
-	                display: false
+	                //min: 0,
+	                display: false,
+		            beginAtZero: true
 	            }, gridLines: {
 	              display:false
 	            }
@@ -51,6 +52,11 @@
 	          },
 	          formatter: Math.round
 	        }
+	      },
+	      layout:{
+	      	padding: {
+	      		right: 30
+	      	}
 	      }
 	    }
 	});  
