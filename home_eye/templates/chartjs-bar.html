@@ -1,4 +1,4 @@
-(% macro horizontal_bar_chart(series_1_name, series_1_value, series_2_name, series_2_value) %)
+(% macro horizontal_bar_chart(values, labels) %)
 
 	<canvas id="theChart"></canvas>
 
@@ -9,9 +9,9 @@
 	var myBarChart = new Chart(ctx, {
 	    type: 'horizontalBar',
 	    data: {
-	      labels: ['((series_1_name))', '((series_2_name))'],
+	      labels: (( labels|safe )),
 	      datasets: [{ 
-	          data: [(( series_1_value|safe )), (( series_2_value|safe ))],
+	      	  data: (( values|safe )),
 	          backgroundColor: ["#6155a6", "#a685e2" ],
 	          fill: false,
 	          datalabels: {

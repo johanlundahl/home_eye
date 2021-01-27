@@ -32,7 +32,7 @@
   </div>
 
   <div class="container bg-white my-box my-rounded">
-    (( horizontal_bar_chart('Today', solar.energy.value, '7 day avg', history.values|sum / history.values|count) ))
+    (( horizontal_bar_chart([solar.energy.value, history.values|sum / history.values|count], ['Today', '7 day avg']) ))
 
   </div>
 </div>
