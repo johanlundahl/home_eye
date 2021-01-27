@@ -6,9 +6,12 @@
 
 (% block page_content %)
 
-  (( heading('System storage') ))
+  (( heading('Application') ))
 
 <div class="container">
+
+  (( application_submenu(request.url) ))
+
   <div class="container my-box my-rounded bg-white plain_text">
       <div class="row plain_text my-row">
         <div class="col-5">Size</div>

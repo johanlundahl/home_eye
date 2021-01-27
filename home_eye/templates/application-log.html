@@ -1,0 +1,27 @@
+(% extends 'base.html' %)
+
+(% block head_title %) application log (% endblock %)
+
+(% block navigation_title %) (( back_to('/') )) (% endblock %)
+
+(% block page_content %)
+
+  (( heading('Application') ))
+
+<div class="container">
+
+  (( application_submenu(request.url) ))
+
+  <div class="container my-box my-rounded bg-white plain_text">
+      (% for line in log_lines %)
+      
+        <div class="row plain_text my-row">
+          <div class="col">
+            (( line ))
+          </div>
+        </div>
+      (% endfor%)    
+  </div>
+</div>
+
+(% endblock page_content %)

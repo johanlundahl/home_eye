@@ -8,6 +8,7 @@
 
 (%- endmacro %)
 
+
 (% macro solar_submenu(url, name) -%)
 
 <div class="topnav bg-light my-topnav plain_text">
@@ -16,6 +17,17 @@
 </div>
 
 (%- endmacro %)
+
+
+(% macro application_submenu(url, name) -%)
+
+<div class="topnav bg-light my-topnav plain_text">
+	<a href="/application/storage" (% if '/storage' in url %)class="active"(% endif %)>Storage</a>
+	<a href="/application/logs" (% if '/logs' in url %)class="active"(% endif %)>Logs</a>
+</div>
+
+(%- endmacro %)
+
 
 (% macro back_to(url) -%)
 

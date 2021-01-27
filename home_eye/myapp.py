@@ -72,12 +72,6 @@ def sensor_latest(name):
     sensor = sensor_proxy.get_latest(name)
     return jsonify(sensor.to_json())
 
-@app.route('/storage', methods=['GET'])
-@login_required
-def storage():
-    status = sensor_proxy.get_status()
-    return render_template('storage.html', status = status)
-
 @app.route('/v2/<name>/latest', methods=['GET'])
 @login_required
 def v2_sensor(name):
@@ -145,6 +139,20 @@ def solar_month():
     solar_history = solar_proxy.get_energy_history(first_day, last_day)
     value_pairs = [[x, y] if y is not None else [x, 0] for x,y in zip(solar_history.dates, solar_history.values)]
     return render_template('solar-history.html', solar=solar, history=solar_history, history_data=value_pairs)
+
+@app.route('/application/logs', methods=['GET'])
+@login_required
+def application_logs():
+    working_dir = os.getcwd()
+    with open('{}/application.log'.format(working_dir), 'r') as log:
+        log_lines = log.readlines()
+        return render_template('application-log.html', log_lines=log_lines)
+
+@app.route('/application/storage', methods=['GET'])
+@login_required
+def storage():
+    status = sensor_proxy.get_status()
+    return render_template('storage.html', status = status)
 
 
 if __name__ == '__main__':
