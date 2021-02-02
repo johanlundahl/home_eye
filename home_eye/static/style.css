@@ -1,4 +1,10 @@
 /* Typography */
+
+.logo {
+  font-family: 'Caveat';
+  font-size: 2.5vw;
+}
+
 h1 {
   font-size: 6vw;
   font-weight: bold;
@@ -161,8 +167,8 @@ nav {
 }
 
 .nav-arrows {
-  margin-left: 3vw;
-  margin-right: 3vw;
+  padding-left: 3vw;
+  padding-right: 3vw;
 }
 
 .navbar-brand {}

@@ -36,3 +36,20 @@
 </h1>
 
 (%- endmacro %)
+
+
+(% macro prev_next(url_prev, title, url_next) -%)
+<div class="row">
+	<div class="col">
+	  <a href="((url_prev))"><i class="fas fa-chevron-left nav-arrows"></i></a>
+	</div>
+	<div class="col-7">
+	  <b> (( title )) </b>
+	</div>
+	<div class="col">
+	  <a href="((url_next))"><i class="fas fa-chevron-right nav-arrows"></i></a>
+	</div>
+</div>
+      
+(%- endmacro %)
+

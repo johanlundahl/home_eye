@@ -32,7 +32,10 @@
 	            ticks: {
 	                //min: 0,
 	                display: false,
-		            beginAtZero: true
+		            beginAtZero: true,
+		            callback: function(value, index, values) {
+                        return '' + value;
+                    }
 	            }, gridLines: {
 	              display:false
 	            }
@@ -97,7 +100,10 @@
 	        xAxes: [{
 	            ticks: {
 	                min: 1,
-	                display: false
+	                display: true,
+	                callback: function(value, index, values) {
+                        return value.split("-").pop();
+                    }
 	            }, gridLines: {
 	              display:false
 	            }

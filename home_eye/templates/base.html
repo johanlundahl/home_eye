@@ -1,6 +1,7 @@
 (% from 'page-heading.html' import heading %)
-(% from 'page-navigation.html' import sensor_submenu, solar_submenu, application_submenu, back_to %)
+(% from 'page-navigation.html' import sensor_submenu, solar_submenu, application_submenu, back_to, prev_next %)
 (% from 'chartjs-bar.html' import horizontal_bar_chart, vertical_bar_chart %)
+(% from 'chartjs-line.html' import multi_line_chart %)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,12 +22,14 @@
     <script src="(( url_for('static', filename='toggle-menu.js') ))"></script>
     <script src="(( url_for('static', filename='size-calculations.js') ))"></script>
     <link rel="stylesheet" href="(( url_for('static', filename='toggle-menu.css') ))"></link>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Pacifico&display=swap" rel="stylesheet">
     (% block head_elements %)(% endblock %)
   </head>
 
   <body class="bg-light">
     <nav class="navbar bg-white navbar-default my-navbar">
-      <span class="navbar-brand">(% block navigation_title %)(% endblock %)</span>
+      <span class="navbar-brand">(% block navigation_title %)(% endblock %) <span class="logo">Homie</span></span>
       <button class="navbar-toggler my-navbar-toggler" 
         type="button" data-toggle="collapse" data-target="#collapsibleNavbar"
         aria-controls="collapsibleNavbar" aria-expanded="false" 

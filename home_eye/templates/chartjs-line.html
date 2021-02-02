@@ -1,0 +1,81 @@
+(% macro multi_line_chart(labels, values1, values2) %)
+
+  <canvas id="theLChart"></canvas>
+
+  <script>
+
+  Chart.defaults.global.defaultFontSize = getPxFromVw(4.5, 20);
+  Chart.defaults.scale.gridLines.display = false;
+  var ctx = document.getElementById('theLChart').getContext('2d');
+  var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: (( labels|safe )),
+      datasets: [{ 
+          data: (( values1|safe )),
+          label: "Humidity",
+          borderColor: "#3e95cd",
+          fill: false,
+          yAxisID: 'right-y-axis'
+        },{ 
+          data: (( values2|safe )),
+          label: "Temperature",
+          borderColor: "#c45850",
+          fill: false,
+          yAxisId: 'left-y-axis'
+        }
+      ]
+    },
+    options: {
+      responsive: true, 
+      maintainAspectRatio: false,
+      title: {
+        display: true,
+        text: ''
+      },
+      aspectRatio: 1,
+      scales: {
+        xAxes: [{
+          ticks: {
+            display: true,
+            callback: function(value, index, values) {
+            	return value.substring(8, 10);
+            }
+          }
+        }],
+        yAxes: [{
+          id: 'left-y-axis',
+          type: 'linear',
+          position: 'left',
+          ticks: {
+            stepSize: 1,
+            beginAtZero: false,
+          }
+        },
+        {
+          id: 'right-y-axis', 
+          type: 'linear',
+          position: 'right',
+          ticks: {
+            stepSize: 1,
+            beginAtZero: false,
+          }
+        }]    
+      },
+      elements: {
+        point:{
+          radius: 0
+        }
+      },
+      legend: {
+        labels: {
+          boxWidth: 20  
+        }
+      }  
+    }
+  });
+  </script>
+
+(% endmacro %)
+
+
