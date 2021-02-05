@@ -46,16 +46,6 @@
     </nav>
 
     <div class="container-fluid my-page-container">
-      (% with messages = get_flashed_messages() %)
-        (% if messages %)
-          <div class="alert alert-info">
-          (% for message in messages %)
-            (( message ))
-          (% endfor %)
-          </div>
-        (% endif %)
-      (% endwith %)
-
       (% block page_content %) (% endblock %)
     </div>
   </body>
