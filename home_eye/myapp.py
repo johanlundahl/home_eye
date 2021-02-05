@@ -132,19 +132,24 @@ def solar_today():
 @app.route('/v2/energy/production/month', methods=['GET'])
 @login_required
 def solar_month():
+    first = Date.parse(request.args['from']) if 'from' in request.args else Date.today().first_in_month()
+    last = Date.parse(request.args['to']) if 'to' in request.args else Date.today().last_in_month()
+   
     solar = solar_proxy.get_today()
-    today = Date.today()
-    first_day = str(today.first_in_month())
-    last_day = str(today.last_in_month())
-    solar_history = solar_proxy.get_energy_history(first_day, last_day)
+    
+    solar_history = solar_proxy.get_energy_history(str(first), str(last))
     value_pairs = [[x, y] if y is not None else [x, 0] for x,y in zip(solar_history.dates, solar_history.values)]
-    return render_template('solar-history.html', solar=solar, history=solar_history, history_data=value_pairs)
+    
+    link = '/v2/energy/production/month?from={}&to={}'
+    prev_link = link.format(first.prev.first_in_month(), first.prev.last_in_month())
+    next_link = link.format(last.next.first_in_month(), last.next.last_in_month())
+    nav = Navigation(str(last.datetime.strftime('%B %Y')), prev_link, next_link)
+    return render_template('solar-history.html', solar=solar, history=solar_history, history_data=value_pairs, nav=nav)
 
 @app.route('/application/logs', methods=['GET'])
 @login_required
 def application_logs():
-    working_dir = os.getcwd()
-    with open('{}/application.log'.format(working_dir), 'r') as log:
+    with open('{}/application.log'.format(cfg.application.app_root_path), 'r') as log:
         log_lines = log.readlines()
         return render_template('application-log.html', log_lines=log_lines)
 
