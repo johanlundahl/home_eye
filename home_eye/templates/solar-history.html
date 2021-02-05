@@ -1,4 +1,4 @@
-(% extends 'base.html' %)
+(% extends 'base_nav.html' %)
 
 (% block head_title %) (( name )) (% endblock %)
 
@@ -28,6 +28,11 @@
     </div>
 
     <div class="container my-box my-rounded bg-white plain_text">
+      <div class="container text-center">
+        (( prev_next(nav.prev, nav.title, nav.next) ))
+      </div>
+
+
       <div class="container">
         (( vertical_bar_chart(history.dates, history.values) ))
       </div>
