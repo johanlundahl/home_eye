@@ -1,7 +1,15 @@
+from datetime import datetime, timedelta
+from enum import Enum
+import json
 from pytils import http
 from home_eye.model.solar import Solar, SolarHistory
-import json
-from datetime import datetime, timedelta
+
+
+class TimeUnit(Enum):
+
+    DAY = 1
+    MONTH = 2
+
 
 class SolarProxy:
     
@@ -18,7 +26,8 @@ class SolarProxy:
         end_date = datetime.now().strftime('%Y-%m-%d')
         return self.get_energy_history(start_date, end_date)
 
-    def get_energy_history(self, start_date, end_date):
-        url = '{}energy?api_key={}&timeUnit=DAY&endDate={}&startDate={}'.format(self.base_url, self.api_key, end_date, start_date)
+    def get_energy_history(self, start_date, end_date, time_unit=TimeUnit.DAY):
+        url = '{}energy?api_key={}&timeUnit={}&endDate={}&startDate={}'.format(self.base_url, self.api_key, time_unit.name, end_date, start_date)
         status, objs = http.get_json(url)
         return SolarHistory.from_dict(objs)
+
