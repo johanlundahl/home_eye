@@ -53,6 +53,10 @@ class SolarHistory:
     @property
     def dates(self):
         return self._dates
+
+    @dates.setter
+    def dates(self, dates):
+        self._dates = dates
     
     @property
     def values(self):
