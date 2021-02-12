@@ -6,12 +6,12 @@ from flask_login import LoginManager, current_user, login_user, logout_user, log
 import yaml
 from pytils import http
 import pytils.log as logz
-from pytils.date import Date, Week
+from pytils.date import Date, Week, Month, Year
 from pytils import config
 from pytils.http import Navigation
 from home_eye.flask_app import FlaskApp
 from home_eye.model.user import User
-from home_eye.model.solar_proxy import SolarProxy
+from home_eye.model.solar_proxy import SolarProxy, TimeUnit
 from home_eye.model.sensor_proxy import SensorProxy
 
 # load config from file
@@ -83,7 +83,7 @@ def v2_sensor(name):
 @app.route('/v2/<name>/day', methods=['GET'])
 @login_required
 def v2_sensor_day(name):
-    date = Date.parse(request.args['date']) if 'date' in request.args else Date.today()
+    date = Date.parse(request.args['date']) if 'date' in request.args else Date.current()
     history = sensor_proxy.get_day(name, day=str(date))
     link = '/v2/{}/day?date={}'
     prev_link = link.format(name, str(date.prev))
@@ -95,31 +95,30 @@ def v2_sensor_day(name):
 @login_required
 @http.validate_querystrings(method='GET', parameters=['date'])
 def v2_sensor_week(name):
-    a_date = request.args['date'] if 'date' in request.args else str(Date.today())
-    week = Week.from_date(Date.parse(a_date))
+    a_date = request.args['date'] if 'date' in request.args else str(Date.current())
+
+    week = Week.create(Date.parse(a_date))
     
-    history = sensor_proxy.get_days(name, first=week.monday, last=week.sunday)
+    monday, sunday = week.range()
+    history = sensor_proxy.get_days(name, first=monday, last=sunday)
     link = '/v2/{}/week?date={}'
-    prev_link = link.format(name, week.prev.monday)
-    next_link = link.format(name, week.next.monday)
-    nav = Navigation(str(week), prev_link, next_link)
+    prev_link = link.format(name, week.prev().range()[0])
+    next_link = link.format(name, week.next().range()[0])
+    nav = Navigation(week.name, prev_link, next_link)
     return render_template('sensor-history.html', name=name, nav=nav, active=['', 'active', '', ''], history=history)
 
 @app.route('/v2/<name>/month', methods=['GET'])
 @login_required
 def v2_sensor_month(name):
-    first = Date.parse(request.args['from']) if 'from' in request.args else Date.today().first_in_month()
-    last = Date.parse(request.args['to']) if 'to' in request.args else Date.today().last_in_month()
+    first = Date.parse(request.args['from']) if 'from' in request.args else Month.current().range()[0]
+    last = Date.parse(request.args['to']) if 'to' in request.args else Month.current().range()[1]
     history = sensor_proxy.get_days(name, first=first, last=last)
     
     link = '/v2/{}/month?from={}&to={}'
-    prev_to = first.prev
-    prev_from = prev_to.first_in_month()
-    prev_link = link.format(name, prev_from, prev_to)
-    next_from = last.next
-    next_to = next_from.last_in_month()
-    next_link = link.format(name, next_from, next_to)
-    nav = Navigation(str(last.datetime.strftime('%B %Y')), prev_link, next_link)
+    month = Month.create(first)
+    prev_link = link.format(name, *month.prev().range())
+    next_link = link.format(name, *month.next().range())
+    nav = Navigation(month.name, prev_link, next_link)
     return render_template('sensor-history.html', name=name, nav=nav, active=['', '', 'active', ''], history=history)
 
 @app.route('/v2/energy/production/today', methods=['GET'])
@@ -132,19 +131,36 @@ def solar_today():
 @app.route('/v2/energy/production/month', methods=['GET'])
 @login_required
 def solar_month():
-    first = Date.parse(request.args['from']) if 'from' in request.args else Date.today().first_in_month()
-    last = Date.parse(request.args['to']) if 'to' in request.args else Date.today().last_in_month()
-   
-    solar = solar_proxy.get_today()
+    first = Date.parse(request.args['from']) if 'from' in request.args else Month.current().range()[0]
+    last = Date.parse(request.args['to']) if 'to' in request.args else Month.current().range()[1]
     
-    solar_history = solar_proxy.get_energy_history(str(first), str(last))
-    value_pairs = [[x, y] if y is not None else [x, 0] for x,y in zip(solar_history.dates, solar_history.values)]
+    solar_history = solar_proxy.get_energy_history(first.name, last.name)
+    solar_history.dates = [Date.parse(x).datetime.day for x in solar_history.dates]
     
     link = '/v2/energy/production/month?from={}&to={}'
-    prev_link = link.format(first.prev.first_in_month(), first.prev.last_in_month())
-    next_link = link.format(last.next.first_in_month(), last.next.last_in_month())
-    nav = Navigation(str(last.datetime.strftime('%B %Y')), prev_link, next_link)
-    return render_template('solar-history.html', solar=solar, history=solar_history, history_data=value_pairs, nav=nav)
+    month = Month.create(first)
+    prev_link = link.format(*month.prev().range())
+    next_link = link.format(*month.next().range())
+    nav = Navigation(month.name, prev_link, next_link)
+    return render_template('solar-history.html', history=solar_history, nav=nav)
+
+@app.route('/v2/energy/production/year', methods=['GET'])
+@login_required
+def solar_year():
+    year = Year.current()
+    first = Date.parse(request.args['from']) if 'from' in request.args else year.range()[0]
+    last = Date.parse(request.args['to']) if 'to' in request.args else year.range()[1]
+   
+    solar_history = solar_proxy.get_energy_history(first.name, last.name, time_unit=TimeUnit.MONTH)
+    solar_history.dates = [Date.parse(x).datetime.month for x in solar_history.dates]
+    
+    link = '/v2/energy/production/year?from={}&to={}'
+    year = Year.create(first)
+    prev_link = link.format(*year.prev().range())
+    next_link = link.format(*year.next().range())
+    nav = Navigation(year.name, prev_link, next_link)
+    return render_template('solar-history.html', history=solar_history, nav=nav)
+
 
 @app.route('/application/logs', methods=['GET'])
 @login_required

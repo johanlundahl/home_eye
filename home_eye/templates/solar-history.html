@@ -17,21 +17,12 @@
     (( solar_submenu(request.url, 'energy/production') ))
 
     <div class="container my-box my-rounded bg-white plain_text">
-        <div class="row plain_text my-row">
-          <div class="col-5">Energy</div>
-          <div class="col-7">(( solar.month.display_value )) (( solar.month.unit ))</div>
-        </div>
-        <div class="row plain_text my-row">
-          <div class="col-5">Registered</div>
-          <div class="col-7">(( solar.updated.display_value ))</div>
-        </div>
-    </div>
-
-    <div class="container my-box my-rounded bg-white plain_text">
+      
       <div class="container text-center">
         (( prev_next(nav.prev, nav.title, nav.next) ))
       </div>
-
+      <br/>
+      
       <div class="container">
         (( vertical_bar_chart(history.dates, history.values) ))
       </div>
