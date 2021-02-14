@@ -3,6 +3,7 @@ import locale
 
 locale.setlocale(locale.LC_ALL, '')
 
+
 class Value:
 
 	def __init__(self, value, unit=''):
@@ -20,7 +21,6 @@ class Value:
 		if isinstance(self._value, str):
 			return str(self._value.capitalize())
 		if isinstance(self._value, datetime):
-			#return self._value.strftime('%-H:%M, %-d %b %Y')
 			return self._value.strftime('%Y-%m-%d %-H:%M')
 		return str(self._value)
 	
