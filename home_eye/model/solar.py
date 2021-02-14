@@ -46,7 +46,10 @@ class Solar:
 
 
 class SolarHistory:
+    
     def __init__(self, dates, values):
+        if len(dates) != len(values):
+            raise ValueError('Lists must be of equal length')    
         self._dates = dates
         self._values = values
 
@@ -60,11 +63,36 @@ class SolarHistory:
     
     @property
     def values(self):
-        return self._values
+        values = [x if x is not None else 0 for x in self._values]
+        return values
+
+    @property
+    def avg(self):
+        values = list(filter(lambda x: x is not None, self._values))
+        if len(values) == 0:
+            return Value(0, 'Wh')
+        return Value(sum(values)/len(values), 'Wh')
+    
+    @property
+    def min(self):
+        values = list(filter(lambda x: x is not None, self._values))
+        return Value(min(values), 'Wh')
+
+    @property
+    def max(self):
+        values = list(filter(lambda x: x is not None, self._values))
+        if len(values) == 0:
+            return Value(0, 'Wh')
+        return Value(max(values), 'Wh')
+
+    @property
+    def sum(self):
+        values = list(filter(lambda x: x is not None, self._values))
+        return Value(sum(values), 'Wh')
 
     @classmethod
     def from_dict(cls, dct):
         readings = dct['energy']['values']
         dates = [x['date'].split(' ')[0] for x in readings]
-        values = [x['value'] if x['value'] is not None else 0 for x in readings]
+        values = [x['value'] for x in readings]
         return SolarHistory(dates, values)
