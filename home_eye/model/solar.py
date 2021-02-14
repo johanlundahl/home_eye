@@ -1,5 +1,6 @@
-from home_eye.model.value import Value
 from datetime import datetime
+from home_eye.model.value import Value
+
 
 class Solar:
     def __init__(self, power, energy, updated, month=None, year=None):
