@@ -16,28 +16,28 @@
     (( solar_submenu(request.url, 'energy/production') ))
 
     <div class="container my-box my-rounded bg-white plain_text">
-      
       <div class="container text-center">
         (( prev_next(nav.prev, nav.title, nav.next) ))
       </div>
-      <br/>
-      
+    </div>  
+
+    <div class="container my-box my-rounded bg-white plain_text">
       <div class="container">
         (( vertical_bar_chart(history.dates, history.values) ))
       </div>
     </div>
 
-    <div class="container my-box val-boxes">
+    <div class="container val-boxes">
       <div class="row">
-        <div class="col bg-white my-rounded val-box">
+        <div class="col my-box bg-white my-rounded val-box">
           <div class="plain_text">Total</div>
           (( history.sum.display_value )) (( history.sum.unit ))
         </div>
-        <div class="col val-box my-rounded bg-white">
+        <div class="col my-box val-box my-rounded bg-white">
           <div class="plain_text">Max</div>
           <div>(( history.max.display_value )) (( history.max.unit ))</div>
         </div>
-        <div class="col val-box my-rounded bg-white">
+        <div class="col my-box val-box my-rounded bg-white">
           <div class="plain_text">Average</div>
           (( history.avg.display_value )) (( history.avg.unit ))
         </div>

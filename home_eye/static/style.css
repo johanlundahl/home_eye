@@ -174,8 +174,8 @@ nav {
 }
 
 .val-box{
-  padding: 15px;
   font-size: 4.5vw;
+  font-weight: bold;
 }
 
 .navbar-brand {}
@@ -191,6 +191,11 @@ nav {
     font-size: 25px; 
     padding-bottom: 10px;
     font-weight: bold;
+  }
+
+  .val-box{
+    padding: 15px;
+    font-size: 25px;
   }
 
   .plain_text {
