@@ -22,7 +22,7 @@ Edit myapp.yaml and add required configuration parameters for the application by
 $ nano home_eye/myapp.yaml
 ```
 
-Edit the `home_eye/config.py` to set the following configuration parameters:
+Edit the `home_eye/myapp.yaml` to set the following configuration parameters:
 ```yaml
 authentication:
     username: ''
@@ -57,6 +57,12 @@ $ make autostart
 Reboot your Rasperry Pi and the application will start:
 ```
 $ sudo reboot
+```
+
+## Test
+To run the tests for the application
+```
+$ make test
 ```
 
 ## Logging
@@ -106,7 +112,7 @@ $ sudo nano /etc/apache2/sites-available/example.conf
 ```
 with the following content
 
-```
+```xml
 <VirtualHost *:80>
      # Add machine's IP address (use ifconfig command)
      ServerName ip-address-of-host
@@ -166,14 +172,14 @@ $ sudo a2enmod ssl
 
 Edit the .conf file to include SSL
 
-```
+```xml
 <VirtualHost *:443>
     SSLEngine On
     ...
 ```
 
 To automatically redirect from http to https add the following to the VirtualHost for http
-```
+```xml
 <VirtualHost *:80>
     ...
     Redirect "/" "https://your_domain_or_IP/"
