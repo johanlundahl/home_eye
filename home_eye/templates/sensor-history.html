@@ -17,11 +17,12 @@
     (( sensor_submenu(request.url, name) ))
 
     <div class="container my-box my-rounded bg-white plain_text">
-      
       <div class="container text-center">
         (( prev_next(nav.prev, nav.title, nav.next) ))
       </div>
+    </div>  
 
+    <div class="container my-box my-rounded bg-white plain_text">
       <div class="container">
         (( multi_line_chart(history.timestamps, history.humidities, history.temperatures) ))
       </div>
