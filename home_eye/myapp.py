@@ -11,7 +11,7 @@ from pytils import config
 from pytils.http import Navigation
 from home_eye.flask_app import FlaskApp
 from home_eye.model.user import User
-from home_eye.model.solar_proxy import SolarProxy, TimeUnit
+from home_eye.service.solar_proxy import SolarProxy, TimeUnit
 from home_eye.model.sensor_proxy import SensorProxy
 
 # load config from file

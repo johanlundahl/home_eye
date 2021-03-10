@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from enum import Enum
 import json
 from pytils import http
+import requests
 from home_eye.model.solar import Solar, SolarHistory
 
 
@@ -19,7 +20,7 @@ class SolarProxy:
 
     def get_today(self):
         status, objs = http.get_json('{}overview?api_key={}'.format(self.base_url, self.api_key))
-        return Solar.from_dict(objs)
+        return Solar.from_dict(objs) if status == 200 else None
 
     def get_energy_latest(self, days):
         start_date = (datetime.now()-timedelta(days=days)).strftime('%Y-%m-%d')
@@ -30,4 +31,3 @@ class SolarProxy:
         url = '{}energy?api_key={}&timeUnit={}&endDate={}&startDate={}'.format(self.base_url, self.api_key, time_unit.name, end_date, start_date)
         status, objs = http.get_json(url)
         return SolarHistory.from_dict(objs)
-
