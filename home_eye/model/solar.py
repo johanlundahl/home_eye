@@ -3,33 +3,14 @@ from home_eye.model.value import Value
 
 
 class Solar:
+    
     def __init__(self, power, energy, updated, month=None, year=None):
-        self._power = Value(power, 'W')
-        self._energy = Value(energy, 'Wh')
-        self._updated = Value(updated)
-        self._month = Value(month, 'Wh')
-        self._year = Value(year, 'Wh')
+        self.power = Value(power, 'W')
+        self.energy = Value(energy, 'Wh')
+        self.updated = Value(updated)
+        self.month = Value(month, 'Wh')
+        self.year = Value(year, 'Wh')
 
-    @property
-    def updated(self):
-        return self._updated
-    
-    @property
-    def power(self):
-        return self._power
-    
-    @property
-    def month(self):
-        return self._month
-    
-    @property
-    def year(self):
-        return self._year
-    
-    @property
-    def energy(self):
-        return self._energy
-    
     def __repr__(self):
         return 'Solar({}, {}, {})'.format(self.power, self.energy, self.updated)
 

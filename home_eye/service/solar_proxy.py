@@ -31,3 +31,7 @@ class SolarProxy:
         url = '{}energy?api_key={}&timeUnit={}&endDate={}&startDate={}'.format(self.base_url, self.api_key, time_unit.name, end_date, start_date)
         status, objs = http.get_json(url)
         return SolarHistory.from_dict(objs)
+
+    def __get(self, path):
+        url = f'{self.base_url}{path}?api_key={self.api_key}'
+        status, objs = http.get_json(url)

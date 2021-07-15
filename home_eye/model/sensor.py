@@ -4,31 +4,15 @@ from home_eye.model.value import Value
 
 class Sensor:   
     def __init__(self, name, temperature, humidity, updated):
-        self._name = name
-        self._temperature = Value(temperature, '°C')
-        self._humidity = Value(humidity, '%')
-        self._updated = Value(updated)
+        self.name = name
+        self.temperature = Value(temperature, '°C')
+        self.humidity = Value(humidity, '%')
+        self.updated = Value(updated)
         self._now = datetime.now()
 
     @property
-    def name(self):
-        return self._name
-    
-    @property
-    def temperature(self):
-        return self._temperature
-    
-    @property
-    def humidity(self):
-        return self._humidity
-    
-    @property
-    def updated(self):
-        return self._updated
-
-    @property
     def age(self):
-        delta = self._now - self._updated.value
+        delta = self._now - self.updated.value
         return delta.total_seconds() // 3600
 
     def to_json(self):
@@ -44,7 +28,8 @@ class Sensor:
     
     def __str__(self):
         return 'Sensor({}, {}, {}, {})'.format(self.name, self.temperature, self.humidity, self.updated)
-        
+
+
 class SensorDecoder:
     @classmethod
     def decode(cls, dct):
@@ -53,6 +38,7 @@ class SensorDecoder:
         if 'min' in dct and 'max' in dct:
             return dct    
 
+
 class ComplexEncoder(JSONEncoder):
 
     def default(self, o):
@@ -60,34 +46,20 @@ class ComplexEncoder(JSONEncoder):
             return o.to_json()
         return JSONEncoder.default(self, o)
 
+
 class Status:
     def __init__(self, count, size, oldest, newest):
-        self._count = Value(count)
-        self._size = Value(size, 'b')
-        self._oldest = Value(oldest)
-        self._newest = Value(newest)
-
-    @property
-    def count(self):
-        return self._count
-    
-    @property
-    def size(self):
-        return self._size
-    
-    @property
-    def oldest(self):
-        return self._oldest
-    
-    @property
-    def newest(self):
-        return self._newest
+        self.count = Value(count)
+        self.size = Value(size, 'b')
+        self.oldest = Value(oldest)
+        self.newest = Value(newest)
 
     def __repr__(self):
-        return 'Status({}, {}, {}, {})'.format(self._count, self._size, self._oldest, self._newest)
+        return 'Status({}, {}, {}, {})'.format(self.count, self.size, self.oldest, self.newest)
 
     def __str__(self):
-        return 'Status({}, {}, {}, {})'.format(self._count, self._size, self._oldest, self._newest)        
+        return 'Status({}, {}, {}, {})'.format(self.count, self.size, self.oldest, self.newest)        
+
 
 class StatusDecoder:
     @classmethod
@@ -96,6 +68,7 @@ class StatusDecoder:
             oldest = datetime.strptime(dct['oldest'], '%Y-%m-%d %H:%M:%S')
             newest = datetime.strptime(dct['newest'], '%Y-%m-%d %H:%M:%S')            
             return Status(dct['count'], dct['size'], oldest, newest)
+
 
 class SensorHistory:
     def __init__(self, sensors):
