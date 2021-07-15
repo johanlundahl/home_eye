@@ -75,29 +75,27 @@ def sensor_latest(name):
 @app.route('/v2/<name>/latest', methods=['GET'])
 @login_required
 def v2_sensor(name):
-    date = datetime.now().strftime('%Y-%m-%d')
     latest = sensor_proxy.get_latest(name)
-    min_max = sensor_proxy.get_min_max(name, date)
+    min_max = sensor_proxy.get_min_max(name, Date().name)
     return render_template('sensor-latest.html', sensor = latest, min_max = min_max)
 
 @app.route('/v2/<name>/day', methods=['GET'])
 @login_required
 def v2_sensor_day(name):
-    date = Date.parse(request.args['date']) if 'date' in request.args else Date.current()
-    history = sensor_proxy.get_day(name, day=str(date))
+    date = Date.parse(request.args['date']) if 'date' in request.args else Date()
+    history = sensor_proxy.get_day(name, day=date.name)
     link = '/v2/{}/day?date={}'
-    prev_link = link.format(name, str(date.prev))
-    next_link = link.format(name, str(date.next))
-    nav = Navigation(str(date), prev_link, next_link)
+    prev_link = link.format(name, date.prev.name)
+    next_link = link.format(name, date.next.name)
+    nav = Navigation(date.name, prev_link, next_link)
     return render_template('sensor-history.html', name=name, nav=nav, active=['active', '', '', ''], history=history)
 
 @app.route('/v2/<name>/week', methods=['GET'])
 @login_required
 @http.validate_querystrings(method='GET', parameters=['date'])
 def v2_sensor_week(name):
-    a_date = request.args['date'] if 'date' in request.args else str(Date.current())
-
-    week = Week.create(Date.parse(a_date))
+    a_date = request.args['date'] if 'date' in request.args else Date().name
+    week = Week.parse(a_date)
     
     monday, sunday = week.range()
     history = sensor_proxy.get_days(name, first=monday, last=sunday)
