@@ -5,3 +5,4 @@ home_eye/config.py
 *.crt
 *.key
 *.yaml
+.coverage
