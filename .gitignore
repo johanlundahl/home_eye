@@ -6,3 +6,5 @@ home_eye/config.py
 *.key
 *.yaml
 .coverage
+htmlcov/*
+
