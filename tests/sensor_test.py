@@ -20,7 +20,15 @@ class SensorTest(unittest.TestCase):
 		self.assertEqual('indoor', sensor_json['name'])
 		self.assertIn('value', sensor_json['temperature'])
 		self.assertIn('display_value', sensor_json['temperature'])
-		
+	
+	def test_create(self):
+		sensor = Sensor('test', 20, 30, datetime(year=2021, month=3, day=21))
+		self.assertEqual(sensor.name, 'test')
+		self.assertEqual(sensor.temperature.value, 20)
+		self.assertEqual(sensor.humidity.value, 30)
+		self.assertEqual(sensor.updated.value, datetime(year=2021, month=3, day=21))
+				
+
 
 if __name__ == '__main__':
 	unittest.main()

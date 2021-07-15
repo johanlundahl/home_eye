@@ -20,7 +20,11 @@ class ValueTest(unittest.TestCase):
 		self.assertEqual(3000, value_json['value'])
 		self.assertEqual('3', value_json['display_value'])
 
-
+	def test_kilo_prefix(self):
+		value = Value(1500, 'g')
+		self.assertEqual(value.value, 1500)
+		self.assertEqual(value.display_value, '2')
+		self.assertEqual(str(value), '2 kg')
 	
 if __name__ == '__main__':
 	unittest.main()
