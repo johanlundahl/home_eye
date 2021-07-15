@@ -8,3 +8,4 @@ python-box
 pyyaml
 pytest
 coverage
+quantiphy
