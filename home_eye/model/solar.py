@@ -3,7 +3,7 @@ from home_eye.model.value import Value
 
 
 class Solar:
-    
+
     def __init__(self, power, energy, updated, month=None, year=None):
         self.power = Value(power, 'W')
         self.energy = Value(energy, 'Wh')
@@ -12,26 +12,27 @@ class Solar:
         self.year = Value(year, 'Wh')
 
     def __repr__(self):
-        return 'Solar({}, {}, {})'.format(self.power, self.energy, self.updated)
+        return str(self)
 
     def __str__(self):
-        return 'Solar({}, {}, {})'.format(self.power, self.energy, self.updated)        
+        return f'Solar({self.power}, {self.energy}, {self.updated})'
 
     @classmethod
     def from_dict(cls, dct):
-        updated = datetime.strptime(dct['overview']['lastUpdateTime'], '%Y-%m-%d %H:%M:%S')
+        updated = datetime.strptime(dct['overview']['lastUpdateTime'],
+                                    '%Y-%m-%d %H:%M:%S')
         power = float(dct['overview']['currentPower']['power'])
         energy = float(dct['overview']['lastDayData']['energy'])
         month = float(dct['overview']['lastMonthData']['energy'])
         year = float(dct['overview']['lastYearData']['energy'])
-        return Solar(power, energy, updated, month,)
+        return Solar(power, energy, updated, month, year)
 
 
 class SolarHistory:
-    
+
     def __init__(self, dates, values):
         if len(dates) != len(values):
-            raise ValueError('Lists must be of equal length')    
+            raise ValueError('Lists must be of equal length')
         self._dates = dates
         self._values = values
 
@@ -42,7 +43,7 @@ class SolarHistory:
     @dates.setter
     def dates(self, dates):
         self._dates = dates
-    
+
     @property
     def values(self):
         values = [x if x is not None else 0 for x in self._values]
@@ -54,7 +55,7 @@ class SolarHistory:
         if len(values) == 0:
             return Value(0, 'Wh')
         return Value(sum(values)/len(values), 'Wh')
-    
+
     @property
     def min(self):
         values = list(filter(lambda x: x is not None, self._values))

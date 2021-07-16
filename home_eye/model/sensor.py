@@ -1,8 +1,9 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from flask.json import JSONEncoder
 from home_eye.model.value import Value
 
-class Sensor:   
+
+class Sensor:
     def __init__(self, name, temperature, humidity, updated):
         self.name = name
         self.temperature = Value(temperature, '°C')
@@ -16,16 +17,16 @@ class Sensor:
         return delta.total_seconds() // 3600
 
     def to_json(self):
-        result = { 'name': self.name, 
-            'temperature': self.temperature.to_json(), 
+        result = { 'name': self.name,
+            'temperature': self.temperature.to_json(),
             'humidity': self.humidity.to_json(),
-            'updated': self.updated.to_json(), 
-            'age': self.age }   
+            'updated': self.updated.to_json(),
+            'age': self.age }
         return result
 
     def __repr__(self):
-        return 'Sensor({}, {}, {}, {})'.format(self.name, self.temperature, self.humidity, self.updated)
-    
+        return str(self)
+
     def __str__(self):
         return 'Sensor({}, {}, {}, {})'.format(self.name, self.temperature, self.humidity, self.updated)
 
@@ -33,10 +34,10 @@ class Sensor:
 class SensorDecoder:
     @classmethod
     def decode(cls, dct):
-        if 'humidity' in dct and 'temperature' in dct: 
+        if 'humidity' in dct and 'temperature' in dct:
             return Sensor(dct['name'], dct['temperature'], dct['humidity'], datetime.strptime(dct['timestamp'], '%Y-%m-%d %H:%M:%S'))
         if 'min' in dct and 'max' in dct:
-            return dct    
+            return dct
 
 
 class ComplexEncoder(JSONEncoder):
@@ -58,7 +59,7 @@ class Status:
         return 'Status({}, {}, {}, {})'.format(self.count, self.size, self.oldest, self.newest)
 
     def __str__(self):
-        return 'Status({}, {}, {}, {})'.format(self.count, self.size, self.oldest, self.newest)        
+        return 'Status({}, {}, {}, {})'.format(self.count, self.size, self.oldest, self.newest)
 
 
 class StatusDecoder:
@@ -66,7 +67,7 @@ class StatusDecoder:
     def decode(cls, dct):
         if 'newest' in dct and 'oldest' in dct:
             oldest = datetime.strptime(dct['oldest'], '%Y-%m-%d %H:%M:%S')
-            newest = datetime.strptime(dct['newest'], '%Y-%m-%d %H:%M:%S')            
+            newest = datetime.strptime(dct['newest'], '%Y-%m-%d %H:%M:%S')
             return Status(dct['count'], dct['size'], oldest, newest)
 
 
@@ -77,15 +78,15 @@ class SensorHistory:
     @property
     def timestamps(self):
         return [x.updated.display_value for x in self._sensors]
-    
+
     @property
     def humidities(self):
         return [x.humidity.value for x in self._sensors]
-    
+
     @property
     def temperatures(self):
         return [x.temperature.value for x in self._sensors]
-    
+
     @property
     def humidity_avg(self):
         h = self.humidities
