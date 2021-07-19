@@ -9,7 +9,7 @@ class User:
         return self.password == password
 
     def authorize(self, access_level):
-        return True #self.access_level >= access_level
+        return True     # self.access_level >= access_level
 
     def is_authenticated(self):
         return True

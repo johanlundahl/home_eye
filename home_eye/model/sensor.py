@@ -17,25 +17,28 @@ class Sensor:
         return delta.total_seconds() // 3600
 
     def to_json(self):
-        result = { 'name': self.name,
-            'temperature': self.temperature.to_json(),
-            'humidity': self.humidity.to_json(),
-            'updated': self.updated.to_json(),
-            'age': self.age }
+        result = {'name': self.name,
+                  'temperature': self.temperature.to_json(),
+                  'humidity': self.humidity.to_json(),
+                  'updated': self.updated.to_json(),
+                  'age': self.age}
         return result
 
     def __repr__(self):
         return str(self)
 
     def __str__(self):
-        return 'Sensor({}, {}, {}, {})'.format(self.name, self.temperature, self.humidity, self.updated)
+        return (f'Sensor({self.name}, {self.temperature}, '
+                f'{self.humidity}, {self.updated})')
 
 
 class SensorDecoder:
     @classmethod
     def decode(cls, dct):
         if 'humidity' in dct and 'temperature' in dct:
-            return Sensor(dct['name'], dct['temperature'], dct['humidity'], datetime.strptime(dct['timestamp'], '%Y-%m-%d %H:%M:%S'))
+            time = datetime.strptime(dct['timestamp'], '%Y-%m-%d %H:%M:%S')
+            return Sensor(dct['name'], dct['temperature'],
+                          dct['humidity'], time)
         if 'min' in dct and 'max' in dct:
             return dct
 
@@ -43,7 +46,7 @@ class SensorDecoder:
 class ComplexEncoder(JSONEncoder):
 
     def default(self, o):
-        if hasattr(o,'to_json'):
+        if hasattr(o, 'to_json'):
             return o.to_json()
         return JSONEncoder.default(self, o)
 
@@ -56,10 +59,11 @@ class Status:
         self.newest = Value(newest)
 
     def __repr__(self):
-        return 'Status({}, {}, {}, {})'.format(self.count, self.size, self.oldest, self.newest)
+        return str(self)
 
     def __str__(self):
-        return 'Status({}, {}, {}, {})'.format(self.count, self.size, self.oldest, self.newest)
+        return (f'Status({self.count}, {self.size}, '
+                f'{self.oldest}, {self.newest})')
 
 
 class StatusDecoder:
@@ -98,7 +102,8 @@ class SensorHistory:
         return round(sum(t)/len(t), 1) if len(t) > 0 else 0
 
     def __repr__(self):
-        return 'SensorHistory({}, {}, {})'.format(len(self._sensors), self.humidity_avg, self.temperature_avg)
+        return str(self)
 
     def __str__(self):
-        return 'SensorHistory({}, {}, {})'.format(len(self._sensors), self.humidity_avg, self.temperature_avg)
+        return (f'SensorHistory({len(self._sensors)}, {self.humidity_avg}, '
+                f'{self.temperature_avg})')
