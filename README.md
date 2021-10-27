@@ -1,3 +1,6 @@
+[![Lint](https://github.com/johanlundahl/home_eye/actions/workflows/python-app.yml/badge.svg)](https://github.com/johanlundahl/home_eye/actions/workflows/python-app.yml)
+[![Test](https://github.com/johanlundahl/home_eye/actions/workflows/python-package.yml/badge.svg)](https://github.com/johanlundahl/home_eye/actions/workflows/python-package.yml)
+
 # Home Eye
 This project serves web pages that display sensor values. Sensor values are fetched from [Home Store](http://github.com/johanlundahl/home_store).
 
