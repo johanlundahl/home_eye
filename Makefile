@@ -15,7 +15,7 @@ run:
 	python3 -m home_eye.myapp
 
 test:
-	coverage run -m pytest tests/*_test.py
+	coverage run --source=. -m pytest tests/*_test.py
 
 cov:
 	coverage report
