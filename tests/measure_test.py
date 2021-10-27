@@ -13,6 +13,16 @@ class MeasureTest(unittest.TestCase):
         self.assertEqual(measure.value, 1000)
         self.assertEqual(measure.display, '1 kg')
 
+    def test_mega_prefix(self):
+        measure = Measure(3000000, 'b')
+        self.assertEqual(measure.value, 3000000)
+        self.assertEqual(measure.display, '3 Mb')
+
+    def test_giga_prefix(self):
+        measure = Measure(5500000000, 'b')
+        self.assertEqual(measure.value, 5500000000)
+        self.assertEqual(measure.display, '5.5 Gb')
+
 
 if __name__ == '__main__':
     unittest.main()
