@@ -1,4 +1,7 @@
 from datetime import datetime
+import warnings
+import numpy
+#from sklearn.linear_model import LinearRegression
 from home_eye.model.value import Value
 
 
@@ -67,6 +70,17 @@ class SolarHistory:
         if len(values) == 0:
             return Value(0, 'Wh')
         return Value(max(values), 'Wh')
+
+    @property
+    def angular_coefficient(self):
+        x = numpy.arange(1, len(self._values)+1)
+        y = numpy.array(self._values)
+        linear_fit = numpy.polyfit(x, y, 1)
+        return round(linear_fit[0], 2)
+
+    # linear fit
+    # y = mx + q
+    # Where “m” is called angular coefficient and “q” intercept. 
 
     @property
     def sum(self):

@@ -111,7 +111,7 @@ def v2_sensor_day(name):
 @http.validate_querystrings(method='GET', parameters=['date'])
 def v2_sensor_week(name):
     a_date = request.args['date'] if 'date' in request.args else Date().name
-    week = Week.parse(a_date)
+    week = Week.of(Date.parse(a_date))
 
     monday, sunday = week.range()
     history = sensor_proxy.get_days(name, first=monday, last=sunday)
@@ -128,13 +128,13 @@ def v2_sensor_week(name):
 def v2_sensor_month(name):
 
     first = (Date.parse(request.args['from']) if 'from' in request.args
-             else Month.current().range()[0])
+             else Month().range()[0])
     last = (Date.parse(request.args['to']) if 'to' in request.args
-            else Month.current().range()[1])
+            else Month().range()[1])
     history = sensor_proxy.get_days(name, first=first, last=last)
 
     link = '/v2/{}/month?from={}&to={}'
-    month = Month.create(first)
+    month = Month.of(first)
     prev_link = link.format(name, *month.prev().range())
     next_link = link.format(name, *month.next().range())
     nav = Navigation(month.name, prev_link, next_link)

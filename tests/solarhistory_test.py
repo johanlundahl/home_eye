@@ -55,6 +55,24 @@ class SolarTest(unittest.TestCase):
         sh = SolarHistory(dates, values)
         self.assertEqual(sh.sum.value, 25)
 
+    def test_beta_positive(self):
+        dates = ['2021-11-{:02d}'.format(x) for x in range(1, 5, 1)]
+        values = [1, 2, 3, 4]
+        sh = SolarHistory(dates, values)
+        self.assertEqual(sh.angular_coefficient, 1)
+
+    def test_beta_neutral(self):
+        dates = ['2021-11-{:02d}'.format(x) for x in range(1, 7, 1)]
+        values = [1, 1, 1, 1, 1, 1]
+        sh = SolarHistory(dates, values)
+        self.assertEqual(sh.angular_coefficient, 0)
+
+    def test_beta_negative(self):
+        dates = ['2021-11-{:02d}'.format(x) for x in range(1, 5, 1)]
+        values = [4, 3, 2, 1]
+        sh = SolarHistory(dates, values)
+        self.assertEqual(sh.angular_coefficient, -1)
+
 
 if __name__ == '__main__':
     unittest.main()
