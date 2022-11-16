@@ -155,16 +155,16 @@ def solar_today():
 @login_required
 def solar_month():
     first = (Date.parse(request.args['from']) if 'from' in request.args
-             else Month.current().range()[0])
+             else Month().range()[0])
     last = (Date.parse(request.args['to']) if 'to' in request.args
-            else Month.current().range()[1])
+            else Month().range()[1])
 
     solar_history = solar_proxy.get_energy_history(first.name, last.name)
-    solar_history.dates = ([Date.parse(x).datetime.day
+    solar_history.dates = ([Date.parse(x).number
                            for x in solar_history.dates])
 
     link = '/v2/energy/production/month?from={}&to={}'
-    month = Month.create(first)
+    month = Month.of(first)
     prev_link = link.format(*month.prev().range())
     next_link = link.format(*month.next().range())
     nav = Navigation(month.name, prev_link, next_link)
@@ -175,7 +175,7 @@ def solar_month():
 @app.route('/v2/energy/production/year', methods=['GET'])
 @login_required
 def solar_year():
-    year = Year.current()
+    year = Year.now()
     first = (Date.parse(request.args['from']) if 'from' in request.args
              else year.range()[0])
     last = (Date.parse(request.args['to']) if 'to' in request.args
@@ -183,11 +183,11 @@ def solar_year():
 
     solar_history = solar_proxy.get_energy_history(first.name, last.name,
                                                    time_unit=TimeUnit.MONTH)
-    solar_history.dates = ([Date.parse(x).datetime.month
+    solar_history.dates = ([Date.parse(x).number
                            for x in solar_history.dates])
 
     link = '/v2/energy/production/year?from={}&to={}'
-    year = Year.create(first)
+    year = Year.of(first)
     prev_link = link.format(*year.prev().range())
     next_link = link.format(*year.next().range())
     nav = Navigation(year.name, prev_link, next_link)
