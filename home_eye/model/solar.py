@@ -1,7 +1,6 @@
 from datetime import datetime
-import warnings
 import numpy
-#from sklearn.linear_model import LinearRegression
+# from sklearn.linear_model import LinearRegression
 from home_eye.model.value import Value
 
 
@@ -80,7 +79,7 @@ class SolarHistory:
 
     # linear fit
     # y = mx + q
-    # Where “m” is called angular coefficient and “q” intercept. 
+    # Where “m” is called angular coefficient and “q” intercept.
 
     @property
     def sum(self):
