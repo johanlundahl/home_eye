@@ -9,3 +9,6 @@ pyyaml
 pytest
 coverage
 quantiphy
+numpy
+sklearn
+coveralls
