@@ -20,6 +20,7 @@ test:
 cov:
 	coverage report
 	coverage html
+	coveralls
 
 lint:
 	flake8 --statistics --count
